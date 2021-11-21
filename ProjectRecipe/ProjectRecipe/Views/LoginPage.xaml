@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ProjectRecipe"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:ProjectRecipe"
+             x:Class="ProjectRecipe.Views.LoginPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid
+            ColumnSpacing="0"
+            RowSpacing="0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                Spacing="0">
+                <Image Grid.Row="0" 
+                       Source="{local:ImageResource ProjectRecipe.Assets.Images.Logo.png}" />
+            </StackLayout>
+            <StackLayout
+                Grid.Row="1"
+                Padding="16"
+                Spacing="0">
+                <Label
+                    Padding="16,24,0,7"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Username"
+                    TextColor="#121212" />
+                <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="Android" Value="4" />
+                            <On Platform="iOS" Value="4" />
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    <controls:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="Esmeralda"
+                        Text="{Binding username}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                </Frame>
+                <Label
+                    Padding="16,16,0,7"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Password"
+                    TextColor="#121212" />
+                <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="Android" Value="4" />
+                            <On Platform="iOS" Value="4" />
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    <StackLayout
+                        Padding="16,0"
+                        HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <controls:CustomEntry
+                            FontFamily="LatoRegular"
+                            FontSize="14"
+                            HeightRequest="44"
+                            HorizontalOptions="FillAndExpand"
+                            IsPassword="{Binding isPassword}"
+                            Placeholder="**********"
+                            Text="{Binding password}"
+                            TextColor="#121212"
+                            VerticalOptions="Center"/>
+                        <Image
+                            HeightRequest="24"
+                            WidthRequest="24"
+                            xct:TouchEffect.Command="{Binding ShowHidePasswordCommand}"
+                            xct:TouchEffect.PressedAnimationDuration="100"
+                            xct:TouchEffect.PressedScale="0.95"
+                            xct:TouchEffect.AnimationDuration="100"/>
+                    </StackLayout>
+                </Frame>
+                <Label
+                    Padding="0,5,0,21"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="End"
+                    Text="Forgot Password"
+                    TextColor="#5A5D73"
+                    xct:TouchEffect.Command="{Binding ForgotPasswordNavigationCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100"/>
+                <Frame
+                    Padding="0"
+                    BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
+                    HasShadow="False"
+                    HeightRequest="44"
+                    xct:TouchEffect.Command="{Binding LoginCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100">
+                    <Frame.CornerRadius>
+                        <OnPlatform x:TypeArguments="x:Single">
+                            <On Platform="Android" Value="4" />
+                            <On Platform="iOS" Value="4" />
+                        </OnPlatform>
+                    </Frame.CornerRadius>
+                    <controls:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoMedium"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
+                        IsReadOnly="True"
+                        Text="Log In"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </Frame>
+            </StackLayout>
+
+            <Grid
+                Grid.Row="2"
+                Padding="16,26,16,0"
+                ColumnSpacing="0"
+                RowSpacing="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Column="0"
+                    BackgroundColor="#121212"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.2"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="10,0,10,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    Text="OR"
+                    TextColor="#121212"
+                    VerticalOptions="Center" />
+                <BoxView
+                    Grid.Column="2"
+                    BackgroundColor="#121212"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand"
+                    Opacity="0.2"
+                    VerticalOptions="Center" />
+            </Grid>
+            <StackLayout
+                Grid.Row="3"
+                Padding="0,24,0,0"
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Spacing="0">
+                <Image
+                    Margin="0,0,16,0"
+                    HeightRequest="34"
+                    Source="ic_twitter.png"
+                    WidthRequest="34"
+                    xct:TouchEffect.Command="{Binding LoginCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100"/>
+                <Image
+                    Margin="0,0,16,0"
+                    HeightRequest="34"
+                    Source="ic_google.png"
+                    WidthRequest="34"
+                    xct:TouchEffect.Command="{Binding GoogleLoginCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100"/>
+                <Image
+                    HeightRequest="34"
+                    Source="ic_facebook.png"
+                    WidthRequest="34"
+                    xct:TouchEffect.Command="{Binding FacebookLoginCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100"/>
+            </StackLayout>
+            <Label
+                Grid.Row="4"
+                Padding="37"
+                FontFamily="LatoMedium"
+                HorizontalOptions="CenterAndExpand"
+                Text="Don't have an account? Create now"
+                TextColor="#D09A25"
+                VerticalOptions="EndAndExpand"
+                xct:TouchEffect.Command="{Binding RegistrationNavigationCommand}"
+                xct:TouchEffect.PressedAnimationDuration="100"
+                xct:TouchEffect.PressedScale="0.95"
+                xct:TouchEffect.AnimationDuration="100"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
