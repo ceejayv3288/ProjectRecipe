@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:ProjectRecipe.Views"
+       xmlns:local="clr-namespace:ProjectRecipe"
+       x:Class="ProjectRecipe.AppShell"
+       NavigationPage.HasNavigationBar="False"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarIsVisible="False"
+       x:Name="Shell">
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="0.2*,0.8*">
+                <Image Source="{Binding Icon}"
+                       Margin="5"
+                       HeightRequest="45" />
+                <Label Grid.Column="1"
+                       Text="{Binding Title}"
+                       FontAttributes="Italic"
+                       TextColor="Red"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="POPULAR RECIPES"
+                      Icon="monkey.png"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="SAVED RECIPES"
+                      Icon="elephant.png"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="SHOPPING LIST"
+                      Icon="bear.png"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="SETTINGS"
+                      Icon="bear.png"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+    </FlyoutItem>
+</Shell>

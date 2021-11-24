@@ -1,12 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ProjectRecipe.Views.PopularRecipesPage">
+             xmlns:local="clr-namespace:ProjectRecipe"
+             x:Class="ProjectRecipe.Views.PopularRecipesPage"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout x:Name="Header" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,10">
+                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.hamburger-menu.png}"
+                       HorizontalOptions="Start"
+                       HeightRequest="18"
+                       WidthRequest="24">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenFlyoutMenuCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="Popular Recipes" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" TextColor="{StaticResource Key=PrimaryButtonColor}" FontSize="22"/>
+                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"
+                       HorizontalOptions="Start"
+                   HeightRequest="18"
+                   WidthRequest="24"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
