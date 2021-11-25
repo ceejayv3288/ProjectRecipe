@@ -6,34 +6,102 @@
        x:Class="ProjectRecipe.AppShell"
        NavigationPage.HasNavigationBar="False"
        Shell.NavBarIsVisible="False"
-       Shell.TabBarIsVisible="False"
+       Shell.TabBarIsVisible="True"
        x:Name="Shell">
+    <Shell.Resources>
+        <!--Flyout Item Style-->
+        <Style x:Key="FlyoutItemStyle" TargetType="Layout">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <!--<Setter Property="BackgroundColor" Value="{x:OnPlatform Android=#F2F2F2, iOS=#F2F2F2}" />-->
+                                <Setter TargetName="FlyoutItemLayout" Property="BackgroundColor" Value="{x:OnPlatform Android=#F2F2F2, iOS=#F2F2F2}"/>
+                                <Setter TargetName="FlyoutItemImage" Property="Image.Source" Value="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"/>
+                                <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="Black"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </Shell.Resources>
+    <Shell.FlyoutBackdrop>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#8A2387"
+                          Offset="0.1" />
+            <GradientStop Color="#E94057"
+                          Offset="0.6" />
+            <GradientStop Color="#F27121"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </Shell.FlyoutBackdrop>
     <Shell.ItemTemplate>
         <DataTemplate>
-            <Grid ColumnDefinitions="0.2*,0.8*">
-                <Image Source="{Binding Icon}"
+            <Grid x:Name="FlyoutItemLayout" 
+                  Style="{StaticResource FlyoutItemStyle}"
+                  ColumnDefinitions="0.2*,0.8*">
+                <Image x:Name="FlyoutItemImage" 
+                       Source="{Binding Icon}"
                        Margin="5"
                        HeightRequest="45" />
-                <Label Grid.Column="1"
+                <Label x:Name="FlyoutItemLabel" 
+                       Grid.Column="1"
                        Text="{Binding Title}"
                        FontAttributes="Italic"
                        TextColor="Red"
-                       VerticalTextAlignment="Center" />
+                       VerticalTextAlignment="Center"/>
             </Grid>
         </DataTemplate>
     </Shell.ItemTemplate>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+
+    <FlyoutItem Title="POPULAR RECIPES" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
         <ShellContent Title="POPULAR RECIPES"
-                      Icon="monkey.png"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
-        <ShellContent Title="SAVED RECIPES"
-                      Icon="elephant.png"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
-        <ShellContent Title="SHOPPING LIST"
-                      Icon="bear.png"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
-        <ShellContent Title="SETTINGS"
-                      Icon="bear.png"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
                       ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="SAVED RECIPES" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
+        <ShellContent Title="POPULAR RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+    </FlyoutItem>
+    <FlyoutItem Title="SHOPPING LIST" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
+        <ShellContent Title="POPULAR RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+    </FlyoutItem>
+    <!--With tabs-->
+    <FlyoutItem Title="SETTINGS" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
+        <ShellContent Title="POPULAR RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="POPULAR RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+    </FlyoutItem>
+
+    <!--Without tabs-->
+    <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="POPULAR RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="SAVED RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="SHOPPING LIST"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+        <ShellContent Title="SETTINGS"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+    </FlyoutItem>-->
+
+    <!-- Menu Sample -->
+    <!--<MenuItem Text="Help"
+              IconImageSource="help.png"
+              Command="{Binding HelpCommand}"
+              CommandParameter="https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell" />-->
 </Shell>
