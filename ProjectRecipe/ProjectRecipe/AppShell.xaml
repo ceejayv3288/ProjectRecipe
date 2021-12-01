@@ -58,29 +58,36 @@
         </DataTemplate>
     </Shell.ItemTemplate>
 
+    <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
+        <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"/>
+    </ShellItem>
+
     <FlyoutItem Title="POPULAR RECIPES" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
         <ShellContent Title="POPULAR RECIPES"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}"
+                      Route="PopularRecipesPage"/>
     </FlyoutItem>
     <FlyoutItem Title="SAVED RECIPES" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
-        <ShellContent Title="POPULAR RECIPES"
+        <ShellContent Title="SAVED RECIPES"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}"
+                      Route="SavedRecipesPage"/>
     </FlyoutItem>
     <FlyoutItem Title="SHOPPING LIST" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
-        <ShellContent Title="POPULAR RECIPES"
+        <ShellContent Title="SHOPPING LIST"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}"
+                      Route="ShoppingListPage"/>
     </FlyoutItem>
     <!--With tabs-->
     <FlyoutItem Title="SETTINGS" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
         <ShellContent Title="POPULAR RECIPES"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}"/>
         <ShellContent Title="POPULAR RECIPES"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}" />
+                      ContentTemplate="{DataTemplate views:PopularRecipesPage}"/>
     </FlyoutItem>
 
     <!--Without tabs-->

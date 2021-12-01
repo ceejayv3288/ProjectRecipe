@@ -5,7 +5,8 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:local="clr-namespace:ProjectRecipe"
              x:Class="ProjectRecipe.Views.LoginPage"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
         <Grid
             ColumnSpacing="0"

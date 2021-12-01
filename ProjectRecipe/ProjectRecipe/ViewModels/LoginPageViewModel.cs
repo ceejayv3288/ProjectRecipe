@@ -17,7 +17,7 @@ namespace ProjectRecipe.ViewModels
 
         public void ExecuteLoginCommand()
         {
-            App.Current.MainPage = new AppShell();
+            Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
         }
     }
 }
