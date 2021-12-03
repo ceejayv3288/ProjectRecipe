@@ -10,6 +10,40 @@
             <Color x:Key="PageBackgroundColorQuaternary">#ebebeb</Color>
             <Color x:Key="PrimaryButtonColor">#FF7D7D</Color>
             <FileImageSource x:Key="menu" File="hamburger_menu_light.png" />
+
+            <!--Carousel Item Style-->
+            <Style x:Key="CarouselItemStyle" TargetType="StackLayout">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="CurrentItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale"
+                                        Value="1.1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PreviousItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity"
+                                        Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="NextItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity"
+                                        Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="DefaultItem">
+                                <VisualState.Setters>
+                                    <Setter Property="Opacity"
+                                        Value="0.25" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

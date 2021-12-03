@@ -5,7 +5,7 @@
              x:Class="ProjectRecipe.Views.PopularRecipesPage"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <StackLayout x:Name="Header" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,10">
                 <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.hamburger-menu.png}"
                        HorizontalOptions="Start"
@@ -18,9 +18,33 @@
                 <Label Text="Popular Recipes" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" TextColor="{StaticResource Key=PrimaryButtonColor}" FontSize="22"/>
                 <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"
                        HorizontalOptions="Start"
-                   HeightRequest="18"
-                   WidthRequest="24"/>
+                       HeightRequest="18"
+                       WidthRequest="24"/>
             </StackLayout>
+            <CarouselView ItemsSource="{Binding PopularRecipesList}"
+                          PeekAreaInsets="90"
+                          Margin="0"
+                          HeightRequest="250">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Style="{StaticResource CarouselItemStyle}">
+                            <Frame HasShadow="True"
+                                   BorderColor="DarkGray"
+                                   CornerRadius="12"
+                                   Padding="0"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="CenterAndExpand">
+                                <Image Source="{Binding Image}"
+                                       HeightRequest="200"
+                                       WidthRequest="200"
+                                       Margin="0"
+                                       BackgroundColor="Beige"
+                                       HorizontalOptions="Center" />
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
