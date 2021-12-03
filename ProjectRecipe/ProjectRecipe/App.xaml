@@ -12,7 +12,7 @@
             <FileImageSource x:Key="menu" File="hamburger_menu_light.png" />
 
             <!--Carousel Item Style-->
-            <Style x:Key="CarouselItemStyle" TargetType="StackLayout">
+            <Style x:Key="CarouselItemStyle" TargetType="Layout">
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
