@@ -14,12 +14,20 @@
     <None Remove="Assets\Images\hamburger-menu.png" />
     <None Remove="Assets\Images\Logo.png" />
     <None Remove="Assets\Images\search-icon.png" />
+    <None Remove="Resources\Fonts\Raleway-Bold.ttf" />
+    <None Remove="Resources\Fonts\Raleway-ExtraBold.ttf" />
+    <None Remove="Resources\Fonts\Raleway-Italic.ttf" />
+    <None Remove="Resources\Fonts\Raleway-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\hamburger-menu.png" />
     <EmbeddedResource Include="Assets\Images\logo.png" />
     <EmbeddedResource Include="Assets\Images\search-icon.png" />
+    <EmbeddedResource Include="Resources\Fonts\Raleway-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Raleway-ExtraBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Raleway-Italic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Raleway-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
