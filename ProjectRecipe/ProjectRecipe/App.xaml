@@ -4,11 +4,9 @@
              x:Class="ProjectRecipe.App">
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="PageBackgroundColor">#F8F8F8</Color>
-            <Color x:Key="PageBackgroundColorSecondary">#FFFFFF</Color>
-            <Color x:Key="PageBackgroundColorTertiary">#f0f0f0</Color>
-            <Color x:Key="PageBackgroundColorQuaternary">#ebebeb</Color>
             <Color x:Key="PrimaryButtonColor">#FF7D7D</Color>
+            <Color x:Key="HeaderFontColor">#EB5757</Color>
+            <Color x:Key="FlyoutFontColor">#375262</Color>
             <FileImageSource x:Key="menu" File="hamburger_menu_light.png" />
 
             <!--Carousel Item Style-->

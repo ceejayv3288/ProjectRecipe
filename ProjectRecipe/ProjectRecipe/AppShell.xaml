@@ -7,6 +7,7 @@
        NavigationPage.HasNavigationBar="False"
        Shell.NavBarIsVisible="False"
        Shell.TabBarIsVisible="True"
+       FlyoutBackgroundColor="{StaticResource PrimaryButtonColor}"
        x:Name="Shell">
     <Shell.Resources>
         <!--Flyout Item Style-->
@@ -17,11 +18,14 @@
                         <VisualState x:Name="Normal" />
                         <VisualState x:Name="Selected">
                             <VisualState.Setters>
-                                <!--<Setter Property="BackgroundColor" Value="{x:OnPlatform Android=#F2F2F2, iOS=#F2F2F2}" />-->
+                                <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Key=FlyoutFontColor}"/>
+                                <Setter TargetName="FlyoutItemIndicatorImage" Property="Image.IsVisible" Value="True"/>
+                            </VisualState.Setters>
+                            <!--<VisualState.Setters>
                                 <Setter TargetName="FlyoutItemLayout" Property="BackgroundColor" Value="{x:OnPlatform Android=#F2F2F2, iOS=#F2F2F2}"/>
                                 <Setter TargetName="FlyoutItemImage" Property="Image.Source" Value="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"/>
-                                <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="Black"/>
-                            </VisualState.Setters>
+                                <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Key=FlyoutFontColor}"/>
+                            </VisualState.Setters>-->
                         </VisualState>
                     </VisualStateGroup>
                 </VisualStateGroupList>
@@ -41,7 +45,25 @@
     </Shell.FlyoutBackdrop>
     <Shell.ItemTemplate>
         <DataTemplate>
-            <Grid x:Name="FlyoutItemLayout" 
+            <StackLayout x:Name="FlyoutItemLayout" 
+                         Style="{StaticResource FlyoutItemStyle}"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         HeightRequest="50">
+                <Label x:Name="FlyoutItemLabel" 
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Text="{Binding Title}"
+                       FontSize="20"
+                       TextColor="White"
+                       FontFamily="RalewayExtraBold"
+                       VerticalTextAlignment="Center"/>
+                <Image x:Name="FlyoutItemIndicatorImage" 
+                       Source="{local:ImageResource ProjectRecipe.Assets.Images.flyout-item-line.png}"
+                       WidthRequest="30"
+                       IsVisible="False"/>
+            </StackLayout>
+            <!--<Grid x:Name="FlyoutItemLayout" 
                   Style="{StaticResource FlyoutItemStyle}"
                   ColumnDefinitions="0.2*,0.8*">
                 <Image x:Name="FlyoutItemImage" 
@@ -51,12 +73,41 @@
                 <Label x:Name="FlyoutItemLabel" 
                        Grid.Column="1"
                        Text="{Binding Title}"
-                       FontAttributes="Italic"
-                       TextColor="Red"
+                       FontFamily="RalewayRegular"
                        VerticalTextAlignment="Center"/>
-            </Grid>
+            </Grid>-->
         </DataTemplate>
     </Shell.ItemTemplate>
+
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="{StaticResource PrimaryButtonColor}"
+              HeightRequest="200">
+            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.circle-image.png}"
+                   Margin="18"
+                   Aspect="AspectFit"/>
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <Frame CornerRadius="40"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="EndAndExpand"
+                       Padding="0">
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.remy-avatar.jpeg}"
+                           HeightRequest="75"
+                           WidthRequest="75"/>
+                </Frame>
+                <Label Text="REMY"
+                       MaxLines="3"
+                       WidthRequest="100"
+                       CharacterSpacing="0.75"
+                       FontSize="16"
+                       TextColor="{StaticResource FlyoutFontColor}"
+                       FontFamily="RalewayBold"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="StartAndExpand"
+                       HorizontalTextAlignment="Center"/>
+            </StackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
 
     <ShellItem Route="LoginPage" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"/>
@@ -111,4 +162,32 @@
               IconImageSource="help.png"
               Command="{Binding HelpCommand}"
               CommandParameter="https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell" />-->
+
+
+    <Shell.FlyoutFooter>
+        <StackLayout Padding="0,0,0,20">
+            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.logo-white.png}"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   HeightRequest="50"
+                   WidthRequest="50"/>
+            <StackLayout HorizontalOptions="CenterAndExpand"
+                         VerticalOptions="CenterAndExpand"
+                         Spacing="0">
+                <Label Text="CHEF"
+                       HorizontalOptions="CenterAndExpand"
+                       FontSize="15"
+                       TextColor="White"
+                       FontFamily="RalewayBold"
+                       CharacterSpacing="3"/>
+                <Label Text="RECIPES"
+                       HorizontalOptions="CenterAndExpand"
+                       FontSize="10"
+                       TextColor="White"
+                       FontFamily="RalewayRegular"
+                       CharacterSpacing="2"/>
+            </StackLayout>
+        </StackLayout>
+    </Shell.FlyoutFooter>
+
 </Shell>

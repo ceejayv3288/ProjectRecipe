@@ -28,7 +28,9 @@
                 HorizontalOptions="Center"
                 Spacing="0">
                 <Image Grid.Row="0" 
-                       Source="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}" />
+                       Source="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                       HeightRequest="100"
+                       WidthRequest="100"/>
             </StackLayout>
             <StackLayout
                 Grid.Row="1"

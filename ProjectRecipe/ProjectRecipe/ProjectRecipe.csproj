@@ -11,8 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\circle-image.png" />
+    <None Remove="Assets\Images\flyout-item-line.png" />
     <None Remove="Assets\Images\hamburger-menu.png" />
-    <None Remove="Assets\Images\Logo.png" />
+    <None Remove="Assets\Images\logo-white.png" />
+    <None Remove="Assets\Images\logo.png" />
+    <None Remove="Assets\Images\remy-avatar.jpeg" />
     <None Remove="Assets\Images\search-icon.png" />
     <None Remove="Resources\Fonts\Raleway-Bold.ttf" />
     <None Remove="Resources\Fonts\Raleway-ExtraBold.ttf" />
@@ -21,8 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\circle-image.png" />
+    <EmbeddedResource Include="Assets\Images\flyout-item-line.png" />
     <EmbeddedResource Include="Assets\Images\hamburger-menu.png" />
+    <EmbeddedResource Include="Assets\Images\logo-white.png" />
     <EmbeddedResource Include="Assets\Images\logo.png" />
+    <EmbeddedResource Include="Assets\Images\remy-avatar.jpeg" />
     <EmbeddedResource Include="Assets\Images\search-icon.png" />
     <EmbeddedResource Include="Resources\Fonts\Raleway-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Raleway-ExtraBold.ttf" />
