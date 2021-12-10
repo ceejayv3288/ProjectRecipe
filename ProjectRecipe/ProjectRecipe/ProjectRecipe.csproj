@@ -14,6 +14,8 @@
     <None Remove="Assets\Images\circle-image.png" />
     <None Remove="Assets\Images\flyout-item-line.png" />
     <None Remove="Assets\Images\hamburger-menu.png" />
+    <None Remove="Assets\Images\heart-icon-red.png" />
+    <None Remove="Assets\Images\heart-icon-white.png" />
     <None Remove="Assets\Images\logo-white.png" />
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\remy-avatar.jpeg" />
@@ -28,6 +30,8 @@
     <EmbeddedResource Include="Assets\Images\circle-image.png" />
     <EmbeddedResource Include="Assets\Images\flyout-item-line.png" />
     <EmbeddedResource Include="Assets\Images\hamburger-menu.png" />
+    <EmbeddedResource Include="Assets\Images\heart-icon-red.png" />
+    <EmbeddedResource Include="Assets\Images\heart-icon-white.png" />
     <EmbeddedResource Include="Assets\Images\logo-white.png" />
     <EmbeddedResource Include="Assets\Images\logo.png" />
     <EmbeddedResource Include="Assets\Images\remy-avatar.jpeg" />

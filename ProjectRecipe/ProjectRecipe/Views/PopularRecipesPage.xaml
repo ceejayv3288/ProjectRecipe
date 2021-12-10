@@ -15,7 +15,12 @@
                         <TapGestureRecognizer Command="{Binding OpenFlyoutMenuCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <Label Text="Popular Recipes" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" TextColor="{StaticResource Key=PrimaryButtonColor}" FontSize="22"/>
+                <Label VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" 
+                       Text="POPULAR RECIPES" 
+                       FontFamily="RalewayExtraBold"
+                       TextColor="{StaticResource HeaderFontColor}" 
+                       FontSize="18"/>
                 <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"
                        HorizontalOptions="Start"
                        HeightRequest="18"
@@ -28,19 +33,30 @@
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Style="{StaticResource CarouselItemStyle}">
-                            <Frame HasShadow="True"
-                                   BorderColor="DarkGray"
-                                   CornerRadius="12"
-                                   Padding="0"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="CenterAndExpand">
-                                <Image Source="{Binding Image}"
-                                       HeightRequest="200"
-                                       WidthRequest="200"
-                                       Margin="0"
-                                       BackgroundColor="Beige"
-                                       HorizontalOptions="Center" />
-                            </Frame>
+                            <Grid RowSpacing="0" ColumnSpacing="0" 
+                                  HeightRequest="300">
+                                <Frame HasShadow="False"
+                                       BorderColor="DarkGray"
+                                       CornerRadius="12"
+                                       Padding="0"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="CenterAndExpand">
+                                    <Grid>
+                                        <Image Source="{Binding Image}"
+                                               HeightRequest="200"
+                                               WidthRequest="200"
+                                               Margin="0"
+                                               BackgroundColor="Beige"
+                                               HorizontalOptions="Center"/>
+                                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-icon-red.png}"
+                                               HeightRequest="20"
+                                               WidthRequest="20"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="Start"
+                                               Margin="0,5,5,0"/>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
                         </StackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
