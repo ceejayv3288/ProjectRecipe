@@ -5,62 +5,170 @@
              x:Class="ProjectRecipe.Views.PopularRecipesPage"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <StackLayout x:Name="Header" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,10">
-                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.hamburger-menu.png}"
+        <ScrollView>
+            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <StackLayout x:Name="Header" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,10">
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.hamburger-menu.png}"
                        HorizontalOptions="Start"
                        HeightRequest="18"
                        WidthRequest="24">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding OpenFlyoutMenuCommand}"/>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label VerticalOptions="CenterAndExpand" 
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenFlyoutMenuCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Label VerticalOptions="CenterAndExpand" 
                        HorizontalOptions="CenterAndExpand" 
                        Text="POPULAR RECIPES" 
                        FontFamily="RalewayExtraBold"
                        TextColor="{StaticResource HeaderFontColor}" 
                        FontSize="18"/>
-                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"
                        HorizontalOptions="Start"
                        HeightRequest="18"
                        WidthRequest="24"/>
-            </StackLayout>
-            <CarouselView ItemsSource="{Binding PopularRecipesList}"
+                </StackLayout>
+                <Grid ColumnDefinitions="0.3*,0.2*,0.3*"
+                         HorizontalOptions="CenterAndExpand"
+                         Margin="0,40,0,0">
+                    <Label Grid.Column="0" 
+                       Text="APPERTIZERS"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="End"
+                       FontFamily="RalewayBold"
+                       TextColor="#737373"
+                       FontSize="15"/>
+                    <Label Grid.Column="1"
+                       Text="ENTREES"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontFamily="RalewayBold"
+                       TextColor="#000000"
+                       FontSize="20"/>
+                    <Label Grid.Column="2"
+                       Text="DESSERT"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Start"
+                       FontFamily="RalewayBold"
+                       TextColor="#737373"
+                       FontSize="15"/>
+                </Grid>
+                <CarouselView ItemsSource="{Binding PopularRecipesList}"
                           PeekAreaInsets="90"
                           Margin="0"
                           HeightRequest="250">
-                <CarouselView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Style="{StaticResource CarouselItemStyle}">
-                            <Grid RowSpacing="0" ColumnSpacing="0" 
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Style="{StaticResource CarouselItemStyle}">
+                                <Grid RowSpacing="0" ColumnSpacing="0" 
                                   HeightRequest="300">
-                                <Frame HasShadow="False"
+                                    <Frame HasShadow="False"
                                        BorderColor="DarkGray"
                                        CornerRadius="12"
                                        Padding="0"
                                        HorizontalOptions="Center"
                                        VerticalOptions="CenterAndExpand">
-                                    <Grid>
-                                        <Image Source="{Binding Image}"
+                                        <Grid>
+                                            <Image Source="{Binding Image}"
                                                HeightRequest="200"
                                                WidthRequest="200"
                                                Margin="0"
                                                BackgroundColor="Beige"
                                                HorizontalOptions="Center"/>
-                                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-icon-red.png}"
+                                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-icon-red.png}"
                                                HeightRequest="20"
                                                WidthRequest="20"
                                                HorizontalOptions="End"
                                                VerticalOptions="Start"
                                                Margin="0,5,5,0"/>
-                                    </Grid>
-                                </Frame>
-                            </Grid>
-                        </StackLayout>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
-        </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand">
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                       HeightRequest="17"
+                       WidthRequest="17"/>
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                       HeightRequest="17"
+                       WidthRequest="17"/>
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                       HeightRequest="17"
+                       WidthRequest="17"/>
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
+                       HeightRequest="17"
+                       WidthRequest="17"/>
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
+                       HeightRequest="17"
+                       WidthRequest="17"/>
+                </StackLayout>
+                <Label HorizontalOptions="CenterAndExpand"
+                   Margin="0,0,0,10"
+                   Text="Prime Rib Roast"
+                   FontSize="25"
+                   FontFamily="RalewayExtraBold"
+                   TextColor="#19597D"/>
+                <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Spacing="40">
+                    <StackLayout Orientation="Horizontal"
+                             Spacing="5">
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.clock-icon.png}"
+                       HeightRequest="20"
+                       WidthRequest="20"/>
+                        <Label 
+                       Text="5HR"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontFamily="Raleway"
+                       TextColor="#000000"
+                       FontSize="18"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                             Spacing="5">
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-outline.png}"
+                       HeightRequest="20"
+                       WidthRequest="20"/>
+                        <Label
+                       Text="685"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontFamily="Raleway"
+                       TextColor="#000000"
+                       FontSize="18"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                             Spacing="5">
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.comment-icon.png}"
+                       HeightRequest="20"
+                       WidthRequest="20"/>
+                        <Label Text="107"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       FontFamily="Raleway"
+                       TextColor="#000000"
+                       FontSize="18"/>
+                    </StackLayout>
+                </StackLayout>
+                <Label Margin="20,5"
+                   HorizontalTextAlignment="Center"
+                       FontSize="16"
+                   LineHeight="1.2"
+                   FontFamily="Raleway"
+                   TextColor="#454444"
+                   Text="The Prime Rib Roast is a classic and tender cut of beef taken from the rib primal cut.  Learn how to make the perfect prime rib roast to serve your family and friends.  Check out What's Cooking America's award-winning Classic Prime Rib Roast recipe and photo tutorial to help you make the Perfect Prime Rib Roast."/>
+                <Label Margin="20,5"
+                   HorizontalTextAlignment="Center"
+                        FontSize="16"
+                   LineHeight="1.2"
+                   FontFamily="Raleway"
+                   TextColor="#454444"
+                   Text="The Prime Rib Roast is a classic and tender cut of beef taken from the rib primal cut.  Learn how to make the perfect prime rib roast to serve your family and friends.  Check out What's Cooking America's award-winning Classic Prime Rib Roast recipe and photo tutorial to help you make the Perfect Prime Rib Roast."/>
+            </StackLayout>
+        </ScrollView>
+        
     </ContentPage.Content>
 </ContentPage>

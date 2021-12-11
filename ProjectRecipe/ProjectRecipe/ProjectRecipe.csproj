@@ -12,14 +12,20 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\circle-image.png" />
+    <None Remove="Assets\Images\clock-icon.png" />
+    <None Remove="Assets\Images\comment-icon.png" />
     <None Remove="Assets\Images\flyout-item-line.png" />
     <None Remove="Assets\Images\hamburger-menu.png" />
     <None Remove="Assets\Images\heart-icon-red.png" />
     <None Remove="Assets\Images\heart-icon-white.png" />
+    <None Remove="Assets\Images\heart-outline.png" />
     <None Remove="Assets\Images\logo-white.png" />
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\remy-avatar.jpeg" />
     <None Remove="Assets\Images\search-icon.png" />
+    <None Remove="Assets\Images\star-filled.png" />
+    <None Remove="Assets\Images\star-half-filled.png" />
+    <None Remove="Assets\Images\star-unfilled.png" />
     <None Remove="Resources\Fonts\Raleway-Bold.ttf" />
     <None Remove="Resources\Fonts\Raleway-ExtraBold.ttf" />
     <None Remove="Resources\Fonts\Raleway-Italic.ttf" />
@@ -28,14 +34,20 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\Images\circle-image.png" />
+    <EmbeddedResource Include="Assets\Images\clock-icon.png" />
+    <EmbeddedResource Include="Assets\Images\comment-icon.png" />
     <EmbeddedResource Include="Assets\Images\flyout-item-line.png" />
     <EmbeddedResource Include="Assets\Images\hamburger-menu.png" />
     <EmbeddedResource Include="Assets\Images\heart-icon-red.png" />
     <EmbeddedResource Include="Assets\Images\heart-icon-white.png" />
+    <EmbeddedResource Include="Assets\Images\heart-outline.png" />
     <EmbeddedResource Include="Assets\Images\logo-white.png" />
     <EmbeddedResource Include="Assets\Images\logo.png" />
     <EmbeddedResource Include="Assets\Images\remy-avatar.jpeg" />
     <EmbeddedResource Include="Assets\Images\search-icon.png" />
+    <EmbeddedResource Include="Assets\Images\star-filled.png" />
+    <EmbeddedResource Include="Assets\Images\star-half-filled.png" />
+    <EmbeddedResource Include="Assets\Images\star-unfilled.png" />
     <EmbeddedResource Include="Resources\Fonts\Raleway-Bold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Raleway-ExtraBold.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Raleway-Italic.ttf" />
