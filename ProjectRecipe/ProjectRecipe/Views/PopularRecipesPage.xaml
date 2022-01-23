@@ -68,7 +68,7 @@
                                        HorizontalOptions="Center"
                                        VerticalOptions="CenterAndExpand">
                                         <Grid RowSpacing="0" ColumnSpacing="0">
-                                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.recipe-placeholder.png}"
+                                            <Image Source="{Binding Image}"
                                                    Aspect="AspectFill"
                                                HeightRequest="200"
                                                WidthRequest="200"
@@ -170,6 +170,6 @@
                    Text="The Prime Rib Roast is a classic and tender cut of beef taken from the rib primal cut.  Learn how to make the perfect prime rib roast to serve your family and friends.  Check out What's Cooking America's award-winning Classic Prime Rib Roast recipe and photo tutorial to help you make the Perfect Prime Rib Roast."/>
             </StackLayout>
         </ScrollView>
-        
+
     </ContentPage.Content>
 </ContentPage>
