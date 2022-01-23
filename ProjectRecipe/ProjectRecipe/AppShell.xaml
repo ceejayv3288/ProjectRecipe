@@ -122,7 +122,7 @@
     <FlyoutItem Title="SAVED RECIPES" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
         <ShellContent Title="SAVED RECIPES"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:PopularRecipesPage}"
+                      ContentTemplate="{DataTemplate views:RecipeDetailsPage}"
                       Route="SavedRecipesPage"/>
     </FlyoutItem>
     <FlyoutItem Title="SHOPPING LIST" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">

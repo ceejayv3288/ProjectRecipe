@@ -7,6 +7,7 @@
             <Color x:Key="PrimaryButtonColor">#FF7D7D</Color>
             <Color x:Key="HeaderFontColor">#EB5757</Color>
             <Color x:Key="FlyoutFontColor">#375262</Color>
+            <Color x:Key="GrayColor">#F7F7F7</Color>
             <FileImageSource x:Key="menu" File="hamburger_menu_light.png" />
 
             <!--Carousel Item Style-->
