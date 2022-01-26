@@ -1,4 +1,5 @@
-﻿using ProjectRecipe.Views;
+﻿using Newtonsoft.Json;
+using ProjectRecipe.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,9 +8,13 @@ namespace ProjectRecipe
 {
     public partial class App : Application
     {
+        public static JsonSerializer JsonSerializer { get; private set; }
+
         public App()
         {
             InitializeComponent();
+
+            JsonSerializer = new JsonSerializer();
 
             MainPage = new AppShell();
         }
