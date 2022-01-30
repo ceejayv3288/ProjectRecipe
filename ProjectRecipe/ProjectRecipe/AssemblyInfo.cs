@@ -1,3 +1,4 @@
+using ProjectRecipe.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,3 +8,5 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("Raleway-Bold.ttf", Alias = "RalewayBold")]
 [assembly: ExportFont("Raleway-ExtraBold.ttf", Alias = "RalewayExtraBold")]
 [assembly: ExportFont("Raleway-Italic.ttf", Alias = "RalewayItalic")]
+
+[assembly: Dependency(typeof(RecipeService))]
