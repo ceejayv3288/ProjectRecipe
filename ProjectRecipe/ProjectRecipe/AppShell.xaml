@@ -125,6 +125,12 @@
                       ContentTemplate="{DataTemplate views:RecipeDetailsPage}"
                       Route="SavedRecipesPage"/>
     </FlyoutItem>
+    <FlyoutItem Title="MY OWN RECIPES" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
+        <ShellContent Title="MY OWN RECIPES"
+                      Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
+                      ContentTemplate="{DataTemplate views:MyOwnRecipesPage}"
+                      Route="MyOwnRecipesPage"/>
+    </FlyoutItem>
     <FlyoutItem Title="SHOPPING LIST" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
         <ShellContent Title="SHOPPING LIST"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProjectRecipe"
+             x:Class="ProjectRecipe.Views.MyOwnRecipesPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="White"
+                   Margin="0,20,0,0">
+                <StackLayout>
+                    <CollectionView ItemsSource="{Binding MyRecipes}"
+                                x:Name="EventsCollection">
+                        <CollectionView.EmptyView>
+                            <Label Text="You have no books saved. Try adding some. =)"
+                               VerticalOptions="CenterAndExpand"/>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical"
+                                            HorizontalItemSpacing="10"
+                                            VerticalItemSpacing="10"
+                                            Span="2" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BackgroundColor="White"
+                                       BorderColor="PaleTurquoise"
+                                   HasShadow="False"
+                                   Padding="0">
+                                    <StackLayout Spacing="10"
+                                             Padding="10,10,10,0">
+                                        <Image Source="{Binding Image}"
+                                               HeightRequest="100"/>
+                                        <Label Text="{Binding Name}"
+                                           FontSize="15"/>
+                                        <Label Text="{Binding Description}"
+                                           FontSize="Caption"/>
+                                    </StackLayout>
+
+                                    <Frame.GestureRecognizers>
+                                        <DragGestureRecognizer DragStartingCommand="{Binding Path=BindingContext.DragStartingCommand, Source={x:Reference EventsCollection}}"
+                                                           DragStartingCommandParameter="{Binding .}" />
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.BookSelectedCommand, Source={x:Reference EventsCollection}}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <!--#NOTE: Added this extra Layout to fix an issue where the image was disappearing after dropping the card-->
+                    <StackLayout>
+                        <Image HeightRequest="30"
+                           WidthRequest="30"
+                           Source="{local:ImageResource ProjectRecipe.Assets.Images.trash-icon.png}"
+                           HorizontalOptions="EndAndExpand"/>
+                        <StackLayout.GestureRecognizers>
+                            <DropGestureRecognizer DropCommand="{Binding DropOverCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
