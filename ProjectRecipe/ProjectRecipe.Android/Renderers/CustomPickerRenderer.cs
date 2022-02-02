@@ -5,7 +5,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using ProjectRecipe;
 using ProjectRecipe.Droid.Renderers;
 using ProjectRecipe.Renderers;
 using System;
@@ -15,16 +14,16 @@ using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
+[assembly: ExportRenderer(typeof(CustomPicker), typeof(CustomPickerRenderer))]
 namespace ProjectRecipe.Droid.Renderers
 {
-    public class CustomEntryRenderer : EntryRenderer
+    public  class CustomPickerRenderer : Xamarin.Forms.Platform.Android.AppCompat.PickerRenderer
     {
-        public CustomEntryRenderer(Context context) : base(context)
+        public CustomPickerRenderer(Context context) : base(context)
         {
             AutoPackage = false;
         }
-        protected override void OnElementChanged(ElementChangedEventArgs<Entry> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
         {
             base.OnElementChanged(e);
             if (Control != null)

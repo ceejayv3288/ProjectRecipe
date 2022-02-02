@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:ProjectRecipe"
+             xmlns:renderers="clr-namespace:ProjectRecipe.Renderers"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:local="clr-namespace:ProjectRecipe"
              x:Class="ProjectRecipe.Views.LoginPage"
@@ -54,7 +54,7 @@
                             <On Platform="iOS" Value="4" />
                         </OnPlatform>
                     </Frame.CornerRadius>
-                    <controls:CustomEntry
+                    <renderers:CustomEntry
                         Margin="16,0,14,0"
                         FontFamily="LatoRegular"
                         FontSize="14"
@@ -88,7 +88,7 @@
                         HorizontalOptions="FillAndExpand"
                         Orientation="Horizontal"
                         Spacing="0">
-                        <controls:CustomEntry
+                        <renderers:CustomEntry
                             FontFamily="LatoRegular"
                             FontSize="14"
                             HeightRequest="44"
@@ -133,7 +133,7 @@
                             <On Platform="iOS" Value="4" />
                         </OnPlatform>
                     </Frame.CornerRadius>
-                    <controls:CustomEntry
+                    <renderers:CustomEntry
                         Margin="16,0,14,0"
                         FontFamily="LatoMedium"
                         FontSize="14"

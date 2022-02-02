@@ -1,5 +1,4 @@
 ﻿using Foundation;
-using ProjectRecipe;
 using ProjectRecipe.iOS.Renderers;
 using ProjectRecipe.Renderers;
 using System;
@@ -11,10 +10,10 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
+[assembly: ExportRenderer(typeof(CustomPicker), typeof(CustomPickerRenderer))]
 namespace ProjectRecipe.iOS.Renderers
 {
-    public class CustomEntryRenderer : EntryRenderer
+    public class CustomPickerRenderer : PickerRenderer
     {
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

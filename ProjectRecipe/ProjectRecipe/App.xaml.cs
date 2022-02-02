@@ -14,6 +14,9 @@ namespace ProjectRecipe
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(RecipeCreateUpdatePage),
+                typeof(RecipeCreateUpdatePage));
+
             JsonSerializer = new JsonSerializer();
 
             MainPage = new AppShell();

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProjectRecipe"
+             x:Class="ProjectRecipe.Controls.Headers.HeaderWithBackIcon">
+    <StackLayout x:Name="Header" Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="20,10">
+        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.chevron-left-icon.png}"
+                       HorizontalOptions="Start"
+                       HeightRequest="18"
+                       WidthRequest="24">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding PopPageCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Label x:Name="Title" VerticalOptions="CenterAndExpand" 
+                       HorizontalOptions="CenterAndExpand" 
+                       Text="{Binding TitleText}" 
+                       FontFamily="RalewayExtraBold"
+                       TextColor="{StaticResource HeaderFontColor}" 
+                       FontSize="18"/>
+        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.search-icon.png}"
+               HorizontalOptions="Start"
+               IsVisible="False"
+               HeightRequest="18"
+               WidthRequest="24"/>
+    </StackLayout>
+</ContentView>

@@ -1,4 +1,5 @@
-﻿using ProjectRecipe.Interfaces.Commands;
+﻿using ProjectRecipe.Commands;
+using ProjectRecipe.Commands.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,5 +30,8 @@ namespace ProjectRecipe.ViewModels
         }
 
         public OpenFlyoutMenuCommand OpenFlyoutMenuCommand { get; set; }
+        public PopPageCommand PopPageCommand { get; set; }
+
+        public bool IsBusy { get; set; }
     }
 }

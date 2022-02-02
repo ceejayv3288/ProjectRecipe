@@ -12,7 +12,7 @@ namespace ProjectRecipe.Services.Interfaces
         Task<List<RecipeModel>> GetPopularRecipes();
         Task<List<RecipeModel>> GetAllRecipes();
         Task<RecipeModel> GetRecipe(int recipeId);
-        Task<HttpResponseMessage> CreateRecipe(RecipeModel recipe);
+        Task<HttpResponseMessage> CreateRecipe(RecipeCreateModel recipe);
         Task<HttpResponseMessage> UpdateRecipe(RecipeModel recipe);
         Task<HttpResponseMessage> DeleteRecipe(int recipeId);
     }

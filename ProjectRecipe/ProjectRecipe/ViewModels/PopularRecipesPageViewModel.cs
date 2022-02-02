@@ -1,5 +1,5 @@
-﻿using ProjectRecipe.Converters;
-using ProjectRecipe.Interfaces.Commands;
+﻿using ProjectRecipe.Commands;
+using ProjectRecipe.Converters;
 using ProjectRecipe.Models;
 using ProjectRecipe.Services.Interfaces;
 using System;
@@ -15,7 +15,7 @@ namespace ProjectRecipe.ViewModels
     {
         private double scale;
         public double Scale { get => scale; set => SetProperty(ref scale, value); }
-        IRecipeService recipeService;
+        private readonly IRecipeService recipeService;
         private ObservableCollection<RecipeModel> popularRecipesList;
         ByteArrayToImageConverter byteArrayToImageConverter;
         ImageToByteArrayConverter imageToByteArrayConverter;
@@ -40,8 +40,6 @@ namespace ProjectRecipe.ViewModels
             recipeService = DependencyService.Get<IRecipeService>();
 
             PopulateList();
-
-            RetrivePopularRecipes();
         }
 
         public void PopulateList()
@@ -64,11 +62,6 @@ namespace ProjectRecipe.ViewModels
             //PopularRecipesList.Add(new RecipeModel { Name = "test2", Description = "test2", Image = embeddedImage.Source });
         }
 
-        public async void RetrivePopularRecipes()
-        {
-            var samp = await recipeService.GetAllRecipes();
 
-            await recipeService.UpdateRecipe(samp[0]);
-        }
     }
 }

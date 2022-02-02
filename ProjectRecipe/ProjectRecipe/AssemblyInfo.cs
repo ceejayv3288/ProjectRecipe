@@ -10,3 +10,4 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("Raleway-Italic.ttf", Alias = "RalewayItalic")]
 
 [assembly: Dependency(typeof(RecipeService))]
+[assembly: Dependency(typeof(ValidationService))]

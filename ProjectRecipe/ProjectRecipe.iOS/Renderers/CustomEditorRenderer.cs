@@ -1,5 +1,4 @@
 ﻿using Foundation;
-using ProjectRecipe;
 using ProjectRecipe.iOS.Renderers;
 using ProjectRecipe.Renderers;
 using System;
@@ -11,10 +10,10 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportRenderer(typeof(CustomEntry), typeof(CustomEntryRenderer))]
+[assembly: ExportRenderer(typeof(CustomEditor), typeof(CustomEditorRenderer))]
 namespace ProjectRecipe.iOS.Renderers
 {
-    public class CustomEntryRenderer : EntryRenderer
+    public class CustomEditorRenderer : EditorRenderer
     {
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -23,7 +22,7 @@ namespace ProjectRecipe.iOS.Renderers
             if (Control != null)
             {
                 Control.Layer.BorderWidth = 0;
-                Control.BorderStyle = UITextBorderStyle.None;
+                //Control.BorderStyle = UITextBorderStyle.None;
             }
         }
     }

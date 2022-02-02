@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 
-namespace ProjectRecipe.Interfaces.Commands
+namespace ProjectRecipe.Commands
 {
     public class LoginCommand : ICommand
     {

@@ -1,4 +1,4 @@
-﻿using ProjectRecipe.Interfaces.Commands;
+﻿using ProjectRecipe.Commands;
 using ProjectRecipe.Views;
 using System;
 using System.Collections.Generic;
@@ -15,9 +15,9 @@ namespace ProjectRecipe.ViewModels
             LoginCommand = new LoginCommand(this);
         }
 
-        public void ExecuteLoginCommand()
+        public async void ExecuteLoginCommand()
         {
-            Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
+            await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
         }
     }
 }

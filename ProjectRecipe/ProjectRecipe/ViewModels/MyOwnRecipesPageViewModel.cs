@@ -1,6 +1,8 @@
 ﻿using ProjectRecipe.Commands;
+using ProjectRecipe.Commands.Navigation;
 using ProjectRecipe.Models;
 using ProjectRecipe.Services.Interfaces;
+using ProjectRecipe.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,12 +12,13 @@ using Xamarin.Forms;
 
 namespace ProjectRecipe.ViewModels
 {
-    public class MyOwnRecipesPageViewModel
+    public class MyOwnRecipesPageViewModel : BaseViewModel
     {
         private readonly IRecipeService recipeService;
 
         public DragStartingCommand DragStartingCommand { get; set; }
         public DropOverCommand DropOverCommand { get; set; }
+        public MyOwnRecipesPageNavigationCommand MyOwnRecipesPageNavigationCommand { get; set; }
         public ObservableCollection<RecipeModel> MyRecipes { get; set; }
 
         public RecipeModel dragRecipe { get; set; }
@@ -24,6 +27,8 @@ namespace ProjectRecipe.ViewModels
         {
             DragStartingCommand = new DragStartingCommand(this);
             DropOverCommand = new DropOverCommand(this);
+            MyOwnRecipesPageNavigationCommand = new MyOwnRecipesPageNavigationCommand(this);
+            OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
             MyRecipes = new ObservableCollection<RecipeModel>();
 
             recipeService = DependencyService.Get<IRecipeService>();
@@ -40,7 +45,7 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
-         public async void ExecuteDragOverDeleteCommand()
+        public async void ExecuteDragOverDeleteCommand()
         {
             if (MyRecipes.Contains(dragRecipe))
             {
@@ -51,6 +56,20 @@ namespace ProjectRecipe.ViewModels
                     await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
                 }
             }
+        }
+
+        public async void ExecuteMyOwnRecipesPageNavigationCommand()
+        {
+            IsBusy = true;
+            try
+            {
+                var route = $"{nameof(RecipeCreateUpdatePage)}";
+                await Shell.Current.GoToAsync(route);
+            }
+            finally
+            {
+                IsBusy = false;
+            } 
         }
     }
 }

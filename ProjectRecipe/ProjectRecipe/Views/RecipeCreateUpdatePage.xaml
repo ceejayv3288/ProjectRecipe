@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ProjectRecipe"
+             xmlns:converters="clr-namespace:ProjectRecipe.Converters"
+             xmlns:renderers="clr-namespace:ProjectRecipe.Renderers"
+             xmlns:headers="clr-namespace:ProjectRecipe.Controls.Headers"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="ProjectRecipe.Views.RecipeCreateUpdatePage"
+             Shell.PresentationMode="ModalAnimated">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:EnumToIntConverter x:Key="EnumToIntConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <headers:HeaderWithBackIcon TitleText="CREATE NEW RECIPE"/>
+            <ScrollView>
+                <StackLayout Padding="16">
+                    <!--Recipe Name-->
+                    <Label
+                    Padding="16,0,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Name"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding recipeName}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Recipe Description-->
+                    <Label
+                    Padding="16,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Description"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEditor 
+                        AutoSize="TextChanges"
+                        IsTextPredictionEnabled="False"
+                        IsSpellCheckEnabled="False"
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding description}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Course Type-->
+                    <Label
+                    Padding="16,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Course Type"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomPicker 
+                        ItemsSource="{Binding CourseTypes}" 
+                        SelectedIndex="{Binding SelectedCourse, Converter={xct:EnumToIntConverter}}" 
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Recipe Duration-->
+                    <Label
+                    Padding="16,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Duration"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding duration}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Image-->
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
+                    HasShadow="False"
+                    HeightRequest="44"
+                    IsVisible="{Binding image, Converter={converters:IsNullConverter IsNullValue=True, IsNotNullValue=False}}"
+                    xct:TouchEffect.Command="{Binding OpenMediaPickerCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoMedium"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
+                        IsReadOnly="True"
+                        Text="Select Photo"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <Frame
+                    Padding="0,24"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    IsVisible="{Binding image, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <Image Source="{Binding image}">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenMediaPickerCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+                    <!--Create Button-->
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
+                    HasShadow="False"
+                    HeightRequest="44"
+                    xct:TouchEffect.Command="{Binding CreateRecipeCommand}"
+                    xct:TouchEffect.PressedAnimationDuration="100"
+                    xct:TouchEffect.PressedScale="0.95"
+                    xct:TouchEffect.AnimationDuration="100">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoMedium"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="CenterAndExpand"
+                        HorizontalTextAlignment="Center"
+                        IsReadOnly="True"
+                        Text="Create"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace ProjectRecipe
+namespace ProjectRecipe.Renderers
 {
     public class CustomEntry : Entry
     {
