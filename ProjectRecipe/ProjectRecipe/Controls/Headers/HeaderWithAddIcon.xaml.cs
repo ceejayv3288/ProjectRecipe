@@ -15,7 +15,7 @@ namespace ProjectRecipe.Controls.Headers
         public static readonly BindableProperty TitleTextProperty =
             BindableProperty.Create(nameof(TitleText),
                 typeof(string),
-                typeof(HeaderWithSearchIcon),
+                typeof(HeaderWithAddIcon),
                 defaultValue: string.Empty,
                 defaultBindingMode: BindingMode.OneWay,
                 propertyChanged: TitleTextPropertyText);
