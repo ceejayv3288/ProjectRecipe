@@ -224,7 +224,7 @@
                 Text="Don't have an account? Create now"
                 TextColor="#D09A25"
                 VerticalOptions="EndAndExpand"
-                xct:TouchEffect.Command="{Binding RegistrationNavigationCommand}"
+                xct:TouchEffect.Command="{Binding RegistrationPageNavigationCommand}"
                 xct:TouchEffect.PressedAnimationDuration="100"
                 xct:TouchEffect.PressedScale="0.95"
                 xct:TouchEffect.AnimationDuration="100"/>

@@ -11,3 +11,4 @@ using Xamarin.Forms.Xaml;
 
 [assembly: Dependency(typeof(RecipeService))]
 [assembly: Dependency(typeof(ValidationService))]
+[assembly: Dependency(typeof(AuthorizationService))]

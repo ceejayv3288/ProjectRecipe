@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ProjectRecipe.Constants;
 using ProjectRecipe.Converters;
 using ProjectRecipe.Models;
 using ProjectRecipe.Models.Service.Request;
@@ -16,7 +17,7 @@ namespace ProjectRecipe.Services
 {
     public class RecipeService : IRecipeService
     {
-        readonly HttpClient client = new HttpClient();
+        private readonly HttpClient client = new HttpClient();
         ByteArrayToImageConverter byteArrayToImageConverter;
         ImageToByteArrayConverter imageToByteArrayConverter;
 
@@ -32,7 +33,7 @@ namespace ProjectRecipe.Services
             {
                 List<RecipeResponse> recipesResponse = new List<RecipeResponse>();
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.GetAsync($"https://recipeapidev.azurewebsites.net/api/recipe");
+                HttpResponseMessage response = await client.GetAsync($"{ApiConfigurations.RecipeApiUrl}recipe");
                 if (response.IsSuccessStatusCode)
                 {
                     using (var stream = await response.Content.ReadAsStreamAsync())
@@ -75,7 +76,7 @@ namespace ProjectRecipe.Services
             {
                 List<RecipeResponse> recipesResponse = new List<RecipeResponse>();
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.GetAsync($"https://recipeapidev.azurewebsites.net/api/recipe");
+                HttpResponseMessage response = await client.GetAsync($"{ApiConfigurations.RecipeApiUrl}recipe");
                 if (response.IsSuccessStatusCode)
                 {
                     using (var stream = await response.Content.ReadAsStreamAsync())
@@ -117,7 +118,7 @@ namespace ProjectRecipe.Services
             try
             {
                 RecipeModel recipe = new RecipeModel();
-                HttpResponseMessage response = await client.GetAsync($"https://recipeapidev.azurewebsites.net/api/recipe/{recipeId}");
+                HttpResponseMessage response = await client.GetAsync($"{ApiConfigurations.RecipeApiUrl}recipe/{recipeId}");
                 if (response.IsSuccessStatusCode)
                 {
                     using (var stream = await response.Content.ReadAsStreamAsync())
@@ -145,7 +146,7 @@ namespace ProjectRecipe.Services
             try
             {
                 var content = new StringContent(JsonConvert.SerializeObject(recipe), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync($"https://recipeapidev.azurewebsites.net/api/recipe", content);
+                HttpResponseMessage response = await client.PostAsync($"{ApiConfigurations.RecipeApiUrl}recipe", content);
                 if (response.IsSuccessStatusCode)
                 {
 
@@ -173,7 +174,7 @@ namespace ProjectRecipe.Services
                     Image = imageByte
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(recipeRequest), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync($"https://recipeapidev.azurewebsites.net/api/recipe/{recipe.Id}", content);
+                HttpResponseMessage response = await client.PutAsync($"{ApiConfigurations.RecipeApiUrl}recipe/{recipe.Id}", content);
                 if (response.IsSuccessStatusCode)
                 {
 
@@ -192,7 +193,7 @@ namespace ProjectRecipe.Services
             try
             {
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.DeleteAsync($"https://recipeapidev.azurewebsites.net/api/recipe/{recipeId}");
+                HttpResponseMessage response = await client.DeleteAsync($"{ApiConfigurations.RecipeApiUrl}recipe/{recipeId}");
                 if (response.IsSuccessStatusCode)
                 {
                     

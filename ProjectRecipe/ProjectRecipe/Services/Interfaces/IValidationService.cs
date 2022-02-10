@@ -1,4 +1,5 @@
 ﻿using ProjectRecipe.Models;
+using ProjectRecipe.Models.Service.Request;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,6 @@ namespace ProjectRecipe.Services.Interfaces
     public interface IValidationService
     {
         bool ValidateCreateRecipe(RecipeCreateModel recipeToCreate);
+        bool ValidateRegistration(RegistrationRequest registrationRequest);
     }
 }

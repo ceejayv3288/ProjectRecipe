@@ -1,0 +1,26 @@
+﻿<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+           x:Class="ProjectRecipe.Views.Popups.LoadingPopup"
+           Size="300,200">
+    <StackLayout Padding="48" Spacing="0">
+        <Frame
+            CornerRadius="6"
+            HasShadow="False"
+            VerticalOptions="CenterAndExpand">
+            <StackLayout Spacing="0">
+                <ActivityIndicator
+                    HorizontalOptions="CenterAndExpand"
+                    IsRunning="True"
+                    IsVisible="True"
+                    VerticalOptions="CenterAndExpand"
+                    Color="Gray" />
+                <Label
+                    FontSize="14"
+                    HorizontalOptions="Center"
+                    Text="Loading Please Wait"
+                    VerticalOptions="Center" />
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</xct:Popup>

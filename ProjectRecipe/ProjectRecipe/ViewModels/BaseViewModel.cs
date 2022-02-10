@@ -1,10 +1,12 @@
 ﻿using ProjectRecipe.Commands;
 using ProjectRecipe.Commands.Navigation;
+using ProjectRecipe.Views.Popups;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace ProjectRecipe.ViewModels
 {
@@ -31,6 +33,8 @@ namespace ProjectRecipe.ViewModels
 
         public OpenFlyoutMenuCommand OpenFlyoutMenuCommand { get; set; }
         public PopPageCommand PopPageCommand { get; set; }
+
+        public Popup LoadingPopup = new LoadingPopup();
 
         public bool IsBusy { get; set; }
     }

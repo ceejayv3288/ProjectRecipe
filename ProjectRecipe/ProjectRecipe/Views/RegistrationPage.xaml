@@ -5,25 +5,19 @@
              xmlns:renderers="clr-namespace:ProjectRecipe.Renderers"
              xmlns:headers="clr-namespace:ProjectRecipe.Controls.Headers"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             x:Class="ProjectRecipe.Views.RecipeCreateUpdatePage"
-             Shell.PresentationMode="ModalAnimated">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <xct:EnumToIntConverter x:Key="EnumToIntConverter" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
+             x:Class="ProjectRecipe.Views.RegistrationPage">
     <ContentPage.Content>
         <StackLayout>
-            <headers:HeaderWithBackIcon TitleText="CREATE NEW RECIPE"/>
+            <headers:HeaderWithBackIcon TitleText="REGISTRATION"/>
             <ScrollView>
                 <StackLayout Padding="16">
-                    <!--Recipe Name-->
+                    <!--First Name-->
                     <Label
-                    Padding="16,0,0,0"
+                    Padding="8,0,0,0"
                     FontFamily="LatoRegular"
                     FontSize="14"
                     HorizontalOptions="Start"
-                    Text="Name"
+                    Text="First Name"
                     TextColor="#121212" />
                     <Frame
                     Padding="0"
@@ -42,82 +36,23 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding recipeName}"
+                        Text="{Binding firstName}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
-                    <!--Recipe Description-->
+                    <!--Middle Name-->
                     <Label
-                    Padding="16,12,0,0"
+                    Padding="8,12,0,0"
                     FontFamily="LatoRegular"
                     FontSize="14"
                     HorizontalOptions="Start"
-                    Text="Description"
+                    Text="Middle Name (Optional)"
                     TextColor="#121212" />
                     <Frame
                     Padding="0"
                     BackgroundColor="#E7E7E7"
-                    HasShadow="False">
-                        <Frame.CornerRadius>
-                            <OnPlatform x:TypeArguments="x:Single">
-                                <On Platform="Android" Value="4" />
-                                <On Platform="iOS" Value="4" />
-                            </OnPlatform>
-                        </Frame.CornerRadius>
-                        <renderers:CustomEditor 
-                        AutoSize="TextChanges"
-                        IsTextPredictionEnabled="False"
-                        IsSpellCheckEnabled="False"
-                        Margin="16,0,14,0"
-                        FontFamily="LatoRegular"
-                        FontSize="14"
-                        HeightRequest="44"
-                        HorizontalOptions="FillAndExpand"
-                        Text="{Binding description}"
-                        TextColor="#121212"
-                        VerticalOptions="Center" />
-                    </Frame>
-                    <!--Course Type-->
-                    <Label
-                    Padding="16,12,0,0"
-                    FontFamily="LatoRegular"
-                    FontSize="14"
-                    HorizontalOptions="Start"
-                    Text="Course Type"
-                    TextColor="#121212" />
-                    <Frame
-                    Padding="0"
-                    BackgroundColor="#E7E7E7"
-                    HasShadow="False">
-                        <Frame.CornerRadius>
-                            <OnPlatform x:TypeArguments="x:Single">
-                                <On Platform="Android" Value="4" />
-                                <On Platform="iOS" Value="4" />
-                            </OnPlatform>
-                        </Frame.CornerRadius>
-                        <renderers:CustomPicker 
-                        ItemsSource="{Binding CourseTypes}" 
-                        SelectedIndex="{Binding SelectedCourse, Converter={xct:EnumToIntConverter}}" 
-                        Margin="16,0,14,0"
-                        FontFamily="LatoRegular"
-                        FontSize="14"
-                        HeightRequest="44"
-                        HorizontalOptions="FillAndExpand"
-                        TextColor="#121212"
-                        VerticalOptions="Center" />
-                    </Frame>
-                    <!--Recipe Duration-->
-                    <Label
-                    Padding="16,12,0,0"
-                    FontFamily="LatoRegular"
-                    FontSize="14"
-                    HorizontalOptions="Start"
-                    Text="Duration"
-                    TextColor="#121212" />
-                    <Frame
-                    Padding="0"
-                    BackgroundColor="#E7E7E7"
-                    HasShadow="False">
+                    HasShadow="False"
+                    HeightRequest="44">
                         <Frame.CornerRadius>
                             <OnPlatform x:TypeArguments="x:Single">
                                 <On Platform="Android" Value="4" />
@@ -130,7 +65,95 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding duration}"
+                        Text="{Binding middleName}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Last Name-->
+                    <Label
+                    Padding="8,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Last Name"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding lastName}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Username-->
+                    <Label
+                    Padding="8,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Username"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding userName}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Password-->
+                    <Label
+                    Padding="8,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Password"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding password}"
+                            IsPassword="True"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
@@ -140,7 +163,7 @@
                     BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
                     HasShadow="False"
                     HeightRequest="44"
-                    IsVisible="{Binding image, Converter={converters:IsNullConverter IsNullValue=True, IsNotNullValue=False}}"
+                    IsVisible="{Binding profilePicture, Converter={converters:IsNullConverter IsNullValue=True, IsNotNullValue=False}}"
                     xct:TouchEffect.Command="{Binding OpenMediaPickerCommand}"
                     xct:TouchEffect.PressedAnimationDuration="100"
                     xct:TouchEffect.PressedScale="0.95"
@@ -159,7 +182,7 @@
                         HorizontalOptions="CenterAndExpand"
                         HorizontalTextAlignment="Center"
                         IsReadOnly="True"
-                        Text="Select Photo"
+                        Text="Select Profile Picture"
                         TextColor="White"
                         VerticalOptions="Center" />
                     </Frame>
@@ -167,14 +190,14 @@
                     Padding="0,24"
                     BackgroundColor="#E7E7E7"
                     HasShadow="False"
-                    IsVisible="{Binding image, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}">
+                    IsVisible="{Binding profilePicture, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}">
                         <Frame.CornerRadius>
                             <OnPlatform x:TypeArguments="x:Single">
                                 <On Platform="Android" Value="4" />
                                 <On Platform="iOS" Value="4" />
                             </OnPlatform>
                         </Frame.CornerRadius>
-                        <Image Source="{Binding image}">
+                        <Image Source="{Binding profilePicture}">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenMediaPickerCommand}"/>
                             </Image.GestureRecognizers>
@@ -186,7 +209,7 @@
                     BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
                     HasShadow="False"
                     HeightRequest="44"
-                    xct:TouchEffect.Command="{Binding CreateRecipeCommand}"
+                    xct:TouchEffect.Command="{Binding RegisterCommand}"
                     xct:TouchEffect.PressedAnimationDuration="100"
                     xct:TouchEffect.PressedScale="0.95"
                     xct:TouchEffect.AnimationDuration="100">
@@ -204,7 +227,7 @@
                         HorizontalOptions="CenterAndExpand"
                         HorizontalTextAlignment="Center"
                         IsReadOnly="True"
-                        Text="Create"
+                        Text="Register"
                         TextColor="White"
                         VerticalOptions="Center" />
                     </Frame>

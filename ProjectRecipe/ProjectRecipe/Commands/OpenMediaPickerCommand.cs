@@ -27,6 +27,10 @@ namespace ProjectRecipe.Commands
             {
                 await recipeCreateUpdatePageViewModel.ExecuteOpenMediaPickerCommand();
             }
+            else if (_viewModel is RegistrationPageViewModel registrationPageViewModel)
+            {
+                await registrationPageViewModel.ExecuteOpenMediaPickerCommand();
+            }
         }
     }
 }
