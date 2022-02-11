@@ -10,7 +10,7 @@ namespace ProjectRecipe.Services.Interfaces
 {
     public interface IAuthorizationService
     {
-        Task<HttpResponseMessage> RegisterUser(RegistrationRequest registrationRequest);
+        Task<ErrorMessageModel> RegisterUser(RegistrationRequest registrationRequest);
         Task<Tuple<UserModel, ErrorMessageModel>> LoginUser(AuthenticationRequest authenticationRequest);
     }
 }

@@ -24,18 +24,19 @@ namespace ProjectRecipe.Services
             errorService = DependencyService.Get<IErrorService>();
         }
 
-        public async Task<HttpResponseMessage> RegisterUser(RegistrationRequest registrationRequest)
+        public async Task<ErrorMessageModel> RegisterUser(RegistrationRequest registrationRequest)
         {
             try
             {
+                ErrorMessageModel errorMessage = null;
                 var content = new StringContent(JsonConvert.SerializeObject(registrationRequest), Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/register", content);
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-
+                    errorMessage = await errorService.ParseError(response);
                 }
 
-                return response;
+                return errorMessage;
             }
             catch (Exception ex)
             {

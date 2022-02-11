@@ -138,6 +138,7 @@ namespace ProjectRecipe.ViewModels
                lastName = this.lastName?.Trim(),
                username = this.userName?.Trim(),
                password = this.password?.Trim(),
+               profilePicture = this.profilePictureByte,
                dateCreated = DateTime.Now
             };
 
@@ -150,7 +151,7 @@ namespace ProjectRecipe.ViewModels
                 
             App.Current.MainPage.Navigation.ShowPopup(LoadingPopup);
             var result = await authorizationService.RegisterUser(registrationRequest);
-            if (result.IsSuccessStatusCode)
+            if (result == null)
             {
                 LoadingPopup.Dismiss(null);
                 await Application.Current.MainPage.DisplayAlert("Alert", "Successfully Registered.", "Ok");
@@ -159,7 +160,7 @@ namespace ProjectRecipe.ViewModels
             else
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", "Something went wrong. Check all the required fields.", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Alert", result.message, "Ok");
             }
         }
     }
