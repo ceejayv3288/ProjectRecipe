@@ -13,11 +13,11 @@ namespace ProjectRecipe.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MyOwnRecipesPage : ContentPage
     {
-        private readonly MyOwnRecipesPageViewModel _myOwnRecipesPageViewModel;
+        private readonly MyOwnRecipesPageViewModel myOwnRecipesPageViewModel;
         public MyOwnRecipesPage()
         {
-            _myOwnRecipesPageViewModel = new MyOwnRecipesPageViewModel();
-            BindingContext = _myOwnRecipesPageViewModel;
+            myOwnRecipesPageViewModel = new MyOwnRecipesPageViewModel();
+            BindingContext = myOwnRecipesPageViewModel;
             InitializeComponent();
         }
     }

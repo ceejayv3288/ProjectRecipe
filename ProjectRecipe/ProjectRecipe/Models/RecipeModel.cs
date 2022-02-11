@@ -7,12 +7,12 @@ namespace ProjectRecipe.Models
 {
     public class RecipeModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public ImageSource Image { get; set; }
-        public int DurationInMin { get; set; }
-        public int LikesCount { get; set; }
-        public int CommentsCount { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public ImageSource image { get; set; }
+        public int durationInMin { get; set; }
+        public int likesCount { get; set; }
+        public int commentsCount { get; set; }
     }
 }

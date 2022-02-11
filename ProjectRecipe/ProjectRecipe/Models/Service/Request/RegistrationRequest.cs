@@ -6,13 +6,13 @@ namespace ProjectRecipe.Models.Service.Request
 {
     public class RegistrationRequest
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public byte[] ProfilePicture { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string firstName { get; set; }
+        public string middleName { get; set; }
+        public string lastName { get; set; }
+        public byte[] profilePicture { get; set; }
+        public DateTime dateCreated { get; set; }
+        public DateTime dateUpdated { get; set; }
     }
 }

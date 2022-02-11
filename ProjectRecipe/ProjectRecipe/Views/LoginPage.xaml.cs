@@ -13,11 +13,11 @@ namespace ProjectRecipe.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        private readonly LoginPageViewModel _loginPageViewModel;
+        private readonly LoginPageViewModel loginPageViewModel;
         public LoginPage()
         {
-            _loginPageViewModel = new LoginPageViewModel();
-            BindingContext = _loginPageViewModel;
+            loginPageViewModel = new LoginPageViewModel();
+            BindingContext = loginPageViewModel;
             InitializeComponent();
         }
     }

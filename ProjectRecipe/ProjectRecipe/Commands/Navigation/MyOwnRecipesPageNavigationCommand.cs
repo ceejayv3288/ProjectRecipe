@@ -18,7 +18,7 @@ namespace ProjectRecipe.Commands.Navigation
 
         public bool CanExecute(object parameter)
         {
-           return !_viewModel.IsBusy;
+           return !_viewModel.isBusy;
         }
 
         public void Execute(object parameter)

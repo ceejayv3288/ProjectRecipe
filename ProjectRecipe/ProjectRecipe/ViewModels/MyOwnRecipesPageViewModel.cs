@@ -19,7 +19,7 @@ namespace ProjectRecipe.ViewModels
         public DragStartingCommand DragStartingCommand { get; set; }
         public DropOverCommand DropOverCommand { get; set; }
         public MyOwnRecipesPageNavigationCommand MyOwnRecipesPageNavigationCommand { get; set; }
-        public ObservableCollection<RecipeModel> MyRecipes { get; set; }
+        public ObservableCollection<RecipeModel> myRecipes { get; set; }
 
         public RecipeModel dragRecipe { get; set; }
 
@@ -29,7 +29,7 @@ namespace ProjectRecipe.ViewModels
             DropOverCommand = new DropOverCommand(this);
             MyOwnRecipesPageNavigationCommand = new MyOwnRecipesPageNavigationCommand(this);
             OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
-            MyRecipes = new ObservableCollection<RecipeModel>();
+            myRecipes = new ObservableCollection<RecipeModel>();
 
             recipeService = DependencyService.Get<IRecipeService>();
             Initialize();
@@ -41,16 +41,16 @@ namespace ProjectRecipe.ViewModels
             //MyRecipes = new ObservableCollection<RecipeModel>(allRecipes);
             foreach (var recipe in allRecipes)
             {
-                MyRecipes.Add(recipe);
+                myRecipes.Add(recipe);
             }
         }
 
         public async void ExecuteDragOverDeleteCommand()
         {
-            if (MyRecipes.Contains(dragRecipe))
+            if (myRecipes.Contains(dragRecipe))
             {
-                MyRecipes.Remove(dragRecipe);
-                var recipeDeleted = await recipeService.DeleteRecipe(dragRecipe.Id);
+                myRecipes.Remove(dragRecipe);
+                var recipeDeleted = await recipeService.DeleteRecipe(dragRecipe.id);
                 if (!recipeDeleted.IsSuccessStatusCode)
                 {
                     await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
@@ -60,7 +60,7 @@ namespace ProjectRecipe.ViewModels
 
         public async void ExecuteMyOwnRecipesPageNavigationCommand()
         {
-            IsBusy = true;
+            isBusy = true;
             try
             {
                 var route = $"{nameof(RecipeCreateUpdatePage)}";
@@ -68,7 +68,7 @@ namespace ProjectRecipe.ViewModels
             }
             finally
             {
-                IsBusy = false;
+                isBusy = false;
             } 
         }
     }

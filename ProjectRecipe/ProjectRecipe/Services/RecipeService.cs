@@ -52,13 +52,13 @@ namespace ProjectRecipe.Services
                 {
                     recipes.Add(new RecipeModel
                     {
-                        Id = recipe.Id,
-                        Name = recipe.Name,
-                        Description = recipe.Description,
-                        DurationInMin = recipe.DurationInMin,
-                        CommentsCount = recipe.CommentsCount,
-                        Image = byteArrayToImageConverter.Convert(recipe.Image, null, null, null) as ImageSource,
-                        LikesCount = recipe.LikesCount,
+                        id = recipe.id,
+                        name = recipe.name,
+                        description = recipe.description,
+                        durationInMin = recipe.durationInMin,
+                        commentsCount = recipe.commentsCount,
+                        image = byteArrayToImageConverter.Convert(recipe.image, null, null, null) as ImageSource,
+                        likesCount = recipe.likesCount,
                     });
                 }
 
@@ -95,13 +95,13 @@ namespace ProjectRecipe.Services
                 {
                     recipes.Add(new RecipeModel
                     {
-                        Id = recipe.Id,
-                        Name = recipe.Name,
-                        Description = recipe.Description,
-                        DurationInMin = recipe.DurationInMin,
-                        CommentsCount = recipe.CommentsCount,
-                        Image = byteArrayToImageConverter.Convert(recipe.Image, null, null, null) as ImageSource,
-                        LikesCount = recipe.LikesCount
+                        id = recipe.id,
+                        name = recipe.name,
+                        description = recipe.description,
+                        durationInMin = recipe.durationInMin,
+                        commentsCount = recipe.commentsCount,
+                        image = byteArrayToImageConverter.Convert(recipe.image, null, null, null) as ImageSource,
+                        likesCount = recipe.likesCount
                     });
                 }
 
@@ -164,17 +164,17 @@ namespace ProjectRecipe.Services
         {
             try
             {
-                byte[] imageByte = (byte[])imageToByteArrayConverter.Convert(recipe.Image, null, null, null);
+                byte[] imageByte = (byte[])imageToByteArrayConverter.Convert(recipe.image, null, null, null);
                 RecipeRequest recipeRequest = new RecipeRequest
                 {
-                    Id = recipe.Id,
-                    Name = recipe.Name,
-                    Description = recipe.Description,
-                    DurationInMin = recipe.DurationInMin,
-                    Image = imageByte
+                    id = recipe.id,
+                    name = recipe.name,
+                    description = recipe.description,
+                    durationInMin = recipe.durationInMin,
+                    image = imageByte
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(recipeRequest), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync($"{ApiConfigurations.RecipeApiUrl}recipe/{recipe.Id}", content);
+                HttpResponseMessage response = await client.PutAsync($"{ApiConfigurations.RecipeApiUrl}recipe/{recipe.id}", content);
                 if (response.IsSuccessStatusCode)
                 {
 

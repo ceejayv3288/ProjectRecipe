@@ -6,10 +6,10 @@ namespace ProjectRecipe.Models.Service.Request
 {
     public class RecipeRequest
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public byte[] Image { get; set; }
-        public int DurationInMin { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
+        public byte[] image { get; set; }
+        public int durationInMin { get; set; }
     }
 }

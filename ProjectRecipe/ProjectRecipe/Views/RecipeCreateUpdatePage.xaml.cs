@@ -13,12 +13,12 @@ namespace ProjectRecipe.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecipeCreateUpdatePage : ContentPage
     {
-        private readonly RecipeCreateUpdatePageViewModel _recipeCreateUpdatePageViewModel;
+        private readonly RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel;
 
         public RecipeCreateUpdatePage()
         {
-            _recipeCreateUpdatePageViewModel = new RecipeCreateUpdatePageViewModel();
-            BindingContext = _recipeCreateUpdatePageViewModel;
+            recipeCreateUpdatePageViewModel = new RecipeCreateUpdatePageViewModel();
+            BindingContext = recipeCreateUpdatePageViewModel;
             InitializeComponent();
 
             //var samp = BindingContext as RecipeCreateUpdatePageViewModel;

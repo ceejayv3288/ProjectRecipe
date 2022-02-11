@@ -13,12 +13,12 @@ namespace ProjectRecipe.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationPage : ContentPage
     {
-        private readonly RegistrationPageViewModel _registrationPageViewModel;
+        private readonly RegistrationPageViewModel registrationPageViewModel;
 
         public RegistrationPage()
         {
-            _registrationPageViewModel = new RegistrationPageViewModel();
-            BindingContext = _registrationPageViewModel;
+            registrationPageViewModel = new RegistrationPageViewModel();
+            BindingContext = registrationPageViewModel;
             InitializeComponent();
         }
     }

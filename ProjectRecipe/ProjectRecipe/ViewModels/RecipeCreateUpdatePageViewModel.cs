@@ -24,12 +24,12 @@ namespace ProjectRecipe.ViewModels
         public OpenMediaPickerCommand OpenMediaPickerCommand { get; set; }
         public CreateRecipeCommand CreateRecipeCommand { get; set; }
 
-        public string[] CourseTypes { get; } = Enum.GetNames(typeof(CourseTypeEnum));
-        CourseTypeEnum selectedCourse = CourseTypeEnum.None;
-        public CourseTypeEnum SelectedCourse
+        public string[] courseTypes { get; } = Enum.GetNames(typeof(CourseTypeEnum));
+        CourseTypeEnum _selectedCourse = CourseTypeEnum.None;
+        public CourseTypeEnum selectedCourse
         {
-            get => selectedCourse;
-            set => SetProperty(ref selectedCourse, value);
+            get => _selectedCourse;
+            set => SetProperty(ref _selectedCourse, value);
         }
 
         private string _recipeName;
@@ -126,10 +126,10 @@ namespace ProjectRecipe.ViewModels
         {
             RecipeCreateModel recipeToCreate = new RecipeCreateModel
             {
-                Name = this.recipeName,
-                Description = this.description,
-                DurationInMin = this.duration,
-                Image = imageByte
+                name = this.recipeName,
+                description = this.description,
+                durationInMin = this.duration,
+                image = imageByte
             };
 
             bool isValid = validationService.ValidateCreateRecipe(recipeToCreate);

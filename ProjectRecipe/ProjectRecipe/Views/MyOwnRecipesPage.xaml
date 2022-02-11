@@ -10,7 +10,7 @@
             <Frame BackgroundColor="White"
                    Margin="0,20,0,0">
                 <StackLayout>
-                    <CollectionView ItemsSource="{Binding MyRecipes}"
+                    <CollectionView ItemsSource="{Binding myRecipes}"
                                 x:Name="EventsCollection">
                         <CollectionView.EmptyView>
                             <Label Text="You have no books saved. Try adding some. =)"
@@ -30,11 +30,11 @@
                                    Padding="0">
                                     <StackLayout Spacing="10"
                                              Padding="10,10,10,0">
-                                        <Image Source="{Binding Image}"
+                                        <Image Source="{Binding image}"
                                                HeightRequest="100"/>
-                                        <Label Text="{Binding Name}"
+                                        <Label Text="{Binding name}"
                                            FontSize="15"/>
-                                        <Label Text="{Binding Description}"
+                                        <Label Text="{Binding description}"
                                            FontSize="Caption"/>
                                     </StackLayout>
 

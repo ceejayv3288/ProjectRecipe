@@ -36,6 +36,6 @@ namespace ProjectRecipe.ViewModels
 
         public Popup LoadingPopup = new LoadingPopup();
 
-        public bool IsBusy { get; set; }
+        public bool isBusy { get; set; }
     }
 }

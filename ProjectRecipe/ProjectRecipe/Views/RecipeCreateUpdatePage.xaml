@@ -96,8 +96,8 @@
                             </OnPlatform>
                         </Frame.CornerRadius>
                         <renderers:CustomPicker 
-                        ItemsSource="{Binding CourseTypes}" 
-                        SelectedIndex="{Binding SelectedCourse, Converter={xct:EnumToIntConverter}}" 
+                        ItemsSource="{Binding courseTypes}" 
+                        SelectedIndex="{Binding selectedCourse, Converter={xct:EnumToIntConverter}}" 
                         Margin="16,0,14,0"
                         FontFamily="LatoRegular"
                         FontSize="14"

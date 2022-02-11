@@ -34,7 +34,7 @@
                        TextColor="#737373"
                        FontSize="15"/>
                 </Grid>
-                <CarouselView ItemsSource="{Binding PopularRecipesList}"
+                <CarouselView ItemsSource="{Binding popularRecipesList}"
                           PeekAreaInsets="80"
                           Margin="0"
                           HeightRequest="250">
@@ -50,7 +50,7 @@
                                        HorizontalOptions="Center"
                                        VerticalOptions="CenterAndExpand">
                                         <Grid RowSpacing="0" ColumnSpacing="0">
-                                            <Image Source="{Binding Image}"
+                                            <Image Source="{Binding image}"
                                                    Aspect="AspectFill"
                                                HeightRequest="200"
                                                WidthRequest="200"

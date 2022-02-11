@@ -14,10 +14,10 @@ namespace ProjectRecipe.Services
         {
             if (recipeToCreate == null)
                 return false;
-            else if (recipeToCreate.DurationInMin <= 0 ||
-                     recipeToCreate.Image == null ||
-                     String.IsNullOrWhiteSpace(recipeToCreate.Description) ||
-                     String.IsNullOrWhiteSpace(recipeToCreate.Name))
+            else if (recipeToCreate.durationInMin <= 0 ||
+                     recipeToCreate.image == null ||
+                     String.IsNullOrWhiteSpace(recipeToCreate.description) ||
+                     String.IsNullOrWhiteSpace(recipeToCreate.name))
                 return false;
             return true;
         }
@@ -26,11 +26,11 @@ namespace ProjectRecipe.Services
         {
             if (registrationRequest == null)
                 return false;
-            else if (registrationRequest.ProfilePicture == null ||
-                     String.IsNullOrWhiteSpace(registrationRequest.FirstName) ||
-                     String.IsNullOrWhiteSpace(registrationRequest.LastName) ||
-                     String.IsNullOrWhiteSpace(registrationRequest.Username) ||
-                     String.IsNullOrWhiteSpace(registrationRequest.Password))
+            else if (registrationRequest.profilePicture == null ||
+                     String.IsNullOrWhiteSpace(registrationRequest.firstName) ||
+                     String.IsNullOrWhiteSpace(registrationRequest.lastName) ||
+                     String.IsNullOrWhiteSpace(registrationRequest.username) ||
+                     String.IsNullOrWhiteSpace(registrationRequest.password))
                 return false;
             return true;
         }

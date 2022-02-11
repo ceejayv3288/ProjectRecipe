@@ -1,4 +1,5 @@
-﻿using ProjectRecipe.Models.Service.Request;
+﻿using ProjectRecipe.Models;
+using ProjectRecipe.Models.Service.Request;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -10,5 +11,6 @@ namespace ProjectRecipe.Services.Interfaces
     public interface IAuthorizationService
     {
         Task<HttpResponseMessage> RegisterUser(RegistrationRequest registrationRequest);
+        Task<Tuple<UserModel, ErrorMessageModel>> LoginUser(AuthenticationRequest authenticationRequest);
     }
 }

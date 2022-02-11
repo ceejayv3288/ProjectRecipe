@@ -16,16 +16,16 @@ namespace ProjectRecipe.ViewModels
         private double scale;
         public double Scale { get => scale; set => SetProperty(ref scale, value); }
         private readonly IRecipeService recipeService;
-        private ObservableCollection<RecipeModel> popularRecipesList;
+        private ObservableCollection<RecipeModel> _popularRecipesList;
         ByteArrayToImageConverter byteArrayToImageConverter;
         ImageToByteArrayConverter imageToByteArrayConverter;
-        public ObservableCollection<RecipeModel> PopularRecipesList
+        public ObservableCollection<RecipeModel> popularRecipesList
         {
-            get { return popularRecipesList; }
+            get { return _popularRecipesList; }
             set
             {
-                popularRecipesList = value;
-                OnPropertyChanged(nameof(PopularRecipesList));
+                _popularRecipesList = value;
+                OnPropertyChanged(nameof(popularRecipesList));
             }
         }
 
@@ -35,7 +35,7 @@ namespace ProjectRecipe.ViewModels
             imageToByteArrayConverter = new ImageToByteArrayConverter();
 
             OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
-            PopularRecipesList = new ObservableCollection<RecipeModel>();
+            popularRecipesList = new ObservableCollection<RecipeModel>();
 
             recipeService = DependencyService.Get<IRecipeService>();
 
@@ -55,8 +55,8 @@ namespace ProjectRecipe.ViewModels
 
             ImageSource convertedImage = byteArrayToImageConverter.Convert(sampleByte, null, null, null) as ImageSource;
 
-            PopularRecipesList.Add(new RecipeModel { Name = "test", Description = "test", Image = convertedImage });
-            PopularRecipesList.Add(new RecipeModel { Name = "test2", Description = "test2", Image = convertedImage });
+            popularRecipesList.Add(new RecipeModel { name = "test", description = "test", image = convertedImage });
+            popularRecipesList.Add(new RecipeModel { name = "test2", description = "test2", image = convertedImage });
 
             //PopularRecipesList.Add(new RecipeModel { Name = "test", Description = "test", Image = embeddedImage.Source });
             //PopularRecipesList.Add(new RecipeModel { Name = "test2", Description = "test2", Image = embeddedImage.Source });

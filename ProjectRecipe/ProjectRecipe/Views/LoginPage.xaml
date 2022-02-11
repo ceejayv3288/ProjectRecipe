@@ -61,7 +61,7 @@
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
                         Placeholder="Esmeralda"
-                        Text="{Binding username}"
+                        Text="{Binding userName}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                 </Frame>
@@ -183,39 +183,6 @@
                     Opacity="0.2"
                     VerticalOptions="Center" />
             </Grid>
-            <StackLayout
-                Grid.Row="3"
-                Padding="0,24,0,0"
-                HorizontalOptions="CenterAndExpand"
-                Orientation="Horizontal"
-                Spacing="0">
-                <Image
-                    Margin="0,0,16,0"
-                    HeightRequest="34"
-                    Source="ic_twitter.png"
-                    WidthRequest="34"
-                    xct:TouchEffect.Command="{Binding LoginCommand}"
-                    xct:TouchEffect.PressedAnimationDuration="100"
-                    xct:TouchEffect.PressedScale="0.95"
-                    xct:TouchEffect.AnimationDuration="100"/>
-                <Image
-                    Margin="0,0,16,0"
-                    HeightRequest="34"
-                    Source="ic_google.png"
-                    WidthRequest="34"
-                    xct:TouchEffect.Command="{Binding GoogleLoginCommand}"
-                    xct:TouchEffect.PressedAnimationDuration="100"
-                    xct:TouchEffect.PressedScale="0.95"
-                    xct:TouchEffect.AnimationDuration="100"/>
-                <Image
-                    HeightRequest="34"
-                    Source="ic_facebook.png"
-                    WidthRequest="34"
-                    xct:TouchEffect.Command="{Binding FacebookLoginCommand}"
-                    xct:TouchEffect.PressedAnimationDuration="100"
-                    xct:TouchEffect.PressedScale="0.95"
-                    xct:TouchEffect.AnimationDuration="100"/>
-            </StackLayout>
             <Label
                 Grid.Row="4"
                 Padding="37"

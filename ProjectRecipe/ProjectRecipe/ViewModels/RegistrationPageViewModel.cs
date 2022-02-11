@@ -133,12 +133,12 @@ namespace ProjectRecipe.ViewModels
         {
             RegistrationRequest registrationRequest = new RegistrationRequest
             {
-               FirstName = this.firstName?.Trim(),
-               MiddleName = this.middleName?.Trim(),
-               LastName = this.lastName?.Trim(),
-               Username = this.userName?.Trim(),
-               Password = this.password?.Trim(),
-               DateCreated = DateTime.Now
+               firstName = this.firstName?.Trim(),
+               middleName = this.middleName?.Trim(),
+               lastName = this.lastName?.Trim(),
+               username = this.userName?.Trim(),
+               password = this.password?.Trim(),
+               dateCreated = DateTime.Now
             };
 
             bool isValid = validationService.ValidateRegistration(registrationRequest);

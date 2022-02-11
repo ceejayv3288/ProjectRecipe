@@ -6,17 +6,17 @@ namespace ProjectRecipe.Models
 {
     public class UserModel
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public bool EmailApproved { get; set; }
-        public string Role { get; set; }
-        public byte[] ProfilePicture { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateUpdated { get; set; }
-        public string Token { get; set; }
+        public int id { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string firstName { get; set; }
+        public string middleName { get; set; }
+        public string lastName { get; set; }
+        public bool emailApproved { get; set; }
+        public string role { get; set; }
+        public byte[] profilePicture { get; set; }
+        public DateTime dateCreated { get; set; }
+        public DateTime dateUpdated { get; set; }
+        public string token { get; set; }
     }
 }

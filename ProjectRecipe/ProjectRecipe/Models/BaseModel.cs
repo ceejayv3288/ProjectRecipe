@@ -6,7 +6,7 @@ namespace ProjectRecipe.Models
 {
     public class BaseModel
     {
-        public int Id { get; set; }
-        public Guid Guid { get; set; }
+        public int id { get; set; }
+        public Guid guid { get; set; }
     }
 }
