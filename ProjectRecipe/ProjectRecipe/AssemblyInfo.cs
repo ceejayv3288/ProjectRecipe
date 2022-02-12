@@ -13,3 +13,4 @@ using Xamarin.Forms.Xaml;
 [assembly: Dependency(typeof(ValidationService))]
 [assembly: Dependency(typeof(AuthorizationService))]
 [assembly: Dependency(typeof(ErrorService))]
+[assembly: Dependency(typeof(MemoryCacheService))]
