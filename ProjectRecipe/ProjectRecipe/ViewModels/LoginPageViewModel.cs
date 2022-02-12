@@ -1,5 +1,6 @@
 ﻿using ProjectRecipe.Commands;
 using ProjectRecipe.Commands.Navigation;
+using ProjectRecipe.Constants;
 using ProjectRecipe.Models.Service.Request;
 using ProjectRecipe.Services.Interfaces;
 using ProjectRecipe.Views;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ProjectRecipe.ViewModels
@@ -14,6 +16,7 @@ namespace ProjectRecipe.ViewModels
     public class LoginPageViewModel : BaseViewModel
     {
         private readonly IAuthorizationService authorizationService;
+        private readonly IMemoryCacheService memoryCacheService;
 
         public LoginCommand LoginCommand { get; set; }
         public RegistrationPageNavigationCommand RegistrationPageNavigationCommand { get; set; }
@@ -44,6 +47,7 @@ namespace ProjectRecipe.ViewModels
             RegistrationPageNavigationCommand = new RegistrationPageNavigationCommand(this);
 
             authorizationService = DependencyService.Get<IAuthorizationService>();
+            memoryCacheService = DependencyService.Get<IMemoryCacheService>();
         }
 
         public async void ExecuteLoginCommand()
@@ -60,6 +64,7 @@ namespace ProjectRecipe.ViewModels
             {
                 LoadingPopup.Dismiss(null);
                 await Application.Current.MainPage.DisplayAlert("Alert", "Successfully Login.", "Ok");
+                memoryCacheService.Set(Configurations.ClientTokenKey, result.Item1.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
                 await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
             }
             else

@@ -20,7 +20,7 @@ namespace ProjectRecipe.Services
 
         public AuthorizationService()
         {
-            client.BaseAddress = new Uri(ApiConfigurations.RecipeApiUrl);
+            client.BaseAddress = new Uri(Configurations.RecipeApiUrl);
             errorService = DependencyService.Get<IErrorService>();
         }
 
