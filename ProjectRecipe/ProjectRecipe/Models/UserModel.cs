@@ -6,7 +6,7 @@ namespace ProjectRecipe.Models
 {
     public class UserModel
     {
-        public int id { get; set; }
+        public string id { get; set; }
         public string username { get; set; }
         public string password { get; set; }
         public string firstName { get; set; }
@@ -18,5 +18,6 @@ namespace ProjectRecipe.Models
         public DateTime dateCreated { get; set; }
         public DateTime dateUpdated { get; set; }
         public string token { get; set; }
+        public ResponseModel response { get; set; }
     }
 }

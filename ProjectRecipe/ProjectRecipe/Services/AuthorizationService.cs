@@ -24,39 +24,39 @@ namespace ProjectRecipe.Services
             errorService = DependencyService.Get<IErrorService>();
         }
 
-        public async Task<ErrorMessageModel> RegisterUser(RegistrationRequest registrationRequest)
+        public async Task<ResponseModel> RegisterUserAsync(RegistrationRequest registrationRequest)
         {
-            try
-            {
-                ErrorMessageModel errorMessage = null;
-                var content = new StringContent(JsonConvert.SerializeObject(registrationRequest), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/register", content);
-                if (!response.IsSuccessStatusCode)
-                {
-                    errorMessage = await errorService.ParseError(response);
-                }
+            ResponseModel result = new ResponseModel();
+            var content = new StringContent(JsonConvert.SerializeObject(registrationRequest), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/register", content);
 
-                return errorMessage;
-            }
-            catch (Exception ex)
+            if (response != null)
             {
-                throw ex;
+                using (var stream = await response.Content.ReadAsStreamAsync())
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        using (var json = new JsonTextReader(reader))
+                        {
+                            result = App.JsonSerializer.Deserialize<ResponseModel>(json);
+                        }
+                    }
+                }
             }
+            
+            return result;
         }
 
-        public async Task<Tuple<UserModel, ErrorMessageModel>> LoginUser(AuthenticationRequest authenticationRequest)
+        public async Task<UserModel> LoginUserAsync(AuthenticationRequest authenticationRequest)
         {
             try
             {
-                ErrorMessageModel errorMessage = null;
-                UserModel user = null;
+                UserModel user = new UserModel();
+                var jsonSerialize = JsonConvert.SerializeObject(authenticationRequest);
+                var content = new StringContent(jsonSerialize, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/login", content);
 
-                var sample = JsonConvert.SerializeObject(authenticationRequest);
-                var content = new StringContent(sample, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/authenticate", content);
-
-                var sample2 = response.Content.ReadAsStringAsync().Result;
-                if (response.IsSuccessStatusCode)
+                if (response != null)
                 {
                     using (var stream = await response.Content.ReadAsStreamAsync())
                     {
@@ -69,16 +69,11 @@ namespace ProjectRecipe.Services
                         }
                     }
                 }
-                else
-                {
-                    errorMessage = await errorService.ParseError(response);
-                }
-
-                return new Tuple<UserModel, ErrorMessageModel>(user, errorMessage);
+                return user;
             }
             catch (Exception ex)
             {
-                throw ex;
+                return new UserModel { response = new ResponseModel { isSuccess = false, message = "Service Unavailable." } };
             }
         }
     }

@@ -7,6 +7,7 @@ using ProjectRecipe.Services.Interfaces;
 using ProjectRecipe.Views.Popups;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -150,17 +151,17 @@ namespace ProjectRecipe.ViewModels
             }
                 
             App.Current.MainPage.Navigation.ShowPopup(LoadingPopup);
-            var result = await authorizationService.RegisterUser(registrationRequest);
-            if (result == null)
+            var result = await authorizationService.RegisterUserAsync(registrationRequest);
+            if (result.isSuccess)
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", "Successfully Registered.", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Alert", result.message, "Ok");
                 await Shell.Current.GoToAsync("..");
             }
             else
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", result.message, "Ok");
+                await Application.Current.MainPage.DisplayAlert("Alert", string.IsNullOrWhiteSpace(result.message) ? result.errors.FirstOrDefault() : result.message, "Ok");
             }
         }
     }

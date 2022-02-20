@@ -6,6 +6,7 @@ using ProjectRecipe.Services.Interfaces;
 using ProjectRecipe.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Essentials;
@@ -59,18 +60,18 @@ namespace ProjectRecipe.ViewModels
             };
 
             App.Current.MainPage.Navigation.ShowPopup(LoadingPopup);
-            var result = await authorizationService.LoginUser(authenticationRequest);
-            if (result.Item2 == null)
+            var result = await authorizationService.LoginUserAsync(authenticationRequest);
+            if (result.response.isSuccess)
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", "Successfully Login.", "Ok");
-                memoryCacheService.Set(Configurations.ClientTokenKey, result.Item1.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
+                await Application.Current.MainPage.DisplayAlert("Alert", result.response.message, "Ok");
+                memoryCacheService.Set(Configurations.ClientTokenKey, result.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
                 await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
             }
             else
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", result.Item2.message, "Ok");
+                await Application.Current.MainPage.DisplayAlert("Alert", string.IsNullOrWhiteSpace(result.response.message) ? result.response.errors.FirstOrDefault() : result.response.message, "Ok");
             }
         }
 
