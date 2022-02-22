@@ -21,6 +21,7 @@ namespace ProjectRecipe.ViewModels
 
         public LoginCommand LoginCommand { get; set; }
         public RegistrationPageNavigationCommand RegistrationPageNavigationCommand { get; set; }
+        public TogglePasswordCommand TogglePasswordCommand { get; set; }
 
         private string _userName;
         public string userName
@@ -42,17 +43,35 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
+        private bool _isPassword;
+        public bool isPassword
+        {
+            get { return _isPassword; }
+            set
+            {
+                SetProperty(ref _isPassword, value);
+            }
+        }
+
         public LoginPageViewModel()
         {
             LoginCommand = new LoginCommand(this);
             RegistrationPageNavigationCommand = new RegistrationPageNavigationCommand(this);
+            TogglePasswordCommand = new TogglePasswordCommand(this);
 
             authorizationService = DependencyService.Get<IAuthorizationService>();
             memoryCacheService = DependencyService.Get<IMemoryCacheService>();
+
+            isPassword = true;
         }
 
         public async void ExecuteLoginCommand()
         {
+            if (userName == null && password == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Alert", "Fillup all the fields before login.", "Ok");
+                return;
+            }
             AuthenticationRequest authenticationRequest = new AuthenticationRequest
             {
                 username = this.userName,

@@ -2,7 +2,8 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
            x:Class="ProjectRecipe.Views.Popups.LoadingPopup"
-           Size="300,200">
+           Size="300,200"
+           IsLightDismissEnabled="False">
     <StackLayout Padding="48" Spacing="0">
         <Frame
             CornerRadius="6"

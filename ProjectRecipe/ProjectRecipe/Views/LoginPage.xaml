@@ -60,7 +60,7 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Placeholder="Esmeralda"
+                        Placeholder="Username"
                         Text="{Binding userName}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
@@ -101,10 +101,25 @@
                         <Image
                             HeightRequest="24"
                             WidthRequest="24"
-                            xct:TouchEffect.Command="{Binding ShowHidePasswordCommand}"
+                            xct:TouchEffect.Command="{Binding TogglePasswordCommand}"
                             xct:TouchEffect.PressedAnimationDuration="100"
                             xct:TouchEffect.PressedScale="0.95"
-                            xct:TouchEffect.AnimationDuration="100"/>
+                            xct:TouchEffect.AnimationDuration="100">
+                            <Image.Triggers>
+                                <DataTrigger TargetType="Image"
+                                             Binding="{Binding isPassword}"
+                                             Value="False">
+                                    <Setter Property="Source"
+                                            Value="{local:ImageResource ProjectRecipe.Assets.Images.open-eye-icon.png}"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Image"
+                                             Binding="{Binding isPassword}"
+                                             Value="True">
+                                    <Setter Property="Source"
+                                            Value="{local:ImageResource ProjectRecipe.Assets.Images.close-eye-icon.png}"/>
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
                     </StackLayout>
                 </Frame>
                 <Label
@@ -112,7 +127,7 @@
                     FontFamily="LatoRegular"
                     FontSize="14"
                     HorizontalOptions="End"
-                    Text="Forgot Password"
+                    Text=""
                     TextColor="#5A5D73"
                     xct:TouchEffect.Command="{Binding ForgotPasswordNavigationCommand}"
                     xct:TouchEffect.PressedAnimationDuration="100"
