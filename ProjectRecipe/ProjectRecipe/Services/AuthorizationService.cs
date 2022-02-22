@@ -20,6 +20,14 @@ namespace ProjectRecipe.Services
 
         public AuthorizationService()
         {
+        #if DEBUG
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    client = new HttpClient(App.HttpClientHandler);
+                    break;
+            }
+        #endif
             client.BaseAddress = new Uri(Configurations.RecipeApiUrl);
             errorService = DependencyService.Get<IErrorService>();
         }

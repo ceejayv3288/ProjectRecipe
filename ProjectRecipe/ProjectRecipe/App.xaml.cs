@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ProjectRecipe.Views;
 using System;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,7 @@ namespace ProjectRecipe
     public partial class App : Application
     {
         public static JsonSerializer JsonSerializer { get; private set; }
+        public static HttpClientHandler HttpClientHandler { get; private set; }
 
         public App()
         {
@@ -20,6 +22,17 @@ namespace ProjectRecipe
                 typeof(RegistrationPage));
 
             JsonSerializer = new JsonSerializer();
+
+        #if DEBUG
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    HttpClientHandler = new HttpClientHandler();
+                    HttpClientHandler.ServerCertificateCustomValidationCallback =
+                    (message, cert, chain, errors) => { return true; };
+                    break;
+            }
+        #endif
 
             MainPage = new AppShell();
         }
