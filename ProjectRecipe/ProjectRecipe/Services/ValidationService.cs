@@ -16,23 +16,29 @@ namespace ProjectRecipe.Services
                 return false;
             else if (recipeToCreate.durationInMin <= 0 ||
                      recipeToCreate.image == null ||
-                     String.IsNullOrWhiteSpace(recipeToCreate.description) ||
-                     String.IsNullOrWhiteSpace(recipeToCreate.name))
+                     string.IsNullOrWhiteSpace(recipeToCreate.description) ||
+                     string.IsNullOrWhiteSpace(recipeToCreate.name))
                 return false;
             return true;
         }
 
-        public bool ValidateRegistration(RegistrationRequest registrationRequest)
+        public string ValidateRegistration(RegistrationFieldModel registrationFieldModel)
         {
-            if (registrationRequest == null)
-                return false;
-            else if (registrationRequest.profilePicture == null ||
-                     String.IsNullOrWhiteSpace(registrationRequest.firstName) ||
-                     String.IsNullOrWhiteSpace(registrationRequest.lastName) ||
-                     String.IsNullOrWhiteSpace(registrationRequest.username) ||
-                     String.IsNullOrWhiteSpace(registrationRequest.password))
-                return false;
-            return true;
+            if (registrationFieldModel == null)
+                return "Fill up all the required fields.";
+            else if (registrationFieldModel.profilePicture == null ||
+                     string.IsNullOrWhiteSpace(registrationFieldModel.firstName) ||
+                     string.IsNullOrWhiteSpace(registrationFieldModel.lastName) ||
+                     string.IsNullOrWhiteSpace(registrationFieldModel.userName) ||
+                     string.IsNullOrWhiteSpace(registrationFieldModel.email) ||
+                     string.IsNullOrWhiteSpace(registrationFieldModel.password) ||
+                     string.IsNullOrWhiteSpace(registrationFieldModel.confirmPassword) ||
+                     registrationFieldModel.profilePicture != null ||
+                     registrationFieldModel.profilePictureByte != null)
+                return "Fill up all the required fields.";
+            else if (registrationFieldModel.password != registrationFieldModel.confirmPassword)
+                return "Passwords are not the same.";
+            return null;
         }
     }
 }

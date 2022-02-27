@@ -80,17 +80,17 @@ namespace ProjectRecipe.ViewModels
 
             App.Current.MainPage.Navigation.ShowPopup(LoadingPopup);
             var result = await authorizationService.LoginUserAsync(authenticationRequest);
-            if (result.response.isSuccess)
+            if (result.Item2 == null)
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", result.response.message, "Ok");
-                memoryCacheService.Set(Configurations.ClientTokenKey, result.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
+                await Application.Current.MainPage.DisplayAlert("Alert", "Login Successful", "Ok");
+                memoryCacheService.Set(Configurations.ClientTokenKey, result.Item1.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
                 await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
             }
             else
             {
                 LoadingPopup.Dismiss(null);
-                await Application.Current.MainPage.DisplayAlert("Alert", string.IsNullOrWhiteSpace(result.response.message) ? result.response.errors.FirstOrDefault() : result.response.message, "Ok");
+                await Application.Current.MainPage.DisplayAlert("Alert", string.IsNullOrWhiteSpace(result.Item2.message) ? result.Item2.errors.FirstOrDefault() : result.Item2.message, "Ok");
             }
         }
 

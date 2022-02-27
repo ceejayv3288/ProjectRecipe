@@ -6,6 +6,7 @@ using ProjectRecipe.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,56 +33,53 @@ namespace ProjectRecipe.Services
             errorService = DependencyService.Get<IErrorService>();
         }
 
-        public async Task<ResponseModel> RegisterUserAsync(RegistrationRequest registrationRequest)
+        public async Task<Tuple<ResponseModel, ErrorMessageModel>> RegisterUserAsync(RegistrationRequest registrationRequest)
         {
             ResponseModel result = new ResponseModel();
+            ErrorMessageModel error = null;
             var content = new StringContent(JsonConvert.SerializeObject(registrationRequest), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/register", content);
 
-            if (response != null)
+            if (response.IsSuccessStatusCode)
             {
-                using (var stream = await response.Content.ReadAsStreamAsync())
-                {
-                    using (var reader = new StreamReader(stream))
-                    {
-                        using (var json = new JsonTextReader(reader))
-                        {
-                            result = App.JsonSerializer.Deserialize<ResponseModel>(json);
-                        }
-                    }
-                }
+                string responseString = await response.Content.ReadAsStringAsync();
+                result = JsonConvert.DeserializeObject<ResponseModel>(responseString);
             }
-            
-            return result;
+            else
+            {
+                string responseString = await response.Content.ReadAsStringAsync();
+                error = JsonConvert.DeserializeObject<ErrorMessageModel>(responseString);
+            }
+
+            return new Tuple<ResponseModel, ErrorMessageModel>(result, error);
         }
 
-        public async Task<UserModel> LoginUserAsync(AuthenticationRequest authenticationRequest)
+        public async Task<Tuple<UserModel, ErrorMessageModel>> LoginUserAsync(AuthenticationRequest authenticationRequest)
         {
             try
             {
-                UserModel user = new UserModel();
+                UserModel result = new UserModel();
+                ErrorMessageModel error = null;
                 var jsonSerialize = JsonConvert.SerializeObject(authenticationRequest);
                 var content = new StringContent(jsonSerialize, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = await client.PostAsync($"{client.BaseAddress}users/login", content);
 
-                if (response != null)
+                if (response.IsSuccessStatusCode)
                 {
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            using (var json = new JsonTextReader(reader))
-                            {
-                                user = App.JsonSerializer.Deserialize<UserModel>(json);
-                            }
-                        }
-                    }
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<UserModel>(responseString);
                 }
-                return user;
+                else
+                {
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    error = JsonConvert.DeserializeObject<ErrorMessageModel>(responseString);
+                }
+
+                return new Tuple<UserModel, ErrorMessageModel>(result, error);
             }
             catch (Exception ex)
             {
-                return new UserModel { response = new ResponseModel { isSuccess = false, message = "Service Unavailable." } };
+                return new Tuple<UserModel, ErrorMessageModel>(null, new ErrorMessageModel { message = "Service Unavailable.", statusCode = (int)HttpStatusCode.NotFound });
             }
         }
     }

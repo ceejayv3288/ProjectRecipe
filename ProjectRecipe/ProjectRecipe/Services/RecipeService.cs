@@ -23,6 +23,14 @@ namespace ProjectRecipe.Services
 
         public RecipeService()
         {
+        #if DEBUG
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    client = new HttpClient(App.HttpClientHandler);
+                    break;
+            }
+        #endif
             byteArrayToImageConverter = new ByteArrayToImageConverter();
             imageToByteArrayConverter = new ImageToByteArrayConverter();
         }

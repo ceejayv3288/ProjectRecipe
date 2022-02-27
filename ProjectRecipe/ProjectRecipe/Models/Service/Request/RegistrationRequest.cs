@@ -11,6 +11,7 @@ namespace ProjectRecipe.Models.Service.Request
         public string firstName { get; set; }
         public string middleName { get; set; }
         public string lastName { get; set; }
+        public string email { get; set; }
         public byte[] profilePicture { get; set; }
         public DateTime dateCreated { get; set; }
         public DateTime dateUpdated { get; set; }

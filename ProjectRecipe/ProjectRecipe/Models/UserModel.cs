@@ -18,6 +18,5 @@ namespace ProjectRecipe.Models
         public DateTime dateCreated { get; set; }
         public DateTime dateUpdated { get; set; }
         public string token { get; set; }
-        public ResponseModel response { get; set; }
     }
 }

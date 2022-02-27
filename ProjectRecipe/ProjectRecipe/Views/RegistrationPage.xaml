@@ -36,7 +36,7 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding firstName}"
+                        Text="{Binding registrationFieldModel.firstName}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
@@ -46,7 +46,7 @@
                     FontFamily="LatoRegular"
                     FontSize="14"
                     HorizontalOptions="Start"
-                    Text="Middle Name (Optional)"
+                    Text="Middle Name"
                     TextColor="#121212" />
                     <Frame
                     Padding="0"
@@ -65,7 +65,7 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding middleName}"
+                        Text="{Binding registrationFieldModel.middleName}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
@@ -94,7 +94,7 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding lastName}"
+                        Text="{Binding registrationFieldModel.lastName}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
@@ -123,7 +123,36 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding userName}"
+                        Text="{Binding registrationFieldModel.userName}"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Email-->
+                    <Label
+                    Padding="8,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Email Address"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding registrationFieldModel.email}"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
@@ -152,22 +181,53 @@
                         FontSize="14"
                         HeightRequest="44"
                         HorizontalOptions="FillAndExpand"
-                        Text="{Binding password}"
+                        Text="{Binding registrationFieldModel.password}"
+                            IsPassword="True"
+                        TextColor="#121212"
+                        VerticalOptions="Center" />
+                    </Frame>
+                    <!--Confirm Password-->
+                    <Label
+                    Padding="8,12,0,0"
+                    FontFamily="LatoRegular"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    Text="Confirm Password"
+                    TextColor="#121212" />
+                    <Frame
+                    Padding="0"
+                    BackgroundColor="#E7E7E7"
+                    HasShadow="False"
+                    HeightRequest="44">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <renderers:CustomEntry
+                        Margin="16,0,14,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HeightRequest="44"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding registrationFieldModel.confirmPassword}"
                             IsPassword="True"
                         TextColor="#121212"
                         VerticalOptions="Center" />
                     </Frame>
                     <!--Image-->
                     <Frame
-                    Padding="0"
-                    BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
-                    HasShadow="False"
-                    HeightRequest="44"
-                    IsVisible="{Binding profilePicture, Converter={converters:IsNullConverter IsNullValue=True, IsNotNullValue=False}}"
-                    xct:TouchEffect.Command="{Binding OpenMediaPickerCommand}"
-                    xct:TouchEffect.PressedAnimationDuration="100"
-                    xct:TouchEffect.PressedScale="0.95"
-                    xct:TouchEffect.AnimationDuration="100">
+                        Padding="0"
+                        Margin="0,16"
+                        BackgroundColor="#E7E7E7"
+                        HasShadow="False"
+                        HeightRequest="44"
+                        IsVisible="{Binding registrationFieldModel.profilePicture, Converter={converters:IsNullConverter IsNullValue=True, IsNotNullValue=False}}"
+                        xct:TouchEffect.Command="{Binding OpenMediaPickerCommand}"
+                        xct:TouchEffect.PressedAnimationDuration="100"
+                        xct:TouchEffect.PressedScale="0.95"
+                        xct:TouchEffect.AnimationDuration="100">
                         <Frame.CornerRadius>
                             <OnPlatform x:TypeArguments="x:Single">
                                 <On Platform="Android" Value="4" />
@@ -183,21 +243,21 @@
                         HorizontalTextAlignment="Center"
                         IsReadOnly="True"
                         Text="Select Profile Picture"
-                        TextColor="White"
+                        TextColor="Black"
                         VerticalOptions="Center" />
                     </Frame>
                     <Frame
                     Padding="0,24"
                     BackgroundColor="#E7E7E7"
                     HasShadow="False"
-                    IsVisible="{Binding profilePicture, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}">
+                    IsVisible="{Binding registrationFieldModel.profilePicture, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}">
                         <Frame.CornerRadius>
                             <OnPlatform x:TypeArguments="x:Single">
                                 <On Platform="Android" Value="4" />
                                 <On Platform="iOS" Value="4" />
                             </OnPlatform>
                         </Frame.CornerRadius>
-                        <Image Source="{Binding profilePicture}">
+                        <Image Source="{Binding registrationFieldModel.profilePicture}">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding OpenMediaPickerCommand}"/>
                             </Image.GestureRecognizers>
@@ -205,14 +265,14 @@
                     </Frame>
                     <!--Create Button-->
                     <Frame
-                    Padding="0"
-                    BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
-                    HasShadow="False"
-                    HeightRequest="44"
-                    xct:TouchEffect.Command="{Binding RegisterCommand}"
-                    xct:TouchEffect.PressedAnimationDuration="100"
-                    xct:TouchEffect.PressedScale="0.95"
-                    xct:TouchEffect.AnimationDuration="100">
+                        Padding="0"
+                        BackgroundColor="{StaticResource Key=PrimaryButtonColor}"
+                        HasShadow="False"
+                        HeightRequest="44"
+                        xct:TouchEffect.Command="{Binding RegisterCommand}"
+                        xct:TouchEffect.PressedAnimationDuration="100"
+                        xct:TouchEffect.PressedScale="0.95"
+                        xct:TouchEffect.AnimationDuration="100">
                         <Frame.CornerRadius>
                             <OnPlatform x:TypeArguments="x:Single">
                                 <On Platform="Android" Value="4" />

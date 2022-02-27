@@ -134,7 +134,7 @@
     <!--<FlyoutItem Title="SHOPPING LIST" Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}">
         <ShellContent Title="SHOPPING LIST"
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
-                      ContentTemplate="{DataTemplate views:RecipeCreatePage}"
+                      ContentTemplate="{DataTemplate views:RecipeCreateUpdatePage}"
                       Route="ShoppingListPage"/>
     </FlyoutItem>-->
     <!--With tabs-->
