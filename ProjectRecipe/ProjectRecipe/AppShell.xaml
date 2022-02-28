@@ -78,6 +78,28 @@
             </Grid>-->
         </DataTemplate>
     </Shell.ItemTemplate>
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <StackLayout x:Name="FlyoutItemLayout" 
+                         Style="{StaticResource FlyoutItemStyle}"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand"
+                         HeightRequest="50">
+                <Label x:Name="FlyoutItemLabel" 
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand"
+                       Text="{Binding Title}"
+                       FontSize="20"
+                       TextColor="White"
+                       FontFamily="RalewayExtraBold"
+                       VerticalTextAlignment="Center"/>
+                <Image x:Name="FlyoutItemIndicatorImage" 
+                       Source="{local:ImageResource ProjectRecipe.Assets.Images.flyout-item-line.png}"
+                       WidthRequest="30"
+                       IsVisible="False"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
 
     <Shell.FlyoutHeader>
         <Grid BackgroundColor="{StaticResource PrimaryButtonColor}"
@@ -146,6 +168,8 @@
                       Icon="{local:ImageResource ProjectRecipe.Assets.Images.logo.png}"
                       ContentTemplate="{DataTemplate views:PopularRecipesPage}"/>
     </FlyoutItem>
+    <MenuItem Text="LOGOUT"
+              Command="{Binding LogoutCommand}" />
 
     <!--Without tabs-->
     <!--<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">

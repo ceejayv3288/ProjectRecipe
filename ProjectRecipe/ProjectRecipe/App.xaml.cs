@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
+using ProjectRecipe.Constants;
 using ProjectRecipe.Views;
 using System;
 using System.Net.Http;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,8 +39,13 @@ namespace ProjectRecipe
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            var token = await SecureStorage.GetAsync(Configurations.ClientTokenKey);
+            if (token != null)
+            {
+                await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
+            }
         }
 
         protected override void OnSleep()

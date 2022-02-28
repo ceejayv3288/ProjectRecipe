@@ -84,7 +84,8 @@ namespace ProjectRecipe.ViewModels
             {
                 LoadingPopup.Dismiss(null);
                 await Application.Current.MainPage.DisplayAlert("Alert", "Login Successful", "Ok");
-                memoryCacheService.Set(Configurations.ClientTokenKey, result.Item1.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
+                //memoryCacheService.Set(Configurations.ClientTokenKey, result.Item1.token, new DateTimeOffset(DateTime.Now.AddDays(Configurations.ClientTokenLifetimeByDays)));
+                await SecureStorage.SetAsync(Configurations.ClientTokenKey, result.Item1.token);
                 await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");
             }
             else
