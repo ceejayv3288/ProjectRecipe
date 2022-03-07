@@ -6,10 +6,10 @@ using System.Windows.Input;
 
 namespace ProjectRecipe.Commands
 {
-    public class DropOverCommand : ICommand
+    public class AddRecipeStepCommand : ICommand
     {
         private readonly object _viewModel;
-        public DropOverCommand(object viewModel)
+        public AddRecipeStepCommand(object viewModel)
         {
             _viewModel = viewModel;
         }
@@ -23,13 +23,9 @@ namespace ProjectRecipe.Commands
 
         public void Execute(object parameter)
         {
-            if (_viewModel is MyOwnRecipesPageViewModel myOwnRecipesPageViewModel)
+            if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
             {
-                myOwnRecipesPageViewModel.ExecuteDragOverDeleteCommand();
-            }
-            else if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
-            {
-                recipeCreateUpdatePageViewModel.ExecuteDragOverDeleteCommand();
+                recipeCreateUpdatePageViewModel.ExecuteAddRecipeStepCommand();
             }
         }
     }

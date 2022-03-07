@@ -34,9 +34,15 @@ namespace ProjectRecipe.Commands
                     }
                 }
             }
-            else if (_viewModel is MyOwnRecipesPageViewModel myOwnRecipesPageViewModel2)
+            else if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
             {
-                //await screenerFilterViewModel.EditFilterPopupPage(filterModel);
+                if (parameter != null)
+                {
+                    if (parameter is RecipeStepModel recipeStep)
+                    {
+                        recipeCreateUpdatePageViewModel.dragStep = recipeStep;
+                    }
+                }
             }
         }
     }

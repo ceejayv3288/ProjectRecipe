@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\add-green-icon.png" />
     <None Remove="Assets\Images\add-icon.png" />
     <None Remove="Assets\Images\check-icon-white.png" />
     <None Remove="Assets\Images\chevron-left-icon.png" />
@@ -19,6 +20,7 @@
     <None Remove="Assets\Images\close-eye-icon.png" />
     <None Remove="Assets\Images\comment-circle-icon.png" />
     <None Remove="Assets\Images\comment-icon.png" />
+    <None Remove="Assets\Images\drag-icon.png" />
     <None Remove="Assets\Images\flyout-item-line.png" />
     <None Remove="Assets\Images\hamburger-menu.png" />
     <None Remove="Assets\Images\heart-icon-red.png" />
@@ -45,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Images\add-green-icon.png" />
     <EmbeddedResource Include="Assets\Images\add-icon.png" />
     <EmbeddedResource Include="Assets\Images\check-icon-white.png" />
     <EmbeddedResource Include="Assets\Images\chevron-left-icon.png" />
@@ -53,6 +56,7 @@
     <EmbeddedResource Include="Assets\Images\close-eye-icon.png" />
     <EmbeddedResource Include="Assets\Images\comment-circle-icon.png" />
     <EmbeddedResource Include="Assets\Images\comment-icon.png" />
+    <EmbeddedResource Include="Assets\Images\drag-icon.png" />
     <EmbeddedResource Include="Assets\Images\flyout-item-line.png" />
     <EmbeddedResource Include="Assets\Images\hamburger-menu.png" />
     <EmbeddedResource Include="Assets\Images\heart-icon-red.png" />
