@@ -4,6 +4,7 @@
              xmlns:converters="clr-namespace:ProjectRecipe.Converters"
              xmlns:renderers="clr-namespace:ProjectRecipe.Renderers"
              xmlns:headers="clr-namespace:ProjectRecipe.Controls.Headers"
+             xmlns:local="clr-namespace:ProjectRecipe"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="ProjectRecipe.Views.RegistrationPage">
     <ContentPage.Content>
@@ -217,7 +218,44 @@
                         VerticalOptions="Center" />
                     </Frame>
                     <!--Image-->
+                    <Label
+                        Padding="8,12,0,0"
+                        FontFamily="LatoRegular"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Text="Profile Picture"
+                        TextColor="#121212" />
                     <Frame
+                        Padding="0,24"
+                        BackgroundColor="#E7E7E7"
+                        HasShadow="False">
+                        <Frame.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Single">
+                                <On Platform="Android" Value="4" />
+                                <On Platform="iOS" Value="4" />
+                            </OnPlatform>
+                        </Frame.CornerRadius>
+                        <Image>
+                            <Image.Triggers>
+                                <DataTrigger TargetType="Image"
+                                             Binding="{Binding registrationFieldModel.profilePicture, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}"
+                                             Value="True">
+                                    <Setter Property="Source"
+                                            Value="{Binding registrationFieldModel.profilePicture}"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Image"
+                                             Binding="{Binding registrationFieldModel.profilePicture, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}"
+                                             Value="False">
+                                    <Setter Property="Source"
+                                            Value="{local:ImageResource ProjectRecipe.Assets.Images.profile-pic-placeholder.png}"/>
+                                </DataTrigger>
+                            </Image.Triggers>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenMediaPickerCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Frame>
+                     <Frame
                         Padding="0"
                         Margin="0,16"
                         BackgroundColor="#E7E7E7"
@@ -245,23 +283,6 @@
                         Text="Select Profile Picture"
                         TextColor="Black"
                         VerticalOptions="Center" />
-                    </Frame>
-                    <Frame
-                    Padding="0,24"
-                    BackgroundColor="#E7E7E7"
-                    HasShadow="False"
-                    IsVisible="{Binding registrationFieldModel.profilePicture, Converter={converters:IsNullConverter IsNullValue=False, IsNotNullValue=True}}">
-                        <Frame.CornerRadius>
-                            <OnPlatform x:TypeArguments="x:Single">
-                                <On Platform="Android" Value="4" />
-                                <On Platform="iOS" Value="4" />
-                            </OnPlatform>
-                        </Frame.CornerRadius>
-                        <Image Source="{Binding registrationFieldModel.profilePicture}">
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding OpenMediaPickerCommand}"/>
-                            </Image.GestureRecognizers>
-                        </Image>
                     </Frame>
                     <!--Create Button-->
                     <Frame

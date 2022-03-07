@@ -28,6 +28,7 @@
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\open-eye-icon.png" />
     <None Remove="Assets\Images\preparation-icon.png" />
+    <None Remove="Assets\Images\profile-pic-placeholder.png" />
     <None Remove="Assets\Images\recipe-banner-placeholder.png" />
     <None Remove="Assets\Images\recipe-placeholder.png" />
     <None Remove="Assets\Images\remy-avatar.jpeg" />
@@ -61,6 +62,7 @@
     <EmbeddedResource Include="Assets\Images\logo.png" />
     <EmbeddedResource Include="Assets\Images\open-eye-icon.png" />
     <EmbeddedResource Include="Assets\Images\preparation-icon.png" />
+    <EmbeddedResource Include="Assets\Images\profile-pic-placeholder.png" />
     <EmbeddedResource Include="Assets\Images\recipe-banner-placeholder.png" />
     <EmbeddedResource Include="Assets\Images\recipe-placeholder.png" />
     <EmbeddedResource Include="Assets\Images\remy-avatar.jpeg" />
