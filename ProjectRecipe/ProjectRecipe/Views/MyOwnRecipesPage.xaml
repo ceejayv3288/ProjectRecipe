@@ -7,58 +7,78 @@
     <ContentPage.Content>
         <StackLayout>
             <headers:HeaderWithAddIcon TitleText="MY OWN RECIPES"/>
-            <Frame BackgroundColor="White"
-                   Margin="0,20,0,0">
-                <StackLayout>
-                    <CollectionView ItemsSource="{Binding myRecipes}"
-                                x:Name="EventsCollection">
+            <Frame 
+                BackgroundColor="White"
+                Margin="0"
+                Padding="10,10,10,0">
+                <Grid>
+                    <CollectionView 
+                        ItemsSource="{Binding myRecipes}"
+                        x:Name="recipeCollection">
                         <CollectionView.EmptyView>
-                            <Label Text="You have no books saved. Try adding some. =)"
-                               VerticalOptions="CenterAndExpand"/>
+                            <Label 
+                                Padding="10"
+                                Text="You have no recipe created. Try sharing some. =)"
+                                VerticalOptions="CenterAndExpand"/>
                         </CollectionView.EmptyView>
                         <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical"
-                                            HorizontalItemSpacing="10"
-                                            VerticalItemSpacing="10"
-                                            Span="2" />
+                            <GridItemsLayout 
+                                Orientation="Vertical"
+                                Span="2" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Frame BackgroundColor="White"
-                                       BorderColor="PaleTurquoise"
-                                   HasShadow="False"
-                                   Padding="0">
-                                    <StackLayout Spacing="10"
-                                             Padding="10,10,10,0">
-                                        <Image Source="{Binding image}"
-                                               HeightRequest="100"/>
-                                        <Label Text="{Binding name}"
-                                           FontSize="15"/>
-                                        <Label Text="{Binding description}"
-                                           FontSize="Caption"/>
-                                    </StackLayout>
+                                <StackLayout 
+                                    Spacing="0"
+                                    Margin="0,5"
+                                    Padding="5,0">
+                                    <Frame 
+                                        BackgroundColor="Transparent"
+                                        BorderColor="PaleTurquoise"
+                                        HasShadow="False"
+                                        Padding="0">
+                                        <StackLayout 
+                                            Spacing="10" 
+                                            Padding="10,10,10,0">
+                                            <Image 
+                                                Source="{Binding image}"
+                                                HeightRequest="100"/>
+                                            <Label 
+                                                Text="{Binding name}"
+                                                FontSize="15"/>
+                                            <Label 
+                                                Text="{Binding description}"
+                                                FontSize="Caption"/>
+                                        </StackLayout>
+                                        <Frame.GestureRecognizers>
+                                            <DragGestureRecognizer 
+                                                DragStartingCommand="{Binding Path=BindingContext.ItemDraggedCommand, Source={x:Reference recipeCollection}}"
+                                                DragStartingCommandParameter="{Binding .}" />
+                                            <TapGestureRecognizer 
+                                                Command="{Binding Path=BindingContext.BookSelectedCommand, Source={x:Reference recipeCollection}}"
+                                                CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
+                                    </Frame>
+                                </StackLayout>
 
-                                    <Frame.GestureRecognizers>
-                                        <DragGestureRecognizer DragStartingCommand="{Binding Path=BindingContext.DragStartingCommand, Source={x:Reference EventsCollection}}"
-                                                           DragStartingCommandParameter="{Binding .}" />
-                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.BookSelectedCommand, Source={x:Reference EventsCollection}}"
-                                                              CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
-                    <!--#NOTE: Added this extra Layout to fix an issue where the image was disappearing after dropping the card-->
-                    <StackLayout>
-                        <Image HeightRequest="30"
-                           WidthRequest="30"
-                           Source="{local:ImageResource ProjectRecipe.Assets.Images.trash-icon.png}"
-                           HorizontalOptions="EndAndExpand"/>
+                    <StackLayout 
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="EndAndExpand"
+                        VerticalOptions="EndAndExpand"
+                        Margin="0,0,10,10">
+                        <Image 
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Source="{local:ImageResource ProjectRecipe.Assets.Images.trash-icon.png}"
+                            HorizontalOptions="EndAndExpand"/>
                         <StackLayout.GestureRecognizers>
-                            <DropGestureRecognizer DropCommand="{Binding DropOverCommand}"/>
+                            <DropGestureRecognizer DropCommand="{Binding ItemDroppedCommand}"/>
                         </StackLayout.GestureRecognizers>
                     </StackLayout>
-                </StackLayout>
+                </Grid>
             </Frame>
         </StackLayout>
     </ContentPage.Content>

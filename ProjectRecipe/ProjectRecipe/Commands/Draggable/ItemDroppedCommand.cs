@@ -25,7 +25,21 @@ namespace ProjectRecipe.Commands.Draggable
 
         public void Execute(object parameter)
         {
-            
+            if (_viewModel is MyOwnRecipesPageViewModel myOwnRecipesPageViewModel)
+            {
+                myOwnRecipesPageViewModel.ExecuteItemDroppedDeleteRecipeCommand();
+            }
+            else if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
+            {
+                if (parameter is RecipeStepModel recipeStep)
+                {
+                    recipeCreateUpdatePageViewModel.ExecuteItemDroppedMoveRecipeStepCommand(recipeStep);
+                }
+                else
+                {
+                    recipeCreateUpdatePageViewModel.ExecuteItemDroppedDeleteRecipeStepCommand();
+                }
+            }
         }
     }
 }

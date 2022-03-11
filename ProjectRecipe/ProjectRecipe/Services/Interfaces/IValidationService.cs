@@ -9,7 +9,7 @@ namespace ProjectRecipe.Services.Interfaces
 {
     public interface IValidationService
     {
-        bool ValidateCreateRecipe(RecipeCreateModel recipeToCreate);
+        bool ValidateCreateRecipe(RecipeCreateUpdateModel recipeToCreateUpdate);
         string ValidateRegistration(RegistrationFieldModel registrationFieldModel);
     }
 }

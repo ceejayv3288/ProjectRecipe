@@ -25,7 +25,16 @@ namespace ProjectRecipe.Commands.Draggable
 
         public void Execute(object parameter)
         {
-           
+            if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
+            {
+                if (parameter != null)
+                {
+                    if (parameter is RecipeStepModel recipeStep)
+                    {
+                        recipeCreateUpdatePageViewModel.ExecuteItemDraggedOverRecipeStepCommand(recipeStep);
+                    }
+                }
+            }
         }
     }
 }

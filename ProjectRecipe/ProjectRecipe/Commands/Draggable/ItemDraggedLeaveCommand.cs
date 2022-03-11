@@ -8,10 +8,10 @@ using System.Windows.Input;
 
 namespace ProjectRecipe.Commands.Draggable
 {
-    public class ItemDragLeaveCommand : ICommand
+    public class ItemDraggedLeaveCommand : ICommand
     {
         private readonly object _viewModel;
-        public ItemDragLeaveCommand(object viewModel)
+        public ItemDraggedLeaveCommand(object viewModel)
         {
             _viewModel = viewModel;
         }
@@ -25,7 +25,16 @@ namespace ProjectRecipe.Commands.Draggable
 
         public void Execute(object parameter)
         {
-            
+            if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
+            {
+                if (parameter != null)
+                {
+                    if (parameter is RecipeStepModel recipeStep)
+                    {
+                        recipeCreateUpdatePageViewModel.ExecuteItemDraggedLeaveRecipeStepCommand(recipeStep);
+                    }
+                }
+            }
         }
     }
 }

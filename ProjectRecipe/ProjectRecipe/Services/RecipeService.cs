@@ -149,7 +149,7 @@ namespace ProjectRecipe.Services
             }
         }
 
-        public async Task<HttpResponseMessage> CreateRecipe(RecipeCreateModel recipe)
+        public async Task<HttpResponseMessage> CreateRecipe(RecipeCreateUpdateModel recipe)
         {
             try
             {

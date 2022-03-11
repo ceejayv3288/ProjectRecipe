@@ -30,7 +30,7 @@ namespace ProjectRecipe.Commands
                 {
                     if (parameter is RecipeModel recipe)
                     {
-                        myOwnRecipesPageViewModel.dragRecipe = recipe;
+                        //myOwnRecipesPageViewModel.dragRecipe = recipe;
                     }
                 }
             }
@@ -40,7 +40,7 @@ namespace ProjectRecipe.Commands
                 {
                     if (parameter is RecipeStepModel recipeStep)
                     {
-                        recipeCreateUpdatePageViewModel.dragStep = recipeStep;
+                        //recipeCreateUpdatePageViewModel.dragStep = recipeStep;
                     }
                 }
             }

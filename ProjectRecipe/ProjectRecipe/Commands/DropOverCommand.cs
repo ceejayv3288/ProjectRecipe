@@ -25,11 +25,11 @@ namespace ProjectRecipe.Commands
         {
             if (_viewModel is MyOwnRecipesPageViewModel myOwnRecipesPageViewModel)
             {
-                myOwnRecipesPageViewModel.ExecuteDragOverDeleteCommand();
+                //myOwnRecipesPageViewModel.ExecuteDropDeleteCommand();
             }
             else if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
             {
-                recipeCreateUpdatePageViewModel.ExecuteDragOverDeleteCommand();
+                //recipeCreateUpdatePageViewModel.ExecuteDropDeleteCommand();
             }
         }
     }

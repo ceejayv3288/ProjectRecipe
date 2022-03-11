@@ -1,4 +1,5 @@
 ﻿using ProjectRecipe.Commands;
+using ProjectRecipe.Commands.Draggable;
 using ProjectRecipe.Commands.Navigation;
 using ProjectRecipe.Constants;
 using ProjectRecipe.Converters;
@@ -7,6 +8,7 @@ using ProjectRecipe.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -24,10 +26,13 @@ namespace ProjectRecipe.ViewModels
 
         public OpenMediaPickerCommand OpenMediaPickerCommand { get; set; }
         public CreateRecipeCommand CreateRecipeCommand { get; set; }
-        public DragStartingCommand DragStartingCommand { get; set; }
-        public DropOverCommand DropOverCommand { get; set; }
+        public ItemDraggedCommand ItemDraggedCommand { get; set; }
+        public ItemDroppedCommand ItemDroppedCommand { get; set; }
+        public ItemDraggedOverCommand ItemDraggedOverCommand { get; set; }
+        public ItemDraggedLeaveCommand ItemDraggedLeaveCommand { get; set; }
         public AddRecipeStepCommand AddRecipeStepCommand { get; set; }
-        public RecipeStepModel dragStep { get; set; }
+
+        public int StepDefaultHeight { get; set; } = 52;
 
         public string[] courseTypes { get; } = Enum.GetNames(typeof(CourseTypeEnum));
         CourseTypeEnum _selectedCourse = CourseTypeEnum.None;
@@ -112,12 +117,11 @@ namespace ProjectRecipe.ViewModels
             OpenMediaPickerCommand = new OpenMediaPickerCommand(this);
             PopPageCommand = new PopPageCommand(this);
             CreateRecipeCommand = new CreateRecipeCommand(this);
-            DragStartingCommand = new DragStartingCommand(this);
-            DropOverCommand = new DropOverCommand(this);
+            ItemDraggedCommand = new ItemDraggedCommand(this);
+            ItemDroppedCommand = new ItemDroppedCommand(this);
+            ItemDraggedOverCommand = new ItemDraggedOverCommand(this);
+            ItemDraggedLeaveCommand = new ItemDraggedLeaveCommand(this);
             AddRecipeStepCommand = new AddRecipeStepCommand(this);
-
-            //Command sdasda = new Command<RecipeCreateUpdatePageViewModel>(OnItemDragged);
-
             validationService = DependencyService.Get<IValidationService>();
             recipeService = DependencyService.Get<IRecipeService>();
 
@@ -126,10 +130,8 @@ namespace ProjectRecipe.ViewModels
 
             stepsCollection = new ObservableCollection<RecipeStepModel>();
 
-
-            stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 1, description = "lorem ipsum"});
-            stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 2, description = "lorem ipsum" });
-            stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 3, description = "lorem ipsum" });
+            stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 1, description = "" });
+            stepsCollectionHeight += StepDefaultHeight;
         }
 
         public bool ValidateInput()
@@ -137,11 +139,6 @@ namespace ProjectRecipe.ViewModels
 
             return true;
         }
-
-        //private void OnItemDragged(RecipeCreateUpdatePageViewModel item)
-        //{
-
-        //}
 
         public async Task ExecuteOpenMediaPickerCommand()
         {
@@ -166,33 +163,81 @@ namespace ProjectRecipe.ViewModels
 
         public async void ExecuteCreateRecipeCommand()
         {
-            RecipeCreateModel recipeToCreate = new RecipeCreateModel
+            RecipeCreateUpdateModel recipeToCreate = new RecipeCreateUpdateModel
             {
                 name = this.recipeName,
                 description = this.description,
                 durationInMin = (int)this.duration,
-                image = imageByte
+                image = imageByte,
+                courseType = (int)selectedCourse
             };
 
-            bool isValid = validationService.ValidateCreateRecipe(recipeToCreate);
-            if (!isValid)
+            bool isValidRecipe = validationService.ValidateCreateRecipe(recipeToCreate);
+            if (!isValidRecipe)
                 return;
-            var samp = await recipeService.CreateRecipe(recipeToCreate);
-            await Shell.Current.GoToAsync("..");
+            bool isValidRecipeStep = validationService.ValidateCreateRecipeStep(stepsCollection.ToList());
+            if (!isValidRecipeStep)
+                return;
+
+            var isRecipeCreated = await recipeService.CreateRecipe(recipeToCreate);
+            var isRecipeStepsCreated = await recipeService.CreateRecipe(recipeToCreate);
+            if (isRecipeCreated.IsSuccessStatusCode)
+                await Shell.Current.GoToAsync("..");
+            else
+                await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
         }
 
-        public void ExecuteDragOverDeleteCommand()
+        public void ExecuteItemDraggedCommand(RecipeStepModel recipeStep)
         {
-            if (stepsCollection.Contains(dragStep) && stepsCollection.Count > 1)
+            stepsCollection.ToList().ForEach(i => i.isBeingDragged = recipeStep == i);
+        }
+
+        public void ExecuteItemDroppedMoveRecipeStepCommand(RecipeStepModel recipeStep)
+        {
+            var itemToMove = stepsCollection.First(i => i.isBeingDragged);
+            var itemToInsertBefore = recipeStep;
+
+            if (itemToMove == null || itemToInsertBefore == null || itemToMove == itemToInsertBefore)
+                return;
+
+            stepsCollection.Remove(itemToMove);
+            var insertAtIndex = stepsCollection.IndexOf(itemToInsertBefore);
+
+            stepsCollection.Insert(insertAtIndex, itemToMove);
+            itemToMove.isBeingDragged = false;
+            itemToInsertBefore.isBeingDraggedOver = false;
+            stepsCollectionHeight -= StepDefaultHeight;
+
+            ArrangeNumbering();
+        }
+
+        public async void ExecuteItemDroppedDeleteRecipeStepCommand()
+        {
+            if (stepsCollection.Count > 1)
             {
-                stepsCollection.Remove(dragStep);
-                ArrangeNumber();
-                //var recipeDeleted = await recipeService.DeleteRecipe(dragStep.id);
-                //if (!recipeDeleted.IsSuccessStatusCode)
-                //{
-                //    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
-                //}
+                var itemToDelete = stepsCollection.First(i => i.isBeingDragged);
+                stepsCollection.Remove(itemToDelete);
+                stepsCollectionHeight -= StepDefaultHeight;
+                ArrangeNumbering();
+                var recipeDeleted = await recipeService.DeleteRecipe(itemToDelete.id);
+                if (!recipeDeleted.IsSuccessStatusCode)
+                {
+                    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
+                }
             }
+        }
+
+        public void ExecuteItemDraggedOverRecipeStepCommand(RecipeStepModel recipeStep)
+        {
+            var itemBeingDragged = stepsCollection.FirstOrDefault(i => i.isBeingDragged);
+            stepsCollection.ToList().ForEach(i => i.isBeingDraggedOver = recipeStep == i && recipeStep != itemBeingDragged);
+            stepsCollectionHeight = (stepsCollection.Count() + 1) * StepDefaultHeight;
+        }
+
+        public void ExecuteItemDraggedLeaveRecipeStepCommand(RecipeStepModel recipeStep)
+        {
+            stepsCollection.ToList().ForEach(i => i.isBeingDraggedOver = false);
+            stepsCollectionHeight = stepsCollection.Count() * StepDefaultHeight;
         }
 
         public void ExecuteAddRecipeStepCommand()
@@ -202,9 +247,10 @@ namespace ProjectRecipe.ViewModels
                 guid = Guid.NewGuid(),
                 order = stepsCollection.Count + 1
             });
+            stepsCollectionHeight += StepDefaultHeight;
         }
 
-        public void ArrangeNumber()
+        public void ArrangeNumbering()
         {
             int start = 1;
             foreach (var step in stepsCollection)

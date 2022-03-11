@@ -1,8 +1,10 @@
-﻿using ProjectRecipe.Models;
+﻿using ProjectRecipe.Constants;
+using ProjectRecipe.Models;
 using ProjectRecipe.Models.Service.Request;
 using ProjectRecipe.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,15 +12,29 @@ namespace ProjectRecipe.Services
 {
     public class ValidationService : IValidationService
     {
-        public bool ValidateCreateRecipe(RecipeCreateModel recipeToCreate)
+        public bool ValidateCreateRecipe(RecipeCreateUpdateModel recipeToCreate)
         {
             if (recipeToCreate == null)
                 return false;
             else if (recipeToCreate.durationInMin <= 0 ||
                      recipeToCreate.image == null ||
                      string.IsNullOrWhiteSpace(recipeToCreate.description) ||
-                     string.IsNullOrWhiteSpace(recipeToCreate.name))
+                     string.IsNullOrWhiteSpace(recipeToCreate.name) ||
+                     recipeToCreate.courseType == (int)CourseTypeEnum.None)
                 return false;
+            return true;
+        }
+
+        public bool ValidateCreateRecipeStep(List<RecipeStepModel> recipeStepList)
+        {
+            if (!recipeStepList.Any())
+                return false;
+
+            foreach (var step in recipeStepList)
+            {
+                if (string.IsNullOrWhiteSpace(step.description))
+                    return false;
+            }
             return true;
         }
 
