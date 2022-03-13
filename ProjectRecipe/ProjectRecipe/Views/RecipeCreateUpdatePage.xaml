@@ -4,6 +4,7 @@
              xmlns:converters="clr-namespace:ProjectRecipe.Converters"
              xmlns:renderers="clr-namespace:ProjectRecipe.Renderers"
              xmlns:headers="clr-namespace:ProjectRecipe.Controls.Headers"
+             xmlns:controls="clr-namespace:ProjectRecipe.Controls"
              xmlns:local="clr-namespace:ProjectRecipe"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="ProjectRecipe.Views.RecipeCreateUpdatePage"
@@ -185,140 +186,9 @@
                         </Image>
                     </Frame>
                     <!--Steps-->
-                    <Frame
-                        Padding="0"
-                        HasShadow="False"
-                        Margin="0,0,0,12">
-                        <Frame.CornerRadius>
-                            <OnPlatform x:TypeArguments="x:Single">
-                                <On Platform="Android" Value="4" />
-                                <On Platform="iOS" Value="4" />
-                            </OnPlatform>
-                        </Frame.CornerRadius>
-                        <StackLayout Margin="0,12,0,0">
-                            <Frame
-                                Padding="10,10,10,0"
-                                HasShadow="False"
-                                BorderColor="LightYellow"
-                                BackgroundColor="LightBlue">
-                                <Frame.CornerRadius>
-                                    <OnPlatform x:TypeArguments="x:Single">
-                                        <On Platform="Android" Value="4" />
-                                        <On Platform="iOS" Value="4" />
-                                    </OnPlatform>
-                                </Frame.CornerRadius>
-                                <CollectionView 
-                                    ItemsSource="{Binding stepsCollection}"
-                                    x:Name="StepCollection"
-                                    HeightRequest="{Binding stepsCollectionHeight}">
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <StackLayout Spacing="0">
-                                                <Frame 
-                                                    Padding="0"
-                                                    Margin="0,0,0,12"
-                                                    BackgroundColor="#E7E7E7"
-                                                    HasShadow="False"
-                                                    IsVisible="{Binding isBeingDraggedOver}">
-                                                    <Frame.CornerRadius>
-                                                        <OnPlatform x:TypeArguments="x:Single">
-                                                            <On Platform="Android" Value="4" />
-                                                            <On Platform="iOS" Value="4" />
-                                                        </OnPlatform>
-                                                    </Frame.CornerRadius>
-                                                    <StackLayout 
-                                                        BackgroundColor="LightYellow"
-                                                        HeightRequest="44"/>
-                                                </Frame>
-                                                <StackLayout 
-                                                    Orientation="Horizontal"
-                                                    VerticalOptions="CenterAndExpand"
-                                                    Margin="0,0,0,12"
-                                                    Spacing="0">
-                                                    <Label
-                                                        FontFamily="LatoRegular"
-                                                        FontSize="14"
-                                                        VerticalOptions="CenterAndExpand"
-                                                        Text="{Binding order}"
-                                                        TextColor="#121212" 
-                                                        Margin="0,0,6,0"/>
-                                                    <Frame
-                                                        Padding="0"
-                                                        BackgroundColor="#E7E7E7"
-                                                        HasShadow="False"
-                                                        HorizontalOptions="FillAndExpand"
-                                                        MinimumHeightRequest="44">
-                                                        <Frame.CornerRadius>
-                                                            <OnPlatform x:TypeArguments="x:Single">
-                                                                <On Platform="Android" Value="4" />
-                                                                <On Platform="iOS" Value="4" />
-                                                            </OnPlatform>
-                                                        </Frame.CornerRadius>
-                                                        <renderers:CustomEditor 
-                                                            AutoSize="TextChanges"
-                                                            IsTextPredictionEnabled="False"
-                                                            IsSpellCheckEnabled="False"
-                                                            Margin="16,0,14,0"
-                                                            FontFamily="LatoRegular"
-                                                            FontSize="14"
-                                                            MinimumHeightRequest="44"
-                                                            HorizontalOptions="FillAndExpand"
-                                                            Text="{Binding description}"
-                                                            TextColor="#121212"
-                                                            VerticalOptions="Center" />
-                                                    </Frame>
-                                                    <Image 
-                                                        HeightRequest="20"
-                                                        WidthRequest="20"
-                                                        Source="{local:ImageResource ProjectRecipe.Assets.Images.drag-icon.png}"
-                                                        HorizontalOptions="End"/>
-                                                </StackLayout>
-                                                <StackLayout.GestureRecognizers>
-                                                    <DragGestureRecognizer 
-                                                        DragStartingCommand="{Binding Path=BindingContext.ItemDraggedCommand, Source={x:Reference StepCollection}}"
-                                                        DragStartingCommandParameter="{Binding .}" />
-                                                    <DropGestureRecognizer
-                                                        AllowDrop="True"
-                                                        DragLeaveCommand="{Binding BindingContext.ItemDraggedLeaveCommand, Source={x:Reference StepCollection}}"
-                                                        DragLeaveCommandParameter="{Binding .}"
-                                                        DragOverCommand="{Binding BindingContext.ItemDraggedOverCommand, Source={x:Reference StepCollection}}"
-                                                        DragOverCommandParameter="{Binding .}"
-                                                        DropCommand="{Binding BindingContext.ItemDroppedCommand, Source={x:Reference StepCollection}}"
-                                                        DropCommandParameter="{Binding .}" />
-                                                    <TapGestureRecognizer 
-                                                        Command="{Binding Path=BindingContext.BookSelectedCommand, Source={x:Reference StepCollection}}"
-                                                        CommandParameter="{Binding .}"/>
-                                                </StackLayout.GestureRecognizers>
-                                            </StackLayout>
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
-                            </Frame>
-                            <StackLayout 
-                                Orientation="Horizontal"
-                                HorizontalOptions="EndAndExpand">
-                                <Image 
-                                    HeightRequest="30"
-                                    WidthRequest="30"
-                                    Source="{local:ImageResource ProjectRecipe.Assets.Images.add-green-icon.png}"
-                                    HorizontalOptions="End">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding AddRecipeStepCommand}"/>
-                                    </Image.GestureRecognizers>
-                                </Image>
-                                <StackLayout>
-                                    <Image 
-                                        HeightRequest="30"
-                                        WidthRequest="30"
-                                        Source="{local:ImageResource ProjectRecipe.Assets.Images.trash-icon.png}"
-                                        HorizontalOptions="EndAndExpand"/>
-                                    <StackLayout.GestureRecognizers>
-                                        <DropGestureRecognizer DropCommand="{Binding ItemDroppedCommand}"/>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
-                            </StackLayout>
-                        </StackLayout>
-                    </Frame>
+                    <controls:CollectionViewWithDraggableItems
+                        CollectionItemsSource="{Binding stepsCollection}"
+                        CollectionHeightRequest="{Binding stepsCollectionHeight}"/>
                     <!--Create Button-->
                     <Frame
                         Padding="0"
