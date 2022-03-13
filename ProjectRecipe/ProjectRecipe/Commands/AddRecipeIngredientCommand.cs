@@ -1,17 +1,16 @@
-﻿using ProjectRecipe.Models;
-using ProjectRecipe.ViewModels;
+﻿using ProjectRecipe.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
-namespace ProjectRecipe.Commands.Draggable
+namespace ProjectRecipe.Commands
 {
-    public class ItemDroppedCommand : ICommand
+    public class AddRecipeIngredientCommand : ICommand
     {
+
         private readonly object _viewModel;
-        public ItemDroppedCommand(object viewModel)
+        public AddRecipeIngredientCommand(object viewModel)
         {
             _viewModel = viewModel;
         }
@@ -25,9 +24,9 @@ namespace ProjectRecipe.Commands.Draggable
 
         public void Execute(object parameter)
         {
-            if (_viewModel is MyOwnRecipesPageViewModel myOwnRecipesPageViewModel)
+            if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
             {
-                myOwnRecipesPageViewModel.ExecuteItemDroppedDeleteRecipeCommand();
+                recipeCreateUpdatePageViewModel.ExecuteAddRecipeIngredientCommand();
             }
         }
     }

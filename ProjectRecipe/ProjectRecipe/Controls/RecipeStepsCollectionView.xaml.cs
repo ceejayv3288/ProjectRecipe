@@ -12,12 +12,12 @@ using Xamarin.Forms.Xaml;
 namespace ProjectRecipe.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CollectionViewWithDraggableItems : ContentView
+    public partial class RecipeStepsCollectionView : ContentView
     {
         public static readonly BindableProperty CollectionItemsSourceProperty =
            BindableProperty.Create(nameof(CollectionItemsSource),
                typeof(ObservableCollection<RecipeStepModel>),
-               typeof(CollectionViewWithDraggableItems),
+               typeof(RecipeStepsCollectionView),
                defaultValue: null,
                defaultBindingMode: BindingMode.TwoWay,
                propertyChanged: ItemsSourcePropertySource);
@@ -25,20 +25,20 @@ namespace ProjectRecipe.Controls
         public static readonly BindableProperty CollectionHeightRequestProperty =
           BindableProperty.Create(nameof(CollectionHeightRequest),
               typeof(int),
-              typeof(CollectionViewWithDraggableItems),
+              typeof(RecipeStepsCollectionView),
               defaultValue: null,
               defaultBindingMode: BindingMode.TwoWay,
               propertyChanged: HeightRequestPropertyHeight);
 
         private static void ItemsSourcePropertySource(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = (CollectionViewWithDraggableItems)bindable;
+            var control = (RecipeStepsCollectionView)bindable;
             control.DraggableCollection.ItemsSource = (ObservableCollection<RecipeStepModel>)newValue;
         }
 
         private static void HeightRequestPropertyHeight(BindableObject bindable, object oldValue, object newValue)
         {
-            var control = (CollectionViewWithDraggableItems)bindable;
+            var control = (RecipeStepsCollectionView)bindable;
             control.DraggableCollection.HeightRequest = (int)newValue;
         }
 
@@ -66,7 +66,7 @@ namespace ProjectRecipe.Controls
             }
         }
 
-        public CollectionViewWithDraggableItems()
+        public RecipeStepsCollectionView()
         {
             InitializeComponent();
         }

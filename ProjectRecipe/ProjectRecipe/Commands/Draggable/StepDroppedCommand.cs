@@ -8,10 +8,10 @@ using System.Windows.Input;
 
 namespace ProjectRecipe.Commands.Draggable
 {
-    public class ItemDroppedCommand : ICommand
+    public class StepDroppedCommand : ICommand
     {
         private readonly object _viewModel;
-        public ItemDroppedCommand(object viewModel)
+        public StepDroppedCommand(object viewModel)
         {
             _viewModel = viewModel;
         }
@@ -25,9 +25,16 @@ namespace ProjectRecipe.Commands.Draggable
 
         public void Execute(object parameter)
         {
-            if (_viewModel is MyOwnRecipesPageViewModel myOwnRecipesPageViewModel)
+            if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
             {
-                myOwnRecipesPageViewModel.ExecuteItemDroppedDeleteRecipeCommand();
+                if (parameter is RecipeStepModel recipeStep)
+                {
+                    recipeCreateUpdatePageViewModel.ExecuteItemDroppedMoveRecipeStepCommand(recipeStep);
+                }
+                else
+                {
+                    recipeCreateUpdatePageViewModel.ExecuteItemDroppedDeleteRecipeStepCommand();
+                }
             }
         }
     }

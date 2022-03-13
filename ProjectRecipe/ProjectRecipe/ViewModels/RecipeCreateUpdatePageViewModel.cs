@@ -27,12 +27,14 @@ namespace ProjectRecipe.ViewModels
         public OpenMediaPickerCommand OpenMediaPickerCommand { get; set; }
         public CreateRecipeCommand CreateRecipeCommand { get; set; }
         public ItemDraggedCommand ItemDraggedCommand { get; set; }
-        public ItemDroppedCommand ItemDroppedCommand { get; set; }
+        public StepDroppedCommand StepDroppedCommand { get; set; }
+        public IngredientDroppedCommand IngredientDroppedCommand { get; set; }
         public ItemDraggedOverCommand ItemDraggedOverCommand { get; set; }
         public ItemDraggedLeaveCommand ItemDraggedLeaveCommand { get; set; }
         public AddRecipeStepCommand AddRecipeStepCommand { get; set; }
+        public AddRecipeIngredientCommand AddRecipeIngredientCommand { get; set; }
 
-        public int StepDefaultHeight { get; set; } = 52;
+        public int rowDefaultHeight { get; set; } = 52;
 
         public string[] courseTypes { get; } = Enum.GetNames(typeof(CourseTypeEnum));
         CourseTypeEnum _selectedCourse = CourseTypeEnum.None;
@@ -102,6 +104,26 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
+        private int _ingredientsCollectionHeight;
+        public int ingredientsCollectionHeight
+        {
+            get { return _ingredientsCollectionHeight; }
+            set
+            {
+                SetProperty(ref _ingredientsCollectionHeight, value);
+            }
+        }
+
+        private ObservableCollection<RecipeIngredientModel> _ingredientsCollection;
+        public ObservableCollection<RecipeIngredientModel> ingredientsCollection
+        {
+            get { return _ingredientsCollection; }
+            set
+            {
+                SetProperty(ref _ingredientsCollection, value);
+            }
+        }
+
         private ObservableCollection<RecipeStepModel> _stepsCollection;
         public ObservableCollection<RecipeStepModel> stepsCollection
         {
@@ -118,9 +140,11 @@ namespace ProjectRecipe.ViewModels
             PopPageCommand = new PopPageCommand(this);
             CreateRecipeCommand = new CreateRecipeCommand(this);
             ItemDraggedCommand = new ItemDraggedCommand(this);
-            ItemDroppedCommand = new ItemDroppedCommand(this);
+            StepDroppedCommand = new StepDroppedCommand(this);
+            IngredientDroppedCommand = new IngredientDroppedCommand(this);
             ItemDraggedOverCommand = new ItemDraggedOverCommand(this);
             ItemDraggedLeaveCommand = new ItemDraggedLeaveCommand(this);
+            AddRecipeIngredientCommand = new AddRecipeIngredientCommand(this);
             AddRecipeStepCommand = new AddRecipeStepCommand(this);
             validationService = DependencyService.Get<IValidationService>();
             recipeService = DependencyService.Get<IRecipeService>();
@@ -129,9 +153,13 @@ namespace ProjectRecipe.ViewModels
             imageToByteArrayConverter = new ImageToByteArrayConverter();
 
             stepsCollection = new ObservableCollection<RecipeStepModel>();
+            ingredientsCollection = new ObservableCollection<RecipeIngredientModel>();
 
             stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 1, description = "" });
-            stepsCollectionHeight += StepDefaultHeight;
+            stepsCollectionHeight += rowDefaultHeight;
+
+            ingredientsCollection.Add(new RecipeIngredientModel { guid = Guid.NewGuid(), quantity = "", description = "" });
+            ingredientsCollectionHeight += rowDefaultHeight;
         }
 
         public bool ValidateInput()
@@ -187,9 +215,14 @@ namespace ProjectRecipe.ViewModels
                 await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
         }
 
-        public void ExecuteItemDraggedCommand(RecipeStepModel recipeStep)
+        public void ExecuteStepDraggedCommand(RecipeStepModel recipeStep)
         {
             stepsCollection.ToList().ForEach(i => i.isBeingDragged = recipeStep == i);
+        }
+
+        public void ExecuteIngredientDraggedCommand(RecipeIngredientModel recipeIngredient)
+        {
+            ingredientsCollection.ToList().ForEach(i => i.isBeingDragged = recipeIngredient == i);
         }
 
         public void ExecuteItemDroppedMoveRecipeStepCommand(RecipeStepModel recipeStep)
@@ -198,7 +231,10 @@ namespace ProjectRecipe.ViewModels
             var itemToInsertBefore = recipeStep;
 
             if (itemToMove == null || itemToInsertBefore == null || itemToMove == itemToInsertBefore)
+            {
+                stepsCollection.All(x => x.isBeingDragged = false); 
                 return;
+            }
 
             stepsCollection.Remove(itemToMove);
             var insertAtIndex = stepsCollection.IndexOf(itemToInsertBefore);
@@ -206,19 +242,54 @@ namespace ProjectRecipe.ViewModels
             stepsCollection.Insert(insertAtIndex, itemToMove);
             itemToMove.isBeingDragged = false;
             itemToInsertBefore.isBeingDraggedOver = false;
-            stepsCollectionHeight -= StepDefaultHeight;
+            stepsCollectionHeight -= rowDefaultHeight;
 
             ArrangeNumbering();
         }
 
+        public void ExecuteItemDroppedMoveRecipeIngredientCommand(RecipeIngredientModel recipeIngredient)
+        {
+            var itemToMove = ingredientsCollection.First(i => i.isBeingDragged);
+            var itemToInsertBefore = recipeIngredient;
+
+            if (itemToMove == null || itemToInsertBefore == null || itemToMove == itemToInsertBefore)
+            {
+                ingredientsCollection.All(x => x.isBeingDragged = false);
+                return;
+            }
+
+            ingredientsCollection.Remove(itemToMove);
+            var insertAtIndex = ingredientsCollection.IndexOf(itemToInsertBefore);
+
+            ingredientsCollection.Insert(insertAtIndex, itemToMove);
+            itemToMove.isBeingDragged = false;
+            itemToInsertBefore.isBeingDraggedOver = false;
+            ingredientsCollectionHeight -= rowDefaultHeight;
+        }
+
         public async void ExecuteItemDroppedDeleteRecipeStepCommand()
         {
-            if (stepsCollection.Count > 1)
+            if (stepsCollection.Count > 1 && stepsCollection.Any(x => x.isBeingDragged))
             {
                 var itemToDelete = stepsCollection.First(i => i.isBeingDragged);
                 stepsCollection.Remove(itemToDelete);
-                stepsCollectionHeight -= StepDefaultHeight;
+                stepsCollectionHeight -= rowDefaultHeight;
                 ArrangeNumbering();
+                var recipeDeleted = await recipeService.DeleteRecipe(itemToDelete.id);
+                if (!recipeDeleted.IsSuccessStatusCode)
+                {
+                    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
+                }
+            }
+        }
+
+        public async void ExecuteItemDroppedDeleteRecipeIngredientCommand()
+        {
+            if (ingredientsCollection.Count > 1 && ingredientsCollection.Any(x => x.isBeingDragged))
+            {
+                var itemToDelete = ingredientsCollection.First(i => i.isBeingDragged);
+                ingredientsCollection.Remove(itemToDelete);
+                ingredientsCollectionHeight -= rowDefaultHeight;
                 var recipeDeleted = await recipeService.DeleteRecipe(itemToDelete.id);
                 if (!recipeDeleted.IsSuccessStatusCode)
                 {
@@ -231,13 +302,26 @@ namespace ProjectRecipe.ViewModels
         {
             var itemBeingDragged = stepsCollection.FirstOrDefault(i => i.isBeingDragged);
             stepsCollection.ToList().ForEach(i => i.isBeingDraggedOver = recipeStep == i && recipeStep != itemBeingDragged);
-            stepsCollectionHeight = (stepsCollection.Count() + 1) * StepDefaultHeight;
+            stepsCollectionHeight = (stepsCollection.Count() + 1) * rowDefaultHeight;
+        }
+
+        public void ExecuteItemDraggedOverRecipeIngredientCommand(RecipeIngredientModel recipeIngredient)
+        {
+            var itemBeingDragged = ingredientsCollection.FirstOrDefault(i => i.isBeingDragged);
+            ingredientsCollection.ToList().ForEach(i => i.isBeingDraggedOver = recipeIngredient == i && recipeIngredient != itemBeingDragged);
+            ingredientsCollectionHeight = (ingredientsCollection.Count() + 1) * rowDefaultHeight;
         }
 
         public void ExecuteItemDraggedLeaveRecipeStepCommand(RecipeStepModel recipeStep)
         {
             stepsCollection.ToList().ForEach(i => i.isBeingDraggedOver = false);
-            stepsCollectionHeight = stepsCollection.Count() * StepDefaultHeight;
+            stepsCollectionHeight = stepsCollection.Count() * rowDefaultHeight;
+        }
+
+        public void ExecuteItemDraggedLeaveRecipeIngredientCommand(RecipeIngredientModel recipeIngredient)
+        {
+            ingredientsCollection.ToList().ForEach(i => i.isBeingDraggedOver = false);
+            ingredientsCollectionHeight = ingredientsCollection.Count() * rowDefaultHeight;
         }
 
         public void ExecuteAddRecipeStepCommand()
@@ -247,7 +331,16 @@ namespace ProjectRecipe.ViewModels
                 guid = Guid.NewGuid(),
                 order = stepsCollection.Count + 1
             });
-            stepsCollectionHeight += StepDefaultHeight;
+            stepsCollectionHeight += rowDefaultHeight;
+        }
+
+        public void ExecuteAddRecipeIngredientCommand()
+        {
+            ingredientsCollection.Add(new RecipeIngredientModel
+            {
+                guid = Guid.NewGuid()
+            });
+            ingredientsCollectionHeight += rowDefaultHeight;
         }
 
         public void ArrangeNumbering()

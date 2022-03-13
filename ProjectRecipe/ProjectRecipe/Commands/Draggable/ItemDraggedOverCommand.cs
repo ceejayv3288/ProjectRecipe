@@ -33,6 +33,10 @@ namespace ProjectRecipe.Commands.Draggable
                     {
                         recipeCreateUpdatePageViewModel.ExecuteItemDraggedOverRecipeStepCommand(recipeStep);
                     }
+                    if (parameter is RecipeIngredientModel recipeIngredient)
+                    {
+                        recipeCreateUpdatePageViewModel.ExecuteItemDraggedOverRecipeIngredientCommand(recipeIngredient);
+                    }
                 }
             }
         }

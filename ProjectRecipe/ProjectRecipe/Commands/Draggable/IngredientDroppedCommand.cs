@@ -2,16 +2,15 @@
 using ProjectRecipe.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
 namespace ProjectRecipe.Commands.Draggable
 {
-    public class ItemDraggedLeaveCommand : ICommand
+    public class IngredientDroppedCommand : ICommand
     {
         private readonly object _viewModel;
-        public ItemDraggedLeaveCommand(object viewModel)
+        public IngredientDroppedCommand(object viewModel)
         {
             _viewModel = viewModel;
         }
@@ -27,16 +26,13 @@ namespace ProjectRecipe.Commands.Draggable
         {
             if (_viewModel is RecipeCreateUpdatePageViewModel recipeCreateUpdatePageViewModel)
             {
-                if (parameter != null)
+                if (parameter is RecipeIngredientModel recipeIngredient)
                 {
-                    if (parameter is RecipeStepModel recipeStep)
-                    {
-                        recipeCreateUpdatePageViewModel.ExecuteItemDraggedLeaveRecipeStepCommand(recipeStep);
-                    }
-                    else if (parameter is RecipeIngredientModel recipeIngredient)
-                    {
-                        recipeCreateUpdatePageViewModel.ExecuteItemDraggedLeaveRecipeIngredientCommand(recipeIngredient);
-                    }
+                    recipeCreateUpdatePageViewModel.ExecuteItemDroppedMoveRecipeIngredientCommand(recipeIngredient);
+                }
+                else
+                {
+                    recipeCreateUpdatePageViewModel.ExecuteItemDroppedDeleteRecipeIngredientCommand();
                 }
             }
         }

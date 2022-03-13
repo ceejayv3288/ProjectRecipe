@@ -93,10 +93,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Controls\RecipeStepsCollectionView.xaml.cs">
+      <DependentUpon>RecipeStepsCollectionView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="AppShell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\CollectionViewWithDraggableItems.xaml">
+    <EmbeddedResource Update="Controls\RecipeStepsCollectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\Headers\HeaderWithAddIcon.xaml">
@@ -106,6 +112,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\Headers\HeaderWithSearchIcon.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Controls\RecipeIngredientsCollectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">

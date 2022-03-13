@@ -21,7 +21,6 @@
                 <StackLayout Padding="16">
                     <!--Recipe Name-->
                     <Label
-                        Padding="16,0,0,0"
                         FontFamily="LatoRegular"
                         FontSize="14"
                         HorizontalOptions="Start"
@@ -50,7 +49,7 @@
                     </Frame>
                     <!--Recipe Description-->
                     <Label
-                        Padding="16,12,0,0"
+                        Padding="0,12,0,0"
                         FontFamily="LatoRegular"
                         FontSize="14"
                         HorizontalOptions="Start"
@@ -82,7 +81,7 @@
                     </Frame>
                     <!--Course Type-->
                     <Label
-                        Padding="16,12,0,0"
+                        Padding="0,12,0,0"
                         FontFamily="LatoRegular"
                         FontSize="14"
                         HorizontalOptions="Start"
@@ -112,7 +111,7 @@
                     </Frame>
                     <!--Recipe Duration-->
                     <Label
-                        Padding="16,12,0,0"
+                        Padding="0,12,0,0"
                         FontFamily="LatoRegular"
                         FontSize="14"
                         HorizontalOptions="Start"
@@ -185,10 +184,16 @@
                             </Image.GestureRecognizers>
                         </Image>
                     </Frame>
+                    <!--Ingredients-->
+                    <controls:RecipeIngredientsCollectionView
+                        CollectionItemsSource="{Binding ingredientsCollection}"
+                        CollectionHeightRequest="{Binding ingredientsCollectionHeight}"
+                        Margin="0,12,0,0"/>
                     <!--Steps-->
-                    <controls:CollectionViewWithDraggableItems
+                    <controls:RecipeStepsCollectionView
                         CollectionItemsSource="{Binding stepsCollection}"
-                        CollectionHeightRequest="{Binding stepsCollectionHeight}"/>
+                        CollectionHeightRequest="{Binding stepsCollectionHeight}"
+                        Margin="0,12,0,0"/>
                     <!--Create Button-->
                     <Frame
                         Padding="0"

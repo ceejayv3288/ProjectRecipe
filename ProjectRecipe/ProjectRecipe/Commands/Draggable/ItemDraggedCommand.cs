@@ -41,7 +41,11 @@ namespace ProjectRecipe.Commands.Draggable
                 {
                     if (parameter is RecipeStepModel recipeStep)
                     {
-                        recipeCreateUpdatePageViewModel.ExecuteItemDraggedCommand(recipeStep);
+                        recipeCreateUpdatePageViewModel.ExecuteStepDraggedCommand(recipeStep);
+                    }
+                    else if (parameter is RecipeIngredientModel recipeIngredient)
+                    {
+                        recipeCreateUpdatePageViewModel.ExecuteIngredientDraggedCommand(recipeIngredient);
                     }
                 }
             }
