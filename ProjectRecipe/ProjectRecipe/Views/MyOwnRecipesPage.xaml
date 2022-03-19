@@ -3,83 +3,100 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ProjectRecipe"
              xmlns:headers="clr-namespace:ProjectRecipe.Controls.Headers"
+             xmlns:behaviors="clr-namespace:ProjectRecipe.Behaviors"
+             xmlns:converters="clr-namespace:ProjectRecipe.Converters"
              x:Class="ProjectRecipe.Views.MyOwnRecipesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BooleanInverter x:Key="boolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+    </ContentPage.Behaviors>
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="FillAndExpand">
             <headers:HeaderWithAddIcon TitleText="MY OWN RECIPES"/>
-            <Frame 
-                BackgroundColor="White"
-                Margin="0"
-                Padding="10,10,10,0">
-                <Grid>
-                    <CollectionView 
-                        ItemsSource="{Binding myRecipes}"
-                        x:Name="recipeCollection">
-                        <CollectionView.EmptyView>
-                            <Label 
+            <RefreshView>
+                <Frame 
+                    BackgroundColor="White"
+                    Margin="0"
+                    Padding="10,10,10,0">
+                    <Grid>
+                        <ActivityIndicator 
+                            IsRunning="{Binding isBusy}" 
+                            Color="#EB5757"
+                            VerticalOptions="CenterAndExpand"/>
+                        <CollectionView 
+                            IsVisible="{Binding isBusy, Converter={StaticResource boolConverter}}"
+                            ItemsSource="{Binding myRecipes}"
+                            x:Name="recipeCollection">
+                            <CollectionView.EmptyView>
+                                <Label 
                                 Padding="10"
                                 Text="You have no recipe created. Try sharing some. =)"
                                 VerticalOptions="CenterAndExpand"/>
-                        </CollectionView.EmptyView>
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout 
+                            </CollectionView.EmptyView>
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout 
                                 Orientation="Vertical"
                                 Span="2" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <StackLayout 
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout 
                                     Spacing="0"
                                     Margin="0,5"
                                     Padding="5,0">
-                                    <Frame 
+                                        <Frame 
                                         BackgroundColor="Transparent"
                                         BorderColor="PaleTurquoise"
                                         HasShadow="False"
                                         Padding="0">
-                                        <StackLayout 
+                                            <StackLayout 
                                             Spacing="10" 
                                             Padding="10,10,10,0">
-                                            <Image 
+                                                <Image 
                                                 Source="{Binding image}"
                                                 HeightRequest="100"/>
-                                            <Label 
+                                                <Label 
                                                 Text="{Binding name}"
                                                 FontSize="15"/>
-                                            <Label 
+                                                <Label 
                                                 Text="{Binding description}"
                                                 FontSize="Caption"/>
-                                        </StackLayout>
-                                        <Frame.GestureRecognizers>
-                                            <DragGestureRecognizer 
+                                            </StackLayout>
+                                            <Frame.GestureRecognizers>
+                                                <DragGestureRecognizer 
                                                 DragStartingCommand="{Binding Path=BindingContext.ItemDraggedCommand, Source={x:Reference recipeCollection}}"
                                                 DragStartingCommandParameter="{Binding .}" />
-                                            <TapGestureRecognizer 
+                                                <TapGestureRecognizer 
                                                 Command="{Binding Path=BindingContext.BookSelectedCommand, Source={x:Reference recipeCollection}}"
                                                 CommandParameter="{Binding .}"/>
-                                        </Frame.GestureRecognizers>
-                                    </Frame>
-                                </StackLayout>
+                                            </Frame.GestureRecognizers>
+                                        </Frame>
+                                    </StackLayout>
 
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <StackLayout 
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <StackLayout 
                         BackgroundColor="Transparent"
                         HorizontalOptions="EndAndExpand"
                         VerticalOptions="EndAndExpand"
                         Margin="0,0,10,10">
-                        <Image 
+                            <Image 
                             HeightRequest="30"
                             WidthRequest="30"
                             Source="{local:ImageResource ProjectRecipe.Assets.Images.trash-icon.png}"
                             HorizontalOptions="EndAndExpand"/>
-                        <StackLayout.GestureRecognizers>
-                            <DropGestureRecognizer DropCommand="{Binding ItemDroppedCommand}"/>
-                        </StackLayout.GestureRecognizers>
-                    </StackLayout>
-                </Grid>
-            </Frame>
+                            <StackLayout.GestureRecognizers>
+                                <DropGestureRecognizer DropCommand="{Binding ItemDroppedCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </RefreshView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -13,6 +13,8 @@ namespace ProjectRecipe
     {
         public static JsonSerializer JsonSerializer { get; private set; }
         public static HttpClientHandler HttpClientHandler { get; private set; }
+        public static string ClientToken { get; private set; }
+        public static string UserId { get; private set; }
 
         public App()
         {
@@ -42,6 +44,10 @@ namespace ProjectRecipe
         protected override async void OnStart()
         {
             var token = await SecureStorage.GetAsync(Configurations.ClientTokenKey);
+            var userId = await SecureStorage.GetAsync(Configurations.UserIdKey);
+            ClientToken = token;
+            UserId = userId;
+
             if (token != null)
             {
                 await Shell.Current.GoToAsync($"//{nameof(PopularRecipesPage)}");

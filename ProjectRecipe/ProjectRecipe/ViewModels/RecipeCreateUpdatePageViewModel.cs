@@ -20,6 +20,8 @@ namespace ProjectRecipe.ViewModels
     {
         private readonly IValidationService validationService;
         private readonly IRecipeService recipeService;
+        private readonly IRecipeStepService recipeStepService;
+        private readonly IRecipeIngredientService recipeIngredientService;
 
         ByteArrayToImageConverter byteArrayToImageConverter;
         ImageToByteArrayConverter imageToByteArrayConverter;
@@ -64,8 +66,8 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
-        private int? _duration;
-        public int? duration
+        private int _duration;
+        public int duration
         {
             get { return _duration; }
             set
@@ -148,6 +150,8 @@ namespace ProjectRecipe.ViewModels
             AddRecipeStepCommand = new AddRecipeStepCommand(this);
             validationService = DependencyService.Get<IValidationService>();
             recipeService = DependencyService.Get<IRecipeService>();
+            recipeStepService = DependencyService.Get<IRecipeStepService>();
+            recipeIngredientService = DependencyService.Get<IRecipeIngredientService>();
 
             byteArrayToImageConverter = new ByteArrayToImageConverter();
             imageToByteArrayConverter = new ImageToByteArrayConverter();
@@ -155,11 +159,11 @@ namespace ProjectRecipe.ViewModels
             stepsCollection = new ObservableCollection<RecipeStepModel>();
             ingredientsCollection = new ObservableCollection<RecipeIngredientModel>();
 
-            stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 1, description = "" });
+            stepsCollection.Add(new RecipeStepModel { guid = Guid.NewGuid(), order = 1, description = string.Empty });
             stepsCollectionHeight += rowDefaultHeight;
 
-            ingredientsCollection.Add(new RecipeIngredientModel { guid = Guid.NewGuid(), quantity = "", description = "" });
-            ingredientsCollectionHeight += rowDefaultHeight;
+            ingredientsCollection.Add(new RecipeIngredientModel { guid = Guid.NewGuid(), quantity = string.Empty, description = string.Empty });
+            ingredientsCollectionHeight += rowDefaultHeight + 32;
         }
 
         public bool ValidateInput()
@@ -193,26 +197,62 @@ namespace ProjectRecipe.ViewModels
         {
             RecipeCreateUpdateModel recipeToCreate = new RecipeCreateUpdateModel
             {
-                name = this.recipeName,
-                description = this.description,
-                durationInMin = (int)this.duration,
-                image = imageByte,
-                courseType = (int)selectedCourse
+                name = this.recipeName ?? null,
+                description = this.description ?? null,
+                durationInMin = this.duration,
+                image = imageByte ?? null,
+                courseType = (int)selectedCourse,
+                userId = App.UserId
             };
 
             bool isValidRecipe = validationService.ValidateCreateRecipe(recipeToCreate);
             if (!isValidRecipe)
+            {
+                await App.Current.MainPage.DisplayAlert("Failed!", "Check all recipe fields.", "Ok");
                 return;
+            }
+               
             bool isValidRecipeStep = validationService.ValidateCreateRecipeStep(stepsCollection.ToList());
             if (!isValidRecipeStep)
+            {
+                await App.Current.MainPage.DisplayAlert("Failed!", "Check all recipe steps fields.", "Ok");
                 return;
+            }
+                
+            bool isValidRecipeIngredient = validationService.ValidateCreateRecipeIngredient(ingredientsCollection.ToList());
+            if (!isValidRecipeIngredient)
+            {
+                await App.Current.MainPage.DisplayAlert("Failed!", "Check all recipe ingredients fields.", "Ok");
+                return;
+            }
 
-            var isRecipeCreated = await recipeService.CreateRecipe(recipeToCreate);
-            var isRecipeStepsCreated = await recipeService.CreateRecipe(recipeToCreate);
-            if (isRecipeCreated.IsSuccessStatusCode)
-                await Shell.Current.GoToAsync("..");
-            else
+            var recipeCreated = await recipeService.CreateRecipe(recipeToCreate);
+            if (recipeCreated == null)
                 await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
+
+            stepsCollection.All(x => { x.RecipeId = recipeCreated.id; return true; });
+            foreach (var step in stepsCollection)
+            {
+                var isRecipeStepCreated = await recipeStepService.CreateRecipeStep(step);
+                if (!isRecipeStepCreated.IsSuccessStatusCode)
+                {
+                    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
+                    return;
+                }
+            }
+
+            ingredientsCollection.All(x => { x.RecipeId = recipeCreated.id; return true; });
+            foreach (var ingredient in ingredientsCollection)
+            {
+                var isRecipeIngredientsCreated = await recipeIngredientService.CreateRecipeIngredient(ingredient);
+                if (!isRecipeIngredientsCreated.IsSuccessStatusCode)
+                {
+                    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
+                    return;
+                }
+            }
+
+            await Shell.Current.GoToAsync("..");
         }
 
         public void ExecuteStepDraggedCommand(RecipeStepModel recipeStep)
@@ -267,7 +307,7 @@ namespace ProjectRecipe.ViewModels
             ingredientsCollectionHeight -= rowDefaultHeight;
         }
 
-        public async void ExecuteItemDroppedDeleteRecipeStepCommand()
+        public void ExecuteItemDroppedDeleteRecipeStepCommand()
         {
             if (stepsCollection.Count > 1 && stepsCollection.Any(x => x.isBeingDragged))
             {
@@ -275,26 +315,16 @@ namespace ProjectRecipe.ViewModels
                 stepsCollection.Remove(itemToDelete);
                 stepsCollectionHeight -= rowDefaultHeight;
                 ArrangeNumbering();
-                var recipeDeleted = await recipeService.DeleteRecipe(itemToDelete.id);
-                if (!recipeDeleted.IsSuccessStatusCode)
-                {
-                    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
-                }
             }
         }
 
-        public async void ExecuteItemDroppedDeleteRecipeIngredientCommand()
+        public void ExecuteItemDroppedDeleteRecipeIngredientCommand()
         {
             if (ingredientsCollection.Count > 1 && ingredientsCollection.Any(x => x.isBeingDragged))
             {
                 var itemToDelete = ingredientsCollection.First(i => i.isBeingDragged);
                 ingredientsCollection.Remove(itemToDelete);
                 ingredientsCollectionHeight -= rowDefaultHeight;
-                var recipeDeleted = await recipeService.DeleteRecipe(itemToDelete.id);
-                if (!recipeDeleted.IsSuccessStatusCode)
-                {
-                    await App.Current.MainPage.DisplayAlert("Failed!", "An error has occured.", "Ok");
-                }
             }
         }
 
@@ -309,7 +339,7 @@ namespace ProjectRecipe.ViewModels
         {
             var itemBeingDragged = ingredientsCollection.FirstOrDefault(i => i.isBeingDragged);
             ingredientsCollection.ToList().ForEach(i => i.isBeingDraggedOver = recipeIngredient == i && recipeIngredient != itemBeingDragged);
-            ingredientsCollectionHeight = (ingredientsCollection.Count() + 1) * rowDefaultHeight;
+            ingredientsCollectionHeight = (ingredientsCollection.Count() + 1) * rowDefaultHeight + 32;
         }
 
         public void ExecuteItemDraggedLeaveRecipeStepCommand(RecipeStepModel recipeStep)
@@ -321,7 +351,7 @@ namespace ProjectRecipe.ViewModels
         public void ExecuteItemDraggedLeaveRecipeIngredientCommand(RecipeIngredientModel recipeIngredient)
         {
             ingredientsCollection.ToList().ForEach(i => i.isBeingDraggedOver = false);
-            ingredientsCollectionHeight = ingredientsCollection.Count() * rowDefaultHeight;
+            ingredientsCollectionHeight = ingredientsCollection.Count() * rowDefaultHeight + 32;
         }
 
         public void ExecuteAddRecipeStepCommand()

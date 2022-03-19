@@ -10,6 +10,8 @@ namespace ProjectRecipe.Services.Interfaces
     public interface IValidationService
     {
         bool ValidateCreateRecipe(RecipeCreateUpdateModel recipeToCreateUpdate);
+        bool ValidateCreateRecipeStep(List<RecipeStepModel> recipeStepList);
+        bool ValidateCreateRecipeIngredient(List<RecipeIngredientModel> recipeIngredientList);
         string ValidateRegistration(RegistrationFieldModel registrationFieldModel);
     }
 }

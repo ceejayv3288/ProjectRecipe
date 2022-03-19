@@ -65,7 +65,7 @@ namespace ProjectRecipe.ViewModels
         public async void ExecuteRegisterCommand()
         {
             string errorMessage = validationService.ValidateRegistration(registrationFieldModel);
-            if (string.IsNullOrWhiteSpace(errorMessage))
+            if (!string.IsNullOrWhiteSpace(errorMessage))
             {
                 await Application.Current.MainPage.DisplayAlert("Alert", errorMessage, "Ok");
                 return;

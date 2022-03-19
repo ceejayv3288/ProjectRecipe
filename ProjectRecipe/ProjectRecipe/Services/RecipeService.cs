@@ -11,6 +11,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ProjectRecipe.Services
@@ -39,21 +40,19 @@ namespace ProjectRecipe.Services
         {
             try
             {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
                 List<RecipeResponse> recipesResponse = new List<RecipeResponse>();
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipe");
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipes");
                 if (response.IsSuccessStatusCode)
                 {
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            using (var json = new JsonTextReader(reader))
-                            {
-                                recipesResponse = App.JsonSerializer.Deserialize<List<RecipeResponse>>(json);
-                            }
-                        }
-                    }
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipesResponse = JsonConvert.DeserializeObject<List<RecipeResponse>>(responseString);
                 }
 
                 foreach (var recipe in recipesResponse)
@@ -82,21 +81,19 @@ namespace ProjectRecipe.Services
         {
             try
             {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
                 List<RecipeResponse> recipesResponse = new List<RecipeResponse>();
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipe");
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipes");
                 if (response.IsSuccessStatusCode)
                 {
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            using (var json = new JsonTextReader(reader))
-                            {
-                                recipesResponse = App.JsonSerializer.Deserialize<List<RecipeResponse>>(json);
-                            }
-                        }
-                    }
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipesResponse = JsonConvert.DeserializeObject<List<RecipeResponse>>(responseString);
                 }
 
                 foreach (var recipe in recipesResponse)
@@ -125,20 +122,18 @@ namespace ProjectRecipe.Services
         {
             try
             {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
                 RecipeModel recipe = new RecipeModel();
-                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipe/{recipeId}");
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipes/{recipeId}");
                 if (response.IsSuccessStatusCode)
                 {
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            using (var json = new JsonTextReader(reader))
-                            {
-                                recipe = App.JsonSerializer.Deserialize<RecipeModel>(json);
-                            }
-                        }
-                    }
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipe = JsonConvert.DeserializeObject<RecipeModel>(responseString);
                 }
 
                 return recipe;
@@ -149,18 +144,26 @@ namespace ProjectRecipe.Services
             }
         }
 
-        public async Task<HttpResponseMessage> CreateRecipe(RecipeCreateUpdateModel recipe)
+        public async Task<RecipeModel> CreateRecipe(RecipeCreateUpdateModel recipeCreateUpdate)
         {
             try
             {
-                var content = new StringContent(JsonConvert.SerializeObject(recipe), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync($"{Configurations.RecipeApiUrl}recipe", content);
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
+                RecipeModel recipe = new RecipeModel();
+                var content = new StringContent(JsonConvert.SerializeObject(recipeCreateUpdate), Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync($"{Configurations.RecipeApiUrl}recipes", content);
                 if (response.IsSuccessStatusCode)
                 {
-
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipe = JsonConvert.DeserializeObject<RecipeModel>(responseString);
                 }
 
-                return response;
+                return recipe;
             }
             catch (Exception ex)
             {
@@ -172,6 +175,12 @@ namespace ProjectRecipe.Services
         {
             try
             {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
                 byte[] imageByte = (byte[])imageToByteArrayConverter.Convert(recipe.image, null, null, null);
                 RecipeRequest recipeRequest = new RecipeRequest
                 {
@@ -182,7 +191,7 @@ namespace ProjectRecipe.Services
                     image = imageByte
                 };
                 var content = new StringContent(JsonConvert.SerializeObject(recipeRequest), Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PutAsync($"{Configurations.RecipeApiUrl}recipe/{recipe.id}", content);
+                HttpResponseMessage response = await client.PutAsync($"{Configurations.RecipeApiUrl}recipes/{recipe.id}", content);
                 if (response.IsSuccessStatusCode)
                 {
 
@@ -200,8 +209,14 @@ namespace ProjectRecipe.Services
         {
             try
             {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.DeleteAsync($"{Configurations.RecipeApiUrl}recipe/{recipeId}");
+                HttpResponseMessage response = await client.DeleteAsync($"{Configurations.RecipeApiUrl}recipes/{recipeId}");
                 if (response.IsSuccessStatusCode)
                 {
                     
@@ -215,5 +230,45 @@ namespace ProjectRecipe.Services
             }
         }
 
+        public async Task<List<RecipeModel>> GetRecipesByUser(string userId)
+        {
+            try
+            {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
+                List<RecipeResponse> recipesResponse = new List<RecipeResponse>();
+                List<RecipeModel> recipes = new List<RecipeModel>();
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipes/userId/{userId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipesResponse = JsonConvert.DeserializeObject<List<RecipeResponse>>(responseString);
+                }
+
+                foreach (var recipe in recipesResponse)
+                {
+                    recipes.Add(new RecipeModel
+                    {
+                        id = recipe.id,
+                        name = recipe.name,
+                        description = recipe.description,
+                        durationInMin = recipe.durationInMin,
+                        commentsCount = recipe.commentsCount,
+                        image = byteArrayToImageConverter.Convert(recipe.image, null, null, null) as ImageSource,
+                        likesCount = recipe.likesCount
+                    });
+                }
+
+                return recipes;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

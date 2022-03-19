@@ -18,6 +18,7 @@ namespace ProjectRecipe.ViewModels
     {
         private readonly IRecipeService recipeService;
 
+        public Command PageAppearingCommand { get; set; }
         public ItemDraggedCommand ItemDraggedCommand { get; set; }
         public ItemDroppedCommand ItemDroppedCommand { get; set; }
         public MyOwnRecipesPageNavigationCommand MyOwnRecipesPageNavigationCommand { get; set; }
@@ -25,24 +26,41 @@ namespace ProjectRecipe.ViewModels
 
         public MyOwnRecipesPageViewModel()
         {
-            ItemDraggedCommand= new ItemDraggedCommand(this);
+            PageAppearingCommand = new Command(ExecutePageAppearingCommand);
+            ItemDraggedCommand = new ItemDraggedCommand(this);
             ItemDroppedCommand = new ItemDroppedCommand(this);
             MyOwnRecipesPageNavigationCommand = new MyOwnRecipesPageNavigationCommand(this);
             OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
             myRecipes = new ObservableCollection<RecipeModel>();
 
             recipeService = DependencyService.Get<IRecipeService>();
-            Initialize();
         }
 
         public async void Initialize()
         {
-            var allRecipes = await recipeService.GetAllRecipes();
-            //MyRecipes = new ObservableCollection<RecipeModel>(allRecipes);
-            foreach (var recipe in allRecipes)
+            try
             {
-                myRecipes.Add(recipe);
+                isBusy = true;
+                myRecipes.Clear();
+                var allRecipes = await recipeService.GetRecipesByUser(App.UserId);
+                foreach (var recipe in allRecipes)
+                {
+                    myRecipes.Add(recipe);
+                }
             }
+            catch
+            {
+                return;
+            }
+            finally
+            {
+                isBusy = false;
+            }
+        }
+
+        public void ExecutePageAppearingCommand()
+        {
+            Initialize();
         }
 
         public void ExecuteItemDraggedCommand(RecipeModel recipe)

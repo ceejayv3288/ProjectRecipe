@@ -27,7 +27,7 @@
                                 Padding="10,10,10,0"
                                 HasShadow="False"
                                 BorderColor="LightYellow"
-                                BackgroundColor="LightBlue">
+                                BackgroundColor="LightPink">
                     <Frame.CornerRadius>
                         <OnPlatform x:TypeArguments="x:Single">
                             <On Platform="Android" Value="4" />
@@ -43,7 +43,7 @@
                                 <StackLayout Spacing="0">
                                     <Frame 
                                                     Padding="0"
-                                                    Margin="0,0,0,12"
+                                                    Margin="0,0,0,6"
                                                     BackgroundColor="#E7E7E7"
                                                     HasShadow="False"
                                                     IsVisible="{Binding isBeingDraggedOver}">
@@ -94,7 +94,7 @@
                                                             TextColor="#121212"
                                                             VerticalOptions="Center" />
                                         </Frame>
-                                        <Image 
+                                        <Image Margin="5,0,0,0"
                                                         HeightRequest="20"
                                                         WidthRequest="20"
                                                         Source="{local:ImageResource ProjectRecipe.Assets.Images.drag-icon.png}"

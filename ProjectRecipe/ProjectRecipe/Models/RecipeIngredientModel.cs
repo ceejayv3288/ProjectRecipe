@@ -18,6 +18,8 @@ namespace ProjectRecipe.Models
 
         public DateTime dateUpdated { get; set; }
 
+        public int RecipeId { get; set; }
+
         private bool _isBeingDragged;
         public bool isBeingDragged
         {

@@ -4,16 +4,20 @@ using System.Text;
 
 namespace ProjectRecipe.Models.Service.Request
 {
-    public class RecipeRequest
+    public class RecipeStepRequest
     {
         public int id { get; set; }
 
-        public string name { get; set; }
+        public Guid guid { get; set; }
 
         public string description { get; set; }
 
         public byte[] image { get; set; }
 
-        public int durationInMin { get; set; }
+        public DateTime dateCreated { get; set; }
+
+        public DateTime dateUpdated { get; set; }
+
+        public int order { get; set; }
     }
 }

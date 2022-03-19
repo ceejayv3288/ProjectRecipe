@@ -25,6 +25,19 @@ namespace ProjectRecipe.Services
             return true;
         }
 
+        public bool ValidateCreateRecipeIngredient(List<RecipeIngredientModel> recipeIngredientList)
+        {
+            if (!recipeIngredientList.Any())
+                return false;
+
+            foreach (var ingredient in recipeIngredientList)
+            {
+                if (string.IsNullOrWhiteSpace(ingredient.description) || string.IsNullOrWhiteSpace(ingredient.quantity))
+                    return false;
+            }
+            return true;
+        }
+
         public bool ValidateCreateRecipeStep(List<RecipeStepModel> recipeStepList)
         {
             if (!recipeStepList.Any())
@@ -49,8 +62,8 @@ namespace ProjectRecipe.Services
                      string.IsNullOrWhiteSpace(registrationFieldModel.email) ||
                      string.IsNullOrWhiteSpace(registrationFieldModel.password) ||
                      string.IsNullOrWhiteSpace(registrationFieldModel.confirmPassword) ||
-                     registrationFieldModel.profilePicture != null ||
-                     registrationFieldModel.profilePictureByte != null)
+                     registrationFieldModel.profilePicture == null ||
+                     registrationFieldModel.profilePictureByte == null)
                 return "Fill up all the required fields.";
             else if (registrationFieldModel.password != registrationFieldModel.confirmPassword)
                 return "Passwords are not the same.";

@@ -27,7 +27,7 @@
                                 Padding="10,10,10,0"
                                 HasShadow="False"
                                 BorderColor="LightYellow"
-                                BackgroundColor="LightBlue">
+                                BackgroundColor="LightPink">
                     <Frame.CornerRadius>
                         <OnPlatform x:TypeArguments="x:Single">
                             <On Platform="Android" Value="4" />
@@ -38,12 +38,47 @@
                                     ItemsSource="{Binding CollectionItemsSource}"
                                     x:Name="DraggableCollection"
                                     HeightRequest="{Binding CollectionHeightRequest}">
+                        <CollectionView.Header>
+                            <StackLayout Spacing="0">
+                                <StackLayout 
+                                                    Orientation="Horizontal"
+                                                    VerticalOptions="CenterAndExpand"
+                                                    Margin="0,0,0,12"
+                                                    Spacing="0">
+                                    <Grid VerticalOptions="FillAndExpand"
+                                              HorizontalOptions="FillAndExpand"
+                                              ColumnSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="4*" />
+                                            <ColumnDefinition Width="6*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                                    FontFamily="LatoRegular"
+                                                    FontSize="14"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Text="Quantity"
+                                                    TextColor="#121212"
+                                                    VerticalOptions="Center" />
+                                        <Label Grid.Column="1"
+                                                            FontFamily="LatoRegular"
+                                                            FontSize="14"
+                                                            MinimumHeightRequest="44"
+                                                            Text="Description"
+                                                            TextColor="#121212"
+                                                            VerticalOptions="Center" />
+                                    </Grid>
+                                </StackLayout>
+                            </StackLayout>
+                        </CollectionView.Header>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <StackLayout Spacing="0">
                                     <Frame 
                                                     Padding="0"
-                                                    Margin="0,0,0,12"
+                                                    Margin="0,0,0,6"
                                                     BackgroundColor="#E7E7E7"
                                                     HasShadow="False"
                                                     IsVisible="{Binding isBeingDraggedOver}">
@@ -69,8 +104,8 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*" />
-                                                <ColumnDefinition Width="8*" />
+                                                <ColumnDefinition Width="4*" />
+                                                <ColumnDefinition Width="6*" />
                                             </Grid.ColumnDefinitions>
                                             <Frame Grid.Column="0"
                         Padding="0"
@@ -119,7 +154,7 @@
                                                             VerticalOptions="Center" />
                                             </Frame>
                                         </Grid>
-                                        <Image 
+                                        <Image Margin="5,0,0,0"
                                                         HeightRequest="20"
                                                         WidthRequest="20"
                                                         Source="{local:ImageResource ProjectRecipe.Assets.Images.drag-icon.png}"

@@ -15,5 +15,7 @@ namespace ProjectRecipe.Models
         public int durationInMin { get; set; }
 
         public int courseType { get; set; }
+
+        public string userId { get; set; }
     }
 }
