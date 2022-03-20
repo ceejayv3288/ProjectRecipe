@@ -66,6 +66,7 @@ namespace ProjectRecipe.Services
                         commentsCount = recipe.commentsCount,
                         image = byteArrayToImageConverter.Convert(recipe.image, null, null, null) as ImageSource,
                         likesCount = recipe.likesCount,
+                        courseType = recipe.courseType
                     });
                 }
 
