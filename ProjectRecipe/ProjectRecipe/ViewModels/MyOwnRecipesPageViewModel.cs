@@ -40,6 +40,8 @@ namespace ProjectRecipe.ViewModels
         {
             try
             {
+                if (isBusy) return;
+
                 isBusy = true;
                 myRecipes.Clear();
                 var allRecipes = await recipeService.GetRecipesByUser(App.UserId);

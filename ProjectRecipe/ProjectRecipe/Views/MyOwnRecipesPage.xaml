@@ -17,11 +17,13 @@
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
             <headers:HeaderWithAddIcon TitleText="MY OWN RECIPES"/>
-            <RefreshView>
-                <Frame 
+            <Frame 
                     BackgroundColor="White"
                     Margin="0"
-                    Padding="10,10,10,0">
+                    Padding="10,0">
+                <RefreshView RefreshColor="#EB5757"
+                             Command="{Binding PageAppearingCommand}"
+                             IsRefreshing="{Binding isBusy}">
                     <Grid>
                         <ActivityIndicator 
                             IsRunning="{Binding isBusy}" 
@@ -95,8 +97,8 @@
                             </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </Grid>
-                </Frame>
-            </RefreshView>
+                </RefreshView>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
