@@ -78,7 +78,7 @@ namespace ProjectRecipe.Services
             }
         }
 
-        public async Task<RecipeModel> GetRecipeStep(int recipeStepId)
+        public async Task<RecipeStepModel> GetRecipeStep(int recipeStepId)
         {
             try
             {
@@ -88,15 +88,41 @@ namespace ProjectRecipe.Services
                 }
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
 
-                RecipeModel recipe = new RecipeModel();
-                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipeSteps/recipeId/{recipeStepId}");
+                RecipeStepModel recipeStep = new RecipeStepModel();
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipeSteps/{recipeStepId}");
                 if (response.IsSuccessStatusCode)
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
-                    recipe = JsonConvert.DeserializeObject<RecipeModel>(responseString);
+                    recipeStep = JsonConvert.DeserializeObject<RecipeStepModel>(responseString);
                 }
 
-                return recipe;
+                return recipeStep;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<RecipeStepModel>> GetRecipeStepsByRecipeId(int recipeId)
+        {
+            try
+            {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
+                List<RecipeStepModel> recipeSteps = new List<RecipeStepModel>();
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipeSteps/recipeId/{recipeId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipeSteps = JsonConvert.DeserializeObject<List<RecipeStepModel>>(responseString);
+                }
+
+                return recipeSteps;
             }
             catch (Exception ex)
             {

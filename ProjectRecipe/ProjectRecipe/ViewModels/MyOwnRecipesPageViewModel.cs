@@ -21,6 +21,7 @@ namespace ProjectRecipe.ViewModels
         public Command PageAppearingCommand { get; set; }
         public ItemDraggedCommand ItemDraggedCommand { get; set; }
         public ItemDroppedCommand ItemDroppedCommand { get; set; }
+        public Command SelectRecipeCommand { get; set; }
         public MyOwnRecipesPageNavigationCommand MyOwnRecipesPageNavigationCommand { get; set; }
         public ObservableCollection<RecipeModel> myRecipes { get; set; }
 
@@ -29,11 +30,29 @@ namespace ProjectRecipe.ViewModels
             PageAppearingCommand = new Command(ExecutePageAppearingCommand);
             ItemDraggedCommand = new ItemDraggedCommand(this);
             ItemDroppedCommand = new ItemDroppedCommand(this);
+            SelectRecipeCommand = new Command<object>(ExecuteSelectRecipeCommand);
             MyOwnRecipesPageNavigationCommand = new MyOwnRecipesPageNavigationCommand(this);
             OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
             myRecipes = new ObservableCollection<RecipeModel>();
 
             recipeService = DependencyService.Get<IRecipeService>();
+        }
+
+        private async void ExecuteSelectRecipeCommand(object obj)
+        {
+            isBusy = true;
+            try
+            {
+                if (obj is RecipeModel recipe)
+                {
+                    var route = $"{nameof(RecipeDetailsPage)}?recipeId={recipe.id}";
+                    await Shell.Current.GoToAsync(route);
+                }
+            }
+            finally
+            {
+                isBusy = false;
+            }
         }
 
         public async void Initialize()

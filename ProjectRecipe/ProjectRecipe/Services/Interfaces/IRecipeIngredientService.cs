@@ -13,6 +13,8 @@ namespace ProjectRecipe.Services.Interfaces
 
         Task<HttpResponseMessage> CreateRecipeIngredient(RecipeIngredientModel recipeIngredient);
 
+        Task<List<RecipeIngredientModel>> GetRecipeIngredientsByRecipeId(int recipeId);
+
         Task<HttpResponseMessage> UpdateRecipeIngredient(RecipeIngredientModel recipeIngredient);
 
         Task<HttpResponseMessage> DeleteRecipeIngredient(int recipeIngredientId);

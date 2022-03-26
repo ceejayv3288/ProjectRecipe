@@ -69,7 +69,6 @@ namespace ProjectRecipe.Services
                         courseType = recipe.courseType
                     });
                 }
-
                 return recipes;
             }
             catch (Exception ex)
@@ -110,7 +109,6 @@ namespace ProjectRecipe.Services
                         likesCount = recipe.likesCount
                     });
                 }
-
                 return recipes;
             }
             catch (Exception ex)
@@ -134,9 +132,18 @@ namespace ProjectRecipe.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
-                    recipe = JsonConvert.DeserializeObject<RecipeModel>(responseString);
+                    var recipeResponse = JsonConvert.DeserializeObject<RecipeResponse>(responseString);
+                    recipe = new RecipeModel
+                    {
+                        id = recipeResponse.id,
+                        name = recipeResponse.name,
+                        description = recipeResponse.description,
+                        durationInMin = recipeResponse.durationInMin,
+                        commentsCount = recipeResponse.commentsCount,
+                        image = byteArrayToImageConverter.Convert(recipeResponse.image, null, null, null) as ImageSource,
+                        likesCount = recipeResponse.likesCount
+                    };
                 }
-
                 return recipe;
             }
             catch (Exception ex)
@@ -161,9 +168,18 @@ namespace ProjectRecipe.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
-                    recipe = JsonConvert.DeserializeObject<RecipeModel>(responseString);
+                    var recipeResponse = JsonConvert.DeserializeObject<RecipeResponse>(responseString);
+                    recipe = new RecipeModel
+                    {
+                        id = recipeResponse.id,
+                        name = recipeResponse.name,
+                        description = recipeResponse.description,
+                        durationInMin = recipeResponse.durationInMin,
+                        commentsCount = recipeResponse.commentsCount,
+                        image = byteArrayToImageConverter.Convert(recipeResponse.image, null, null, null) as ImageSource,
+                        likesCount = recipeResponse.likesCount
+                    };
                 }
-
                 return recipe;
             }
             catch (Exception ex)
@@ -197,7 +213,6 @@ namespace ProjectRecipe.Services
                 {
 
                 }
-
                 return response;
             }
             catch (Exception ex)
@@ -222,7 +237,6 @@ namespace ProjectRecipe.Services
                 {
                     
                 }
-
                 return response;
             }
             catch (Exception ex)
@@ -263,7 +277,6 @@ namespace ProjectRecipe.Services
                         likesCount = recipe.likesCount
                     });
                 }
-
                 return recipes;
             }
             catch (Exception ex)

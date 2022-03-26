@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace ProjectRecipe.Models
 {
-    public class RecipeModel: BaseModel
+    public class RecipeModel : BaseModel
     {
         public int id { get; set; }
 

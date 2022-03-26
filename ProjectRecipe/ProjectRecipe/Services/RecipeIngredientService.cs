@@ -104,6 +104,32 @@ namespace ProjectRecipe.Services
             }
         }
 
+        public async Task<List<RecipeIngredientModel>> GetRecipeIngredientsByRecipeId(int recipeId)
+        {
+            try
+            {
+                if (client.DefaultRequestHeaders.Contains("Authorization"))
+                {
+                    client.DefaultRequestHeaders.Remove("Authorization");
+                }
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + App.ClientToken);
+
+                List<RecipeIngredientModel> recipeIngredients = new List<RecipeIngredientModel>();
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipeIngredients/recipeId/{recipeId}");
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseString = await response.Content.ReadAsStringAsync();
+                    recipeIngredients = JsonConvert.DeserializeObject<List<RecipeIngredientModel>>(responseString);
+                }
+
+                return recipeIngredients;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<HttpResponseMessage> UpdateRecipeIngredient(RecipeIngredientModel recipeIngredient)
         {
             try

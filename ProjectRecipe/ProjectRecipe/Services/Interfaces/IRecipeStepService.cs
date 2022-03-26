@@ -9,9 +9,11 @@ namespace ProjectRecipe.Services.Interfaces
 {
     public interface IRecipeStepService
     {
-        Task<RecipeModel> GetRecipeStep(int recipeId);
+        Task<RecipeStepModel> GetRecipeStep(int recipeId);
 
         Task<HttpResponseMessage> CreateRecipeStep(RecipeStepModel recipeStep);
+
+        Task<List<RecipeStepModel>> GetRecipeStepsByRecipeId(int recipeId);
 
         Task<HttpResponseMessage> UpdateRecipeStep(RecipeStepModel recipeStep);
 

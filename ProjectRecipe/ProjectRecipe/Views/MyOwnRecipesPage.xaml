@@ -47,9 +47,9 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
                                     <StackLayout 
-                                    Spacing="0"
-                                    Margin="0,5"
-                                    Padding="5,0">
+                                        Spacing="0"
+                                        Margin="0,5"
+                                        Padding="5,0">
                                         <Frame 
                                         BackgroundColor="Transparent"
                                         BorderColor="PaleTurquoise"
@@ -73,12 +73,11 @@
                                                 DragStartingCommand="{Binding Path=BindingContext.ItemDraggedCommand, Source={x:Reference recipeCollection}}"
                                                 DragStartingCommandParameter="{Binding .}" />
                                                 <TapGestureRecognizer 
-                                                Command="{Binding Path=BindingContext.BookSelectedCommand, Source={x:Reference recipeCollection}}"
+                                                Command="{Binding Path=BindingContext.SelectRecipeCommand, Source={x:Reference recipeCollection}}"
                                                 CommandParameter="{Binding .}"/>
                                             </Frame.GestureRecognizers>
                                         </Frame>
                                     </StackLayout>
-
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>

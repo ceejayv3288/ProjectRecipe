@@ -4,145 +4,115 @@
              xmlns:local="clr-namespace:ProjectRecipe"
              x:Class="ProjectRecipe.Views.RecipeDetailsPage">
     <ContentPage.Content>
-        <ScrollView HorizontalOptions="FillAndExpand" 
+        <StackLayout>
+            <ScrollView HorizontalOptions="FillAndExpand" 
                          VerticalOptions="FillAndExpand">
-            <StackLayout>
-                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.recipe-banner-placeholder.png}"
+                <StackLayout>
+                    <Image Source="{Binding recipe.image}"
                        Aspect="AspectFill"
                        HeightRequest="220"
                        HorizontalOptions="FillAndExpand"/>
-                <StackLayout Orientation="Horizontal"
+                    <StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand"
                              Margin="0,10,0,0">
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                </StackLayout>
-                <Label HorizontalOptions="CenterAndExpand"
+                    </StackLayout>
+                    <Label HorizontalOptions="CenterAndExpand"
                    Margin="0,0,0,10"
-                   Text="Prime Rib Roast"
+                   Text="{Binding recipe.name}"
                    FontSize="25"
                    FontFamily="RalewayExtraBold"
                    TextColor="#19597D"/>
-                <Label Margin="20,5"
+                    <Label Margin="20,5"
                    HorizontalTextAlignment="Center"
                        FontSize="16"
                    LineHeight="1.2"
                    FontFamily="Raleway"
                    TextColor="#454444"
-                   Text="The Prime Rib Roast is a classic and tender cut of beef taken from the rib primal cut.  Learn how to make the perfect prime rib roast to serve your family and friends.  Check out What's Cooking America's award-winning Classic Prime Rib Roast recipe and photo tutorial to help you make the Perfect Prime Rib Roast."/>
-                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.shopping-icon.png}"
+                   Text="{Binding recipe.description}"/>
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.shopping-icon.png}"
                        Margin="0,40,0,0"
                        HeightRequest="36"
                        WidthRequest="36"/>
-                <Label HorizontalOptions="CenterAndExpand"
+                    <Label HorizontalOptions="CenterAndExpand"
                    Margin="0,0,0,10"
                    Text="SHOPPING LIST"
                    FontSize="20"
                    FontFamily="RalewayExtraBold"
                    TextColor="#19597D"/>
-                <StackLayout Margin="20,0">
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="1"
+                    <StackLayout Margin="20,0"
+                                BindableLayout.ItemsSource="{Binding recipeIngredients}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Label
+                                Margin="0,6"
+                                HeightRequest="16"
+                                FontFamily="Raleway"
+                                FontSize="15">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding quantity}"
                                       TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="Prime Rib Roast (standing rib), approximately" TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="1/2 cup"
-                                      TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="good-quality balsamic vinegar" TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="1 cup"
-                                      TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="(packed) Italian parsley leaves" TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="8"
-                                      TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="cloves garlic, minced " TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="1/4 teaspoon"
-                                      TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="salt" TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="1 cup"
-                                      TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="water" TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label FontFamily="Raleway"
-                           FontSize="15">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="3 drops"
-                                      TextColor="Black"/>
-                                <Span Text=" "/>
-                                <Span Text="Worcestershire sauce" TextColor="#454444"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </StackLayout>
-                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.preparation-icon.png}"
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding description}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.preparation-icon.png}"
                        Margin="0,40,0,0"
                        HeightRequest="36"
                        WidthRequest="36"/>
-                <Label HorizontalOptions="CenterAndExpand"
+                    <Label HorizontalOptions="CenterAndExpand"
                    Margin="0,0,0,10"
                    Text="PREPARATION"
                    FontSize="20"
                    FontFamily="RalewayExtraBold"
                    TextColor="#19597D"/>
-
+                    <StackLayout BindableLayout.ItemsSource="{Binding recipeSteps}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="0.1*,0.9*"
+                                Margin="10,5">
+                                    <Frame Grid.Column="0" 
+                               HasShadow="False"
+                               CornerRadius="12"
+                               Padding="0"
+                               HorizontalOptions="Center"
+                               VerticalOptions="StartAndExpand"
+                                               WidthRequest="20"
+                               BackgroundColor="#E8E8E8">
+                                        <Label Text="{Binding order}"
+                                   FontFamily="Raleway"
+                                   TextColor="#EB5757"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"/>
+                                    </Frame>
+                                    <Label Grid.Column="1" 
+                               FontFamily="Raleway"
+                               FontSize="15"
+                               Text="{Binding description}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <!--
                 <Grid ColumnDefinitions="0.1*,0.9*"
                       Margin="10,0">
                     <Frame Grid.Column="0" 
@@ -150,7 +120,7 @@
                                CornerRadius="12"
                                Padding="0"
                                HorizontalOptions="Center"
-                               VerticalOptions="CenterAndExpand"
+                               VerticalOptions="StartAndExpand"
                                HeightRequest="20"
                                                WidthRequest="20"
                                BackgroundColor="#EB5757">
@@ -159,9 +129,6 @@
                                                VerticalOptions="Center"
                                    HeightRequest="10"
                                    WidthRequest="10"/>
-                        <!--<Label Text="1"
-                                   HorizontalTextAlignment="Center"
-                                   VerticalTextAlignment="Center"/>-->
                     </Frame>
                     <Label Grid.Column="1" 
                                FontFamily="Raleway"
@@ -175,65 +142,10 @@
                                CornerRadius="12"
                                Padding="0"
                                HorizontalOptions="Center"
-                               VerticalOptions="CenterAndExpand"
-                               HeightRequest="20"
-                                               WidthRequest="20"
-                               BackgroundColor="#EB5757">
-                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.check-icon-white.png}"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"
-                                   HeightRequest="10"
-                                   WidthRequest="10"/>
-                        <!--<Label Text="1"
-                                   HorizontalTextAlignment="Center"
-                                   VerticalTextAlignment="Center"/>-->
-                    </Frame>
-                    <Label Grid.Column="1" 
-                               FontFamily="Raleway"
-                               FontSize="15"
-                               Text="In a small saucepan over medium-high heat, boil balsamic vinegar until it reduces to 1/4 cup, approximately 3 minutes. Remove from heat and set aside. "/>
-                </Grid>
-                <Grid ColumnDefinitions="0.1*,0.9*"
-                      Margin="10,0">
-                    <Frame Grid.Column="0" 
-                               HasShadow="False"
-                               CornerRadius="12"
-                               Padding="0"
-                               HorizontalOptions="Center"
-                               VerticalOptions="CenterAndExpand"
-                               HeightRequest="20"
-                                               WidthRequest="20"
-                               BackgroundColor="#EB5757">
-                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.check-icon-white.png}"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"
-                                   HeightRequest="10"
-                                   WidthRequest="10"/>
-                        <!--<Label Text="1"
-                                   HorizontalTextAlignment="Center"
-                                   VerticalTextAlignment="Center"/>-->
-                    </Frame>
-                    <Label Grid.Column="1" 
-                               FontFamily="Raleway"
-                               FontSize="15"
-                               Text="Finely mince the parsley.  Mix together with the minced garlic, 1/4 teaspoon salt, and a generous amount of pepper.  Using the tip of a sharp knife, bore 7 to 10 narrow holes, each about 1 1/2&quot; deep, in the rib roast.  Fill the holes with the parsley-garlic mixture.  Spread any remaining mixture over the surface of the roast.  Sprinkle all sides of the meat with salt and pepper."/>
-                </Grid>
-                <Grid ColumnDefinitions="0.1*,0.9*"
-                      Margin="10,0">
-                    <Frame Grid.Column="0" 
-                               HasShadow="False"
-                               CornerRadius="12"
-                               Padding="0"
-                               HorizontalOptions="Center"
-                               VerticalOptions="CenterAndExpand"
+                               VerticalOptions="StartAndExpand"
                                HeightRequest="20"
                                                WidthRequest="20"
                                BackgroundColor="#E8E8E8">
-                        <!--<Image Source="{local:ImageResource ProjectRecipe.Assets.Images.check-icon-white.png}"
-                                               HorizontalOptions="Center"
-                                               VerticalOptions="Center"
-                                   HeightRequest="10"
-                                   WidthRequest="10"/>-->
                         <Label Text="4"
                                    FontFamily="Raleway"
                                    TextColor="#EB5757"
@@ -245,54 +157,55 @@
                                FontSize="15"
                                Text="After slicing the roast, add any accumulated meat juices to the balsamic sauce.  Serve the meat slices on warmed plates with balsamic sauce on the side."/>
                 </Grid>
-                <StackLayout BackgroundColor="{StaticResource GrayColor}"
+                -->
+                    <StackLayout BackgroundColor="{StaticResource GrayColor}"
                              Padding="0">
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.comment-circle-icon.png}"
-                       Margin="0,40,0,0"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.comment-circle-icon.png}"
+                       Margin="0,20,0,0"
                        HeightRequest="36"
                        WidthRequest="36"/>
-                    <Label HorizontalOptions="CenterAndExpand"
+                        <Label HorizontalOptions="CenterAndExpand"
                    Margin="0,0,0,10"
                    Text="COMMENTS"
                    FontSize="20"
                    FontFamily="RalewayExtraBold"
                    TextColor="#19597D"/>
 
-                    <StackLayout HorizontalOptions="FillAndExpand"
+                        <StackLayout HorizontalOptions="FillAndExpand"
                          VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal"
-                                 Margin="20,0">
-                        <Frame CornerRadius="40"
+                                 Margin="20,10">
+                            <Frame CornerRadius="40"
                        HorizontalOptions="Start"
                        VerticalOptions="Start"
                        Padding="0">
-                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.remy-avatar.jpeg}"
+                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.remy-avatar.jpeg}"
                            HeightRequest="46"
                            WidthRequest="46"/>
-                        </Frame>
-                        <StackLayout HorizontalOptions="FillAndExpand"
+                            </Frame>
+                            <StackLayout HorizontalOptions="FillAndExpand"
                                      VerticalOptions="FillAndExpand">
-                            <StackLayout Orientation="Horizontal"
+                                <StackLayout Orientation="Horizontal"
                                          HorizontalOptions="StartAndExpand"
                                      VerticalOptions="StartAndExpand">
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                            </StackLayout>
-                            <Grid ColumnDefinitions="0.5*,0.5*">
-                                <Label Grid.Column="0"
+                                </StackLayout>
+                                <Grid ColumnDefinitions="0.5*,0.5*">
+                                    <Label Grid.Column="0"
                                        Text="REMY"
                                        FontSize="20"
                                        TextColor="Black"
@@ -300,7 +213,7 @@
                                        HorizontalOptions="Start"
                                        VerticalOptions="Start"
                                        HorizontalTextAlignment="Center"/>
-                                <Label Grid.Column="1"
+                                    <Label Grid.Column="1"
                                        Text="7.01.2017"
                                        FontSize="15"
                                        TextColor="#757575"
@@ -308,51 +221,51 @@
                                        HorizontalOptions="Start"
                                        VerticalOptions="End"
                                        HorizontalTextAlignment="Center"/>
-                            </Grid>
-                            <Label
+                                </Grid>
+                                <Label
                                        Text="This prime rib roast was amazing!!!"
                                        FontSize="15"
                                        TextColor="#757575"
                                        FontFamily="RalewayItalic"
                                        HorizontalOptions="Start"
                                        VerticalOptions="End"/>
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
-                    <StackLayout HorizontalOptions="FillAndExpand"
+                        <StackLayout HorizontalOptions="FillAndExpand"
                          VerticalOptions="FillAndExpand"
                                  Orientation="Horizontal"
-                                 Margin="20,0">
-                        <Frame CornerRadius="40"
+                                 Margin="20,10">
+                            <Frame CornerRadius="40"
                        HorizontalOptions="Start"
                        VerticalOptions="Start"
                        Padding="0">
-                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.remy-avatar.jpeg}"
+                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.remy-avatar.jpeg}"
                            HeightRequest="46"
                            WidthRequest="46"/>
-                        </Frame>
-                        <StackLayout HorizontalOptions="FillAndExpand"
+                            </Frame>
+                            <StackLayout HorizontalOptions="FillAndExpand"
                                      VerticalOptions="FillAndExpand">
-                            <StackLayout Orientation="Horizontal"
+                                <StackLayout Orientation="Horizontal"
                                          HorizontalOptions="StartAndExpand"
                                      VerticalOptions="StartAndExpand">
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                                <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
+                                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
                                        HeightRequest="17"
                                        WidthRequest="17"/>
-                            </StackLayout>
-                            <Grid ColumnDefinitions="0.5*,0.5*">
-                                <Label Grid.Column="0"
+                                </StackLayout>
+                                <Grid ColumnDefinitions="0.5*,0.5*">
+                                    <Label Grid.Column="0"
                                        Text="REMY"
                                        FontSize="20"
                                        TextColor="Black"
@@ -360,7 +273,7 @@
                                        HorizontalOptions="Start"
                                        VerticalOptions="Start"
                                        HorizontalTextAlignment="Center"/>
-                                <Label Grid.Column="1"
+                                    <Label Grid.Column="1"
                                        Text="7.01.2017"
                                        FontSize="15"
                                        TextColor="#757575"
@@ -368,20 +281,20 @@
                                        HorizontalOptions="Start"
                                        VerticalOptions="End"
                                        HorizontalTextAlignment="Center"/>
-                            </Grid>
-                            <Label
+                                </Grid>
+                                <Label
                                        Text="I was amazed at how little preparation this took. Just rub on the herbs and butter, let it sit for a few hours and you have an amazing piece of meat!"
                                        FontSize="15"
                                        TextColor="#757575"
                                        FontFamily="RalewayItalic"
                                        HorizontalOptions="Start"
                                        VerticalOptions="End"/>
+                            </StackLayout>
                         </StackLayout>
-                    </StackLayout>
-                    
-                </StackLayout>
 
-            </StackLayout>
-        </ScrollView>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

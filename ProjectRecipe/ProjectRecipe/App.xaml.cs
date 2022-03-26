@@ -24,6 +24,8 @@ namespace ProjectRecipe
                 typeof(RecipeCreateUpdatePage));
             Routing.RegisterRoute(nameof(RegistrationPage),
                 typeof(RegistrationPage));
+            Routing.RegisterRoute(nameof(RecipeDetailsPage),
+                typeof(RecipeDetailsPage));
 
             JsonSerializer = new JsonSerializer();
 
