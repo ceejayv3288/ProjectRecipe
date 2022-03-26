@@ -118,7 +118,9 @@
                         </Label.Triggers>
                     </Label>
                 </Grid>
-                <CarouselView ItemsSource="{Binding popularRecipesCollection}"
+                <CarouselView 
+                    x:Name="popularRecipeCollection"
+                    ItemsSource="{Binding popularRecipesCollection}"
                           PeekAreaInsets="80"
                           Margin="0"
                           HeightRequest="250"
@@ -143,7 +145,13 @@
                                                WidthRequest="200"
                                                Margin="0"
                                                BackgroundColor="Beige"
-                                               HorizontalOptions="Center"/>
+                                               HorizontalOptions="Center">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer 
+                                                Command="{Binding Path=BindingContext.SelectRecipeCommand, Source={x:Reference popularRecipeCollection}}"
+                                                CommandParameter="{Binding .}"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
                                             <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-icon-red.png}"
                                                HeightRequest="20"
                                                WidthRequest="20"

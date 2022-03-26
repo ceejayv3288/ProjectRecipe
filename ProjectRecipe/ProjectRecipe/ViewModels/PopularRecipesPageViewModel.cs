@@ -3,6 +3,7 @@ using ProjectRecipe.Constants;
 using ProjectRecipe.Converters;
 using ProjectRecipe.Models;
 using ProjectRecipe.Services.Interfaces;
+using ProjectRecipe.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,7 @@ namespace ProjectRecipe.ViewModels
         private readonly IRecipeService recipeService;
         public Command ChangeSelectedRecipeCommand { get; set; }
         public Command ChangeSelectedCourseTypeCommand { get; set; }
+        public Command SelectRecipeCommand { get; set; }
 
         private ObservableCollection<RecipeModel> _popularRecipesCollection;
         public ObservableCollection<RecipeModel> popularRecipesCollection
@@ -111,16 +113,6 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
-        private double _scale;
-        public double Scale
-        {
-            get { return _scale; }
-            set
-            {
-                SetProperty(ref _scale, value);
-            }
-        }
-
         public PopularRecipesPageViewModel()
         {
             byteArrayToImageConverter = new ByteArrayToImageConverter();
@@ -129,6 +121,7 @@ namespace ProjectRecipe.ViewModels
             OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
             ChangeSelectedRecipeCommand = new Command(ExecuteChangeSelectedRecipeCommand);
             ChangeSelectedCourseTypeCommand = new Command<string>(ExecuteChangeSelectedCourseTypeCommand);
+            SelectRecipeCommand = new Command<object>(ExecuteSelectRecipeCommand);
             popularRecipesCollection = new ObservableCollection<RecipeModel>();
             allPopularRecipesList = new List<RecipeModel>();
             selectedCourseType = "2";
@@ -136,6 +129,23 @@ namespace ProjectRecipe.ViewModels
             recipeService = DependencyService.Get<IRecipeService>();
 
             PopulateList();
+        }
+
+        private async void ExecuteSelectRecipeCommand(object obj)
+        {
+            isBusy = true;
+            try
+            {
+                if (obj is RecipeModel recipe)
+                {
+                    var route = $"{nameof(RecipeDetailsPage)}?recipeId={recipe.id}";
+                    await Shell.Current.GoToAsync(route);
+                }
+            }
+            finally
+            {
+                isBusy = false;
+            }
         }
 
         public void ExecuteChangeSelectedCourseTypeCommand(string courseType)
