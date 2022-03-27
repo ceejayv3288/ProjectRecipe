@@ -1,4 +1,5 @@
 ﻿using ProjectRecipe.Commands;
+using ProjectRecipe.Commands.Navigation;
 using ProjectRecipe.Constants;
 using ProjectRecipe.Converters;
 using ProjectRecipe.Models;
@@ -7,6 +8,7 @@ using ProjectRecipe.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using Xamarin.Forms;
@@ -19,9 +21,14 @@ namespace ProjectRecipe.ViewModels
         ImageToByteArrayConverter imageToByteArrayConverter;
 
         private readonly IRecipeService recipeService;
+        private readonly ILikeService likeService;
+
         public Command ChangeSelectedRecipeCommand { get; set; }
         public Command ChangeSelectedCourseTypeCommand { get; set; }
         public Command SelectRecipeCommand { get; set; }
+        public PageAppearingCommand PageAppearingCommand { get; set; }
+        public RecipeDetailsNavigationPageCommand RecipeDetailsNavigationPageCommand { get; set; }
+        public LikeRecipeCommand LikeRecipeCommand { get; set; }
 
         private ObservableCollection<RecipeModel> _popularRecipesCollection;
         public ObservableCollection<RecipeModel> popularRecipesCollection
@@ -53,56 +60,6 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
-        private string _recipeDuration;
-        public string recipeDuration
-        {
-            get { return _recipeDuration; }
-            set
-            {
-                SetProperty(ref _recipeDuration, value);
-            }
-        }
-
-        private int _recipeLikesCount;
-        public int recipeLikesCount
-        {
-            get { return _recipeLikesCount; }
-            set
-            {
-                SetProperty(ref _recipeLikesCount, value);
-            }
-        }
-
-        private int _recipeCommentsCount;
-        public int recipeCommentsCount
-        {
-            get { return _recipeCommentsCount; }
-            set
-            {
-                SetProperty(ref _recipeCommentsCount, value);
-            }
-        }
-
-        private string _recipeDescription;
-        public string recipeDescription
-        {
-            get { return _recipeDescription; }
-            set
-            {
-                SetProperty(ref _recipeDescription, value);
-            }
-        }
-
-        private string _recipeName;
-        public string recipeName
-        {
-            get { return _recipeName; }
-            set
-            {
-                SetProperty(ref _recipeName, value);
-            }
-        }
-
         private string _selectedCourseType;
         public string selectedCourseType
         {
@@ -122,13 +79,31 @@ namespace ProjectRecipe.ViewModels
             ChangeSelectedRecipeCommand = new Command(ExecuteChangeSelectedRecipeCommand);
             ChangeSelectedCourseTypeCommand = new Command<string>(ExecuteChangeSelectedCourseTypeCommand);
             SelectRecipeCommand = new Command<object>(ExecuteSelectRecipeCommand);
+            PageAppearingCommand = new PageAppearingCommand(this);
+            RecipeDetailsNavigationPageCommand = new RecipeDetailsNavigationPageCommand(this);
+            LikeRecipeCommand = new LikeRecipeCommand(this);
             popularRecipesCollection = new ObservableCollection<RecipeModel>();
             allPopularRecipesList = new List<RecipeModel>();
             selectedCourseType = "2";
 
             recipeService = DependencyService.Get<IRecipeService>();
+            likeService = DependencyService.Get<ILikeService>();
+        }
 
+        public void ExecutePageAppearingCommand()
+        {
             PopulateList();
+        }
+
+        public async void ExecuteLikeRecipeCommand(int recipeId)
+        {
+            var likeResult = await likeService.LikeUnlikeRecipe(recipeId, App.UserId);
+            var likeRecipe = allPopularRecipesList?.FirstOrDefault(x => x.id == likeResult.RecipeId);
+            if (likeRecipe != null)
+            {
+                likeRecipe.isLiked = likeResult.IsLiked;
+                likeRecipe.likesCount = likeRecipe.isLiked ? likeRecipe.likesCount + 1 : likeRecipe.likesCount - 1;
+            }
         }
 
         private async void ExecuteSelectRecipeCommand(object obj)
@@ -148,50 +123,58 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
+        public async void ExecuteRecipeDetailsNavigationPageCommand(int recipeId)
+        {
+            isBusy = true;
+            try
+            {
+                var route = $"{nameof(RecipeDetailsPage)}?recipeId={recipeId}";
+                await Shell.Current.GoToAsync(route);
+            }
+            finally
+            {
+                isBusy = false;
+            }
+        }
+
         public void ExecuteChangeSelectedCourseTypeCommand(string courseType)
         {
             var ct = Enum.Parse(typeof(CourseTypeEnum), courseType);
+            var recipesToRemove = popularRecipesCollection.ToList();
+            selectedRecipe = popularRecipesCollection.FirstOrDefault(); //to avoid crashing before changing the collection
             switch (ct)
             {
                 case CourseTypeEnum.Appetizer:
                     selectedCourseType = "1";
-                    popularRecipesCollection.Clear();
                     allPopularRecipesList.FindAll(x => x.courseType == CourseTypeEnum.Appetizer).ForEach(x => popularRecipesCollection.Add(x));
                     break;
                 case CourseTypeEnum.Entrees:
                     selectedCourseType = "2";
-                    popularRecipesCollection.Clear();
                     allPopularRecipesList.FindAll(x => x.courseType == CourseTypeEnum.Entrees).ForEach(x => popularRecipesCollection.Add(x));
                     break;
                 case CourseTypeEnum.Dessert:
                     selectedCourseType = "3";
-                    popularRecipesCollection.Clear();
                     allPopularRecipesList.FindAll(x => x.courseType == CourseTypeEnum.Dessert).ForEach(x => popularRecipesCollection.Add(x));
                     break;
                 default:
                     selectedCourseType = "2";
-                    popularRecipesCollection.Clear();
                     allPopularRecipesList.FindAll(x => x.courseType == CourseTypeEnum.Entrees).ForEach(x => popularRecipesCollection.Add(x));
                     break;
             }
+            recipesToRemove.ForEach(x => popularRecipesCollection.Remove(x));
         }
 
         public void ExecuteChangeSelectedRecipeCommand()
         {
-            if (selectedRecipe != null)
-            {
-                recipeDescription = selectedRecipe.description;
-                recipeCommentsCount = selectedRecipe.commentsCount;
-                recipeDuration = selectedRecipe.durationInMin.ToString();
-                recipeLikesCount = selectedRecipe.likesCount;
-                recipeName = selectedRecipe.name;
-            }
         }
 
         public async void PopulateList()
         {
+            allPopularRecipesList.Clear();
             allPopularRecipesList = await recipeService.GetPopularRecipes();
             allPopularRecipesList?.ForEach(x => popularRecipesCollection.Add(x));
+
+            ExecuteChangeSelectedCourseTypeCommand(selectedCourseType);
 
             //Image embeddedImage = new Image
             //{

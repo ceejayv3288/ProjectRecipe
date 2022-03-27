@@ -25,6 +25,7 @@
     <None Remove="Assets\Images\hamburger-menu.png" />
     <None Remove="Assets\Images\heart-icon-red.png" />
     <None Remove="Assets\Images\heart-icon-white.png" />
+    <None Remove="Assets\Images\heart-outline-white.png" />
     <None Remove="Assets\Images\heart-outline.png" />
     <None Remove="Assets\Images\logo-white.png" />
     <None Remove="Assets\Images\logo.png" />
@@ -61,6 +62,7 @@
     <EmbeddedResource Include="Assets\Images\hamburger-menu.png" />
     <EmbeddedResource Include="Assets\Images\heart-icon-red.png" />
     <EmbeddedResource Include="Assets\Images\heart-icon-white.png" />
+    <EmbeddedResource Include="Assets\Images\heart-outline-white.png" />
     <EmbeddedResource Include="Assets\Images\heart-outline.png" />
     <EmbeddedResource Include="Assets\Images\logo-white.png" />
     <EmbeddedResource Include="Assets\Images\logo.png" />

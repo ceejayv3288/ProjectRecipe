@@ -22,5 +22,7 @@ namespace ProjectRecipe.Models.Service.Response
         public int likesCount { get; set; }
 
         public int commentsCount { get; set; }
+
+        public bool isLiked { get; set; }
     }
 }

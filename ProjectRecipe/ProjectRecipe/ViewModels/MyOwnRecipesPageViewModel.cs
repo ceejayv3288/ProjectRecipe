@@ -18,20 +18,22 @@ namespace ProjectRecipe.ViewModels
     {
         private readonly IRecipeService recipeService;
 
-        public Command PageAppearingCommand { get; set; }
+        public PageAppearingCommand PageAppearingCommand { get; set; }
         public ItemDraggedCommand ItemDraggedCommand { get; set; }
         public ItemDroppedCommand ItemDroppedCommand { get; set; }
+        public RecipeDetailsNavigationPageCommand RecipeDetailsNavigationPageCommand { get; set; }
         public Command SelectRecipeCommand { get; set; }
-        public MyOwnRecipesPageNavigationCommand MyOwnRecipesPageNavigationCommand { get; set; }
+        public RecipeCreateUpdatePageNavigationCommand RecipeCreateUpdatePageNavigationCommand { get; set; }
         public ObservableCollection<RecipeModel> myRecipes { get; set; }
 
         public MyOwnRecipesPageViewModel()
         {
-            PageAppearingCommand = new Command(ExecutePageAppearingCommand);
+            PageAppearingCommand = new PageAppearingCommand(this);
             ItemDraggedCommand = new ItemDraggedCommand(this);
             ItemDroppedCommand = new ItemDroppedCommand(this);
+            RecipeDetailsNavigationPageCommand = new RecipeDetailsNavigationPageCommand(this);
             SelectRecipeCommand = new Command<object>(ExecuteSelectRecipeCommand);
-            MyOwnRecipesPageNavigationCommand = new MyOwnRecipesPageNavigationCommand(this);
+            RecipeCreateUpdatePageNavigationCommand = new RecipeCreateUpdatePageNavigationCommand(this);
             OpenFlyoutMenuCommand = new OpenFlyoutMenuCommand(this);
             myRecipes = new ObservableCollection<RecipeModel>();
 
@@ -48,6 +50,20 @@ namespace ProjectRecipe.ViewModels
                     var route = $"{nameof(RecipeDetailsPage)}?recipeId={recipe.id}";
                     await Shell.Current.GoToAsync(route);
                 }
+            }
+            finally
+            {
+                isBusy = false;
+            }
+        }
+
+        public async void ExecuteRecipeDetailsNavigationPageCommand(int recipeId)
+        {
+            isBusy = true;
+            try
+            {
+                var route = $"{nameof(RecipeDetailsPage)}?recipeId={recipeId}";
+                await Shell.Current.GoToAsync(route);
             }
             finally
             {
@@ -100,7 +116,7 @@ namespace ProjectRecipe.ViewModels
             }
         }
 
-        public async void ExecuteMyOwnRecipesPageNavigationCommand()
+        public async void ExecuteRecipeCreateUpdatePageNavigationCommand()
         {
             isBusy = true;
             try

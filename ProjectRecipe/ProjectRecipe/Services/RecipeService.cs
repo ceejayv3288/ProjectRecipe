@@ -48,7 +48,7 @@ namespace ProjectRecipe.Services
 
                 List<RecipeResponse> recipesResponse = new List<RecipeResponse>();
                 List<RecipeModel> recipes = new List<RecipeModel>();
-                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipes");
+                HttpResponseMessage response = await client.GetAsync($"{Configurations.RecipeApiUrl}recipes/GetPopularRecipes/{App.UserId}");
                 if (response.IsSuccessStatusCode)
                 {
                     string responseString = await response.Content.ReadAsStringAsync();
@@ -66,7 +66,8 @@ namespace ProjectRecipe.Services
                         commentsCount = recipe.commentsCount,
                         image = byteArrayToImageConverter.Convert(recipe.image, null, null, null) as ImageSource,
                         likesCount = recipe.likesCount,
-                        courseType = recipe.courseType
+                        courseType = recipe.courseType,
+                        isLiked = recipe.isLiked
                     });
                 }
                 return recipes;

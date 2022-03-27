@@ -13,6 +13,7 @@ using Xamarin.Forms.Xaml;
 [assembly: Dependency(typeof(RecipeStepService))]
 [assembly: Dependency(typeof(RecipeIngredientService))]
 [assembly: Dependency(typeof(ValidationService))]
+[assembly: Dependency(typeof(LikeService))]
 [assembly: Dependency(typeof(AuthorizationService))]
 [assembly: Dependency(typeof(ErrorService))]
 [assembly: Dependency(typeof(MemoryCacheService))]

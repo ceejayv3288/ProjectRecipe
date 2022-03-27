@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:ProjectRecipe"
              xmlns:headers="clr-namespace:ProjectRecipe.Controls.Headers"
              xmlns:converters="clr-namespace:ProjectRecipe.Converters"
+             xmlns:behaviors="clr-namespace:ProjectRecipe.Behaviors"
              x:Class="ProjectRecipe.Views.PopularRecipesPage"
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
@@ -11,114 +12,118 @@
             <converters:RecipeDurationConverter x:Key="recipeDurationConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.Behaviors>
+        <behaviors:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+    </ContentPage.Behaviors>
     <ContentPage.Content>
-        <ScrollView>
-            <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <headers:HeaderWithSearchIcon TitleText="POPULAR RECIPES"/>
-                <Grid ColumnDefinitions="0.3*,0.2*,0.3*"
+        <StackLayout>
+            <ScrollView>
+                <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                    <headers:HeaderWithSearchIcon TitleText="POPULAR RECIPES"/>
+                    <Grid ColumnDefinitions="0.3*,0.2*,0.3*"
                          HorizontalOptions="CenterAndExpand"
                          Margin="0,40,0,0">
-                    <Label Grid.Column="0" 
+                        <Label Grid.Column="0" 
                        Text="APPETIZERS"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="End"
                        FontFamily="RalewayBold"
                        TextColor="#737373"
                        FontSize="15">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer 
                                 Command="{Binding ChangeSelectedCourseTypeCommand}" 
                                 CommandParameter="1"/>
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
+                            </Label.GestureRecognizers>
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="1">
-                                <Setter Property="TextColor" Value="Black"/>
-                                <Setter Property="FontSize" Value="20"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
+                                    <Setter Property="TextColor" Value="Black"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="2">
-                                <Setter Property="TextColor" Value="#737373"/>
-                                <Setter Property="FontSize" Value="15"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
+                                    <Setter Property="TextColor" Value="#737373"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="3">
-                                <Setter Property="TextColor" Value="#737373"/>
-                                <Setter Property="FontSize" Value="15"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <Label Grid.Column="1"
+                                    <Setter Property="TextColor" Value="#737373"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label Grid.Column="1"
                        Text="ENTREES"
                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                        FontFamily="RalewayBold"
                        TextColor="#737373"
                        FontSize="15">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer 
                                 Command="{Binding ChangeSelectedCourseTypeCommand}" 
                                 CommandParameter="2"/>
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
+                            </Label.GestureRecognizers>
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="2">
-                                <Setter Property="TextColor" Value="Black"/>
-                                <Setter Property="FontSize" Value="20"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
+                                    <Setter Property="TextColor" Value="Black"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="1">
-                                <Setter Property="TextColor" Value="#737373"/>
-                                <Setter Property="FontSize" Value="15"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
+                                    <Setter Property="TextColor" Value="#737373"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="3">
-                                <Setter Property="TextColor" Value="#737373"/>
-                                <Setter Property="FontSize" Value="15"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                    <Label Grid.Column="2"
+                                    <Setter Property="TextColor" Value="#737373"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                        <Label Grid.Column="2"
                        Text="DESSERT"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Start"
                        FontFamily="RalewayBold"
                        TextColor="#737373"
                        FontSize="15">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer 
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer 
                                 Command="{Binding ChangeSelectedCourseTypeCommand}" 
                                 CommandParameter="3"/>
-                        </Label.GestureRecognizers>
-                        <Label.Triggers>
-                            <DataTrigger TargetType="Label"
+                            </Label.GestureRecognizers>
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="3">
-                                <Setter Property="TextColor" Value="Black"/>
-                                <Setter Property="FontSize" Value="20"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
+                                    <Setter Property="TextColor" Value="Black"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="1">
-                                <Setter Property="TextColor" Value="#737373"/>
-                                <Setter Property="FontSize" Value="15"/>
-                            </DataTrigger>
-                            <DataTrigger TargetType="Label"
+                                    <Setter Property="TextColor" Value="#737373"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
                                          Binding="{Binding selectedCourseType}"
                                          Value="2">
-                                <Setter Property="TextColor" Value="#737373"/>
-                                <Setter Property="FontSize" Value="15"/>
-                            </DataTrigger>
-                        </Label.Triggers>
-                    </Label>
-                </Grid>
-                <CarouselView 
+                                    <Setter Property="TextColor" Value="#737373"/>
+                                    <Setter Property="FontSize" Value="15"/>
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Grid>
+                    <CarouselView 
                     x:Name="popularRecipeCollection"
                     ItemsSource="{Binding popularRecipesCollection}"
                           PeekAreaInsets="80"
@@ -127,121 +132,139 @@
                               CurrentItem="{Binding selectedRecipe}"
                               CurrentItemChangedCommand="{Binding ChangeSelectedRecipeCommand}"
                               Loop="False">
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Style="{StaticResource CarouselItemStyle}">
-                                <Grid RowSpacing="0" ColumnSpacing="0" 
+                        <CarouselView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Style="{StaticResource CarouselItemStyle}">
+                                    <Grid RowSpacing="0" ColumnSpacing="0" 
                                   HeightRequest="300">
-                                    <Frame HasShadow="False"
+                                        <Frame HasShadow="False"
                                        BorderColor="DarkGray"
                                        CornerRadius="12"
                                        Padding="0"
                                        HorizontalOptions="Center"
                                        VerticalOptions="CenterAndExpand">
-                                        <Grid RowSpacing="0" ColumnSpacing="0">
-                                            <Image Source="{Binding image}"
+                                            <Grid RowSpacing="0" ColumnSpacing="0">
+                                                <Image Source="{Binding image}"
                                                    Aspect="AspectFill"
                                                HeightRequest="200"
                                                WidthRequest="200"
                                                Margin="0"
                                                BackgroundColor="Beige"
                                                HorizontalOptions="Center">
-                                                <Image.GestureRecognizers>
-                                                    <TapGestureRecognizer 
-                                                Command="{Binding Path=BindingContext.SelectRecipeCommand, Source={x:Reference popularRecipeCollection}}"
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer 
+                                                Command="{Binding Path=BindingContext.RecipeDetailsNavigationPageCommand, Source={x:Reference popularRecipeCollection}}"
                                                 CommandParameter="{Binding .}"/>
-                                                </Image.GestureRecognizers>
-                                            </Image>
-                                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-icon-red.png}"
-                                               HeightRequest="20"
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                                <Image HeightRequest="20"
                                                WidthRequest="20"
                                                HorizontalOptions="End"
                                                VerticalOptions="Start"
-                                               Margin="0,5,5,0"/>
-                                        </Grid>
-                                    </Frame>
-                                </Grid>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-                <StackLayout 
+                                               Margin="0,5,5,0">
+                                                    <Image.Triggers>
+                                                        <DataTrigger 
+                                                        TargetType="Image"
+                                                        Binding="{Binding isLiked}"
+                                                        Value="True">
+                                                            <Setter Property="Source" Value="{local:ImageResource ProjectRecipe.Assets.Images.heart-icon-red.png}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger 
+                                                        TargetType="Image"
+                                                        Binding="{Binding isLiked}"
+                                                        Value="False">
+                                                            <Setter Property="Source" Value="{local:ImageResource ProjectRecipe.Assets.Images.heart-outline.png}"/>
+                                                        </DataTrigger>
+                                                    </Image.Triggers>
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.LikeRecipeCommand, Source={x:Reference popularRecipeCollection}}"
+                                                                          CommandParameter="{Binding id}"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
+                                            </Grid>
+                                        </Frame>
+                                    </Grid>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CarouselView.ItemTemplate>
+                    </CarouselView>
+                    <StackLayout 
                     Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand">
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-half-filled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                    <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
+                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.star-unfilled.png}"
                        HeightRequest="17"
                        WidthRequest="17"/>
-                </StackLayout>
-                <Label HorizontalOptions="CenterAndExpand"
+                    </StackLayout>
+                    <Label HorizontalOptions="CenterAndExpand"
                    Margin="0,0,0,10"
-                   Text="{Binding recipeName}"
+                   Text="{Binding selectedRecipe.name}"
                    FontSize="25"
                    FontFamily="RalewayExtraBold"
                    TextColor="#19597D"/>
-                <Grid ColumnDefinitions="4*,2*,4*" HorizontalOptions="CenterAndExpand">
-                    <StackLayout Grid.Column="0" Orientation="Horizontal"
+                    <Grid ColumnDefinitions="4*,2*,4*" HorizontalOptions="CenterAndExpand">
+                        <StackLayout Grid.Column="0" Orientation="Horizontal"
                                  HorizontalOptions="EndAndExpand"
                              Spacing="5">
-                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.clock-icon.png}"
+                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.clock-icon.png}"
                        HeightRequest="20"
                        WidthRequest="20"/>
-                        <Label 
-                       Text="{Binding recipeDuration, Converter={StaticResource recipeDurationConverter}}"
+                            <Label 
+                       Text="{Binding selectedRecipe.durationInMin, Converter={StaticResource recipeDurationConverter}}"
                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                        FontFamily="Raleway"
                        TextColor="#000000"
                        FontSize="18"/>
-                    </StackLayout>
-                    <StackLayout Grid.Column="1" Orientation="Horizontal"
+                        </StackLayout>
+                        <StackLayout Grid.Column="1" Orientation="Horizontal"
                                  HorizontalOptions="CenterAndExpand"
                              Spacing="5">
-                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-outline.png}"
+                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.heart-outline.png}"
                        HeightRequest="20"
                        WidthRequest="20"/>
-                        <Label
-                       Text="{Binding recipeLikesCount}"
+                            <Label
+                       Text="{Binding selectedRecipe.likesCount}"
                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                        FontFamily="Raleway"
                        TextColor="#000000"
                        FontSize="18"/>
-                    </StackLayout>
-                    <StackLayout Grid.Column="2" Orientation="Horizontal"
+                        </StackLayout>
+                        <StackLayout Grid.Column="2" Orientation="Horizontal"
                                  HorizontalOptions="StartAndExpand"
                              Spacing="5">
-                        <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.comment-icon.png}"
+                            <Image Source="{local:ImageResource ProjectRecipe.Assets.Images.comment-icon.png}"
                        HeightRequest="20"
                        WidthRequest="20"/>
-                        <Label Text="{Binding recipeCommentsCount}"
+                            <Label Text="{Binding selectedRecipe.commentsCount}"
                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"
                        FontFamily="Raleway"
                        TextColor="#000000"
                        FontSize="18"/>
-                    </StackLayout>
-                </Grid>
-                <Label Margin="20,5"
+                        </StackLayout>
+                    </Grid>
+                    <Label Margin="20,5"
                    HorizontalTextAlignment="Center"
                        FontSize="16"
                    LineHeight="1.2"
                    FontFamily="Raleway"
                    TextColor="#454444"
-                   Text="{Binding recipeDescription}"/>
-            </StackLayout>
-        </ScrollView>
-
+                   Text="{Binding selectedRecipe.description}"/>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

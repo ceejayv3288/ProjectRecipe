@@ -1,4 +1,5 @@
-﻿using ProjectRecipe.Models;
+﻿using ProjectRecipe.Commands;
+using ProjectRecipe.Models;
 using ProjectRecipe.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,9 @@ namespace ProjectRecipe.ViewModels
         private readonly IRecipeService recipeService;
         private readonly IRecipeIngredientService recipeIngredientService;
         private readonly IRecipeStepService recipeStepService;
+        private readonly ILikeService likeService;
+
+        public LikeRecipeCommand LikeRecipeCommand { get; set; }
 
         private RecipeModel _recipe;
         public RecipeModel recipe
@@ -46,9 +50,12 @@ namespace ProjectRecipe.ViewModels
 
         public RecipeDetailsPageViewModel()
         {
+            LikeRecipeCommand = new LikeRecipeCommand(this);
+
             recipeService = DependencyService.Get<IRecipeService>();
             recipeIngredientService = DependencyService.Get<IRecipeIngredientService>();
             recipeStepService = DependencyService.Get<IRecipeStepService>();
+            likeService = DependencyService.Get<ILikeService>();
         }
 
         public async void InitializeRecipe(int recipeId)
@@ -56,6 +63,16 @@ namespace ProjectRecipe.ViewModels
             recipe = await recipeService.GetRecipe(recipeId);
             recipeIngredients = new ObservableCollection<RecipeIngredientModel>(await recipeIngredientService.GetRecipeIngredientsByRecipeId(recipeId));
             recipeSteps = new ObservableCollection<RecipeStepModel>(await recipeStepService.GetRecipeStepsByRecipeId(recipeId));
+
+            var isLikedResult = await likeService.GetLikesByRecipeAndUserId(recipeId, App.UserId);
+            recipe.isLiked = isLikedResult.IsLiked;
         }
+
+        public async void ExecuteLikeRecipeCommand(int recipeId)
+        {
+            var likeResult = await likeService.LikeUnlikeRecipe(recipeId, App.UserId);
+            recipe.isLiked = likeResult.IsLiked;
+        }
+
     }
 }

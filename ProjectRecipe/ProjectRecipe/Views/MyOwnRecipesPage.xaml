@@ -66,14 +66,15 @@
                                                 FontSize="15"/>
                                                 <Label 
                                                 Text="{Binding description}"
-                                                FontSize="Caption"/>
+                                                FontSize="Caption"
+                                                    MaxLines="4"/>
                                             </StackLayout>
                                             <Frame.GestureRecognizers>
                                                 <DragGestureRecognizer 
                                                 DragStartingCommand="{Binding Path=BindingContext.ItemDraggedCommand, Source={x:Reference recipeCollection}}"
                                                 DragStartingCommandParameter="{Binding .}" />
                                                 <TapGestureRecognizer 
-                                                Command="{Binding Path=BindingContext.SelectRecipeCommand, Source={x:Reference recipeCollection}}"
+                                                Command="{Binding Path=BindingContext.RecipeDetailsNavigationPageCommand, Source={x:Reference recipeCollection}}"
                                                 CommandParameter="{Binding .}"/>
                                             </Frame.GestureRecognizers>
                                         </Frame>

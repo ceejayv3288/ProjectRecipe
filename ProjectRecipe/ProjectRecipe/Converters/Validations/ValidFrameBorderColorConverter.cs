@@ -4,27 +4,21 @@ using System.Globalization;
 using System.Text;
 using Xamarin.Forms;
 
-namespace ProjectRecipe.Converters
+namespace ProjectRecipe.Converters.Validations
 {
-    public class RecipeDurationConverter : IValueConverter
+    public class ValidFrameBorderColorConverter : IValueConverter
     {
-        public static int MinutesInHour { get; set; } = 60;
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             {
                 if (value == null) return null;
 
-                if (value is int duration)
-                {
-                    decimal durationInMinutes = duration;
-                    if (durationInMinutes < MinutesInHour)
-                        return $"{durationInMinutes}MIN";
-                    else
-                        return $"{Math.Round(Decimal.Divide(durationInMinutes, MinutesInHour), 2, MidpointRounding.AwayFromZero)}HR";
-                }
-                return value;
+                var isValid = (bool)value;
+                if (!isValid)
+                    return "#934141";
+
+                return null;
             }
             catch (Exception ex)
             {

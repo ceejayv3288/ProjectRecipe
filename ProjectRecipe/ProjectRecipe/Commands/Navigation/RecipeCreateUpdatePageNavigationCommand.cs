@@ -6,10 +6,10 @@ using System.Windows.Input;
 
 namespace ProjectRecipe.Commands.Navigation
 {
-    public class MyOwnRecipesPageNavigationCommand : ICommand
+    public class RecipeCreateUpdatePageNavigationCommand : ICommand
     {
         MyOwnRecipesPageViewModel _viewModel;
-        public MyOwnRecipesPageNavigationCommand(MyOwnRecipesPageViewModel viewmodel)
+        public RecipeCreateUpdatePageNavigationCommand(MyOwnRecipesPageViewModel viewmodel)
         {
             _viewModel = viewmodel;
         }
@@ -23,7 +23,7 @@ namespace ProjectRecipe.Commands.Navigation
 
         public void Execute(object parameter)
         {
-            _viewModel.ExecuteMyOwnRecipesPageNavigationCommand();
+            _viewModel.ExecuteRecipeCreateUpdatePageNavigationCommand();
         }
     }
 }

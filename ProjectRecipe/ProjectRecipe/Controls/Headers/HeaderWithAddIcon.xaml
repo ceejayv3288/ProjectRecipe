@@ -23,7 +23,7 @@
                        HeightRequest="18"
                        WidthRequest="24">
             <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding MyOwnRecipesPageNavigationCommand}"/>
+                <TapGestureRecognizer Command="{Binding RecipeCreateUpdatePageNavigationCommand}"/>
             </Image.GestureRecognizers>
         </Image>
     </StackLayout>
